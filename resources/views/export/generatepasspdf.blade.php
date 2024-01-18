@@ -2,464 +2,340 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- <link rel="stylesheet" href="custom.css"> -->
-    <style>
-        body{  width: 230mm;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0;
-    font-size: 12pt;
-    font-family: Arial, Helvetica, sans-serif;
-}
-*{
-    box-sizing: border-box;
-}
-p,h1,h2,h3,h4,h5,h6{
-    margin: 5px;
-}
-p{
-    font-size: 10pt;
-}
-
-.container{
-    border: 1px solid black;
-    width: 222mm;
-    height: 318mm;
-    margin:10mm auto;
-    display: grid;
-    grid-template-columns: repeat(4 , 1fr);
-    grid-template-rows: repeat(auto-fit);
-    position: relative;
-}
-@page{
-    size: A4;
-    margin: 0;
-}
-@media print{
-    *{
-        box-sizing: border-box;
-    }
-    p{
-        font-size: 9.8pt !important;
-        word-spacing: 1px !important;
-    }
-
-    .container{
-        width: 222mm !important;
-        height: 309mm !important;
-
-    }
-    .item-box1{
-        grid-column: 1/3;
-        height: 172px !important;
-    }
-    .item-box3{
-        grid-column: 1/3;
-        position: absolute;
-        top: 208px !important;
-        width: 100%;
-        height: 200px !important;
-    }
-    .item-box4{
-        grid-column: 3/5;
-        position: absolute;
-        top: 66px !important;
-        width: 100%;
-        height: 72px !important;
-        padding: 5px;
-    }
-    .item-box7{
-        grid-column: 3/5;
-        position: absolute;
-        top: 138px !important;
-        width: 100%;
-        height: 180px !important;
-        text-align: center;
-        padding-top: 5px;
-        word-spacing: 0px !important;
-
-    }
-    .item-box7 h4{
-        margin: 0px !important;
-    }
-
-
-    .item-box10{
-        grid-column: 3/5;
-        position: absolute;
-        top: 316px !important;
-        width: 100%;
-        height: 211px !important;
-    }
-    .item-box13{
-        grid-column: 1/3;
-        position: absolute;
-        top: 940px;
-        width: 495px;
-        height: 291px !important;
-    }
-    .item-box14{
-        grid-column: 3/5;
-        position: absolute;
-        top: 930px;
-        width: 344px;
-        left: 89px !important;
-        height: 291px !important;
-        line-height: 13pt !important;
-        padding-left: 5px !important;
-        word-spacing: 5px !important;
-    }
-    .box14-a{
-        position: absolute;
-        left: 125px !important;
-        bottom: 0px;
-    }
-    .box14-a span{
-        margin-left: 133px !important;
-    }
-}
-.container > div{
-    border: 1px solid #000;
-
-}
-.item-box1{
-    grid-column: 1/3;
-    height: 182px;
-}
-.item-box2{
-    grid-column: 3/5;
-    height: 30px;
-}
-.item-box2 p{
-    font-size: 11pt;
-}
-.item-box3{
-    grid-column: 1/3;
-    position: absolute;
-    top: 182px;
-    width: 100%;
-    height: 225px;
-}
-.item-box4{
-    grid-column: 3/5;
-    position: absolute;
-    top: 30px;
-    width: 100%;
-    height: 72px;
-    padding: 5px;
-
-}
-.item-box4 p{
-    font-size: 14px;
-}
-.item-box4 span{
-    margin-left: 0px;
-    font-size: 13px;
-}
-.item-box5{
-    grid-column: 1/2;
-    position: absolute;
-    top: 407px;
-    width: 100%;
-    height: 60px;
-}
-.item-box6{
-    grid-column: 2/3;
-    position: absolute;
-    top: 407px;
-    width: 100%;
-    height: 60px;
-}
-.item-box7{
-    grid-column: 3/5;
-    position: absolute;
-    top: 102px;
-    width: 100%;
-    height: 200px;
-    text-align: center;
-    padding-top: 5px;
-}
-.item-box7 span{
-font-size: 15px;
-
-}
-.item-box7 h4{
-    margin: 0px;
-}
-.item-box7 p>span{
-    font-size: 10pt;
-}
-
-.item-box8{
-    grid-column: 1/2;
-    position: absolute;
-    width: 100%;
-    top: 467px;
-    height: 60px;
-
-}
-.item-box9{
-    grid-column: 2/3;
-    position: absolute;
-    width: 100%;
-    top: 467px;
-    height: 60px;
-
-}
-.item-box10{
-    grid-column: 3/5;
-    position: absolute;
-    top: 302px;
-    width: 100%;
-    height: 225px;
-}
-.item-box11{
-    grid-column: 1/5;
-    position: absolute;
-    top: 527px;
-    width: 100%;
-    height: 345px;
-
-}
-.item-box12{
-    grid-column: 1/5;
-    position: absolute;
-    top: 872px;
-    width: 100%;
-    height: 40px;
-    padding-top: 3px
-}
-.item-box13{
-    grid-column: 1/3;
-    position: absolute;
-    top: 912px;
-    width: 495px;
-    height: 289px;
-}
-.box13 h5{
-    text-align: center;
-    letter-spacing: 1.5px;
-}
-.box13 span{
-    font-size: 12px;
-}
-.box13{
-    position: relative;
-}
-.box13-a{
-    position: absolute;
-    left: 209px;
-    top: 82px;
-
-}
-
-.box13-a1{
-    text-align: center;
-}
-.box13-a2{
-    position: absolute;
-    left: 73px;
-}
-.item-box14{
-    grid-column: 3/5;
-    position: absolute;
-    top: 912px;
-    width: 344px;
-    left: 75px;
-    height: 289px;
-    line-height: 13pt;
-    padding-left: 5px;
-    word-spacing: 5px;
-}
-.box14-a{
-    position: absolute;
-    left: 119px;
-    bottom: 7px;
-}
-.box14-a span{
-    margin-left: 142px;
-}
-p{
-    margin: 1px;
-    padding: 1px;
-}
-.ml-10{
-  margin-left: 10px;
-}
-.ml-40{
-  margin-left: 40px;
-}
-.color-fixed{
-    color: #1067abc4;
-}
-    </style>
 </head>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #000;
+        font-size: 11px;
+    }
+
+    p {
+        font-size: 11px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 699.21259843px;
+        height: 990.23622047px;
+        border: 1.5px solid #000;
+        margin: 0 auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-top: 10px;
+    }
+
+    .border {
+        border: 1.5px solid #000;
+    }
+
+    .padding {
+        padding-top: 6px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-bottom: 8px;
+    }
+
+    .col1 p {
+        line-height: 12px;
+    }
+
+    .col2 p {
+        line-height: 12px;
+    }
+
+    .text_center {
+        text-align: center;
+    }
+
+    .col3 td {
+        vertical-align: top;
+    }
+
+    .col4 p {
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 1.1px;
+    }
+</style>
 
 <body>
     <div class="container">
-        <div class="item-box1">
-            <p class="ml-10">Goods Consigned form <br> (Exporter's Business Name, Address, Country)</p>
-            <div style="margin-left: 20px;float: left;">
-                <h3 style="color: #ff470087;">{{ $exporter->company_name }}</h3>
-                <div style="color: #1067abc4;font-weight:600">
-                    <p>Regd.off : {{$exporter->address}}</p>
-                    <p>{{$exporter->city}} - {{$exporter->pin}} ({{$exporter->state}}){{$exporter->country}}</p>
-                    <p>GST NO : {{$exporter->gst}}</p>
-                    <p>IE CODE : {{$exporter->ie_code}}</p>
-                    <p>CIN : {{$exporter->cin}}</p>
+
+        <div style="display: flex;">
+            <div style="width:50%;">
+                <div style="width: 100%;">
+                    <div class="border" style="height: 136.06299213px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div class="padding">
+                            <p>Goods Consigned form</p>
+                            <p>(Exporter's Business Name, Address, Country)</p>
+                            <div class="col1"
+                                style="position: relative; padding-top: 26px; padding-left: 26.456692913px;">
+                                <p style="font-size: 14px; margin-bottom: 2px;"><b>{{ $exporter->company_name }}</b></p>
+                                <p>Regd.off : {{$exporter->address}}</p>
+                                <p>{{$exporter->city}} - {{$exporter->pin}} ({{$exporter->state}}){{$exporter->country}}</p>
+                                <p> GST NO : {{$exporter->gst}}</p>
+                                <p>IE CODE : {{$exporter->ie_code}}</p>
+                                <p>CIN : {{$exporter->cin}}</p>
+                                <div style="position: absolute; right: 85px; top: 55px;">
+                                    <img width="40px"
+                                        src="{{ asset('storage/' . $exporter->image) }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border" style="height:181.41732283px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div class="padding">
+                            <p>Goods Consigned to</p>
+                            <p>(Consignee's Business Name, Address, Country)</p>
+                            <div class="col1"
+                                style="position: relative; padding-top: 20px; padding-left: 26.456692913px;">
+                                <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px; letter-spacing: 1px;">
+                                    {{ strtoupper($pass->importer_name1)}}</p>
+                                <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px;">{{strtoupper($pass->importer_address1)}}</p>
+
+
+
+                            </div>
+                            @if ($pass->importer_name2 !='')
+                            <hr>
+                            <div class="col1"
+                            style="position: relative; padding-left: 26.456692913px;">
+                            <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px; letter-spacing: 1px;">
+                                {{ strtoupper($pass->importer_name1)}}</p>
+                            <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px;">{{strtoupper($pass->importer_address1)}}</p>
+                        </div>
+                        @endif
+                        </div>
+                    </div>
+                    <div class="border" style="height:45.354330709px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div style="display: flex;height: 100%;">
+                            <div style="width:50%; border-right: 1.5px solid #000; height: 100%;">
+                                <div class="padding">
+                                    <p>Means of Transport</p>
+                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($pass->means_of_transport) }}</b></p>
+                                </div>
+                            </div>
+                            <div style=" width:50%; height: 100%;">
+                                <div class="padding">
+                                    <p>Port of Loading</p>
+                                    <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($pass->port_of_loading) }}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border" style="height:45.354330709px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div style="display: flex;height: 100%;">
+                            <div style="width:50%; border-right: 1.5px solid #000; height: 100%;">
+                                <div class="padding">
+                                    <p>Port of Discharge</p>
+                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($pass->port_of_discharge)}}</b></p>
+                                </div>
+                            </div>
+                            <div style="width:50%; height: 100%;">
+                                <div class="padding">
+                                    <p>Final Destination</p>
+                                    <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($pass->final_destination) }}</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div style="float: left;margin-top: -63px;margin-left: 300px;">
-                 <img src="{{ asset('storage/' . $exporter->image) }}" alt="" style="width: 70px;">
+
+
+            <div style="width:50%; display: flex;">
+                <div style="width: 100%;">
+                    <div class="border" style="height:22.677165354px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div class="padding" style="padding-top: 3px;">
+                            <p style="font-size: 14px;">Reference No. : <span style="margin-left: 20px;">{{ $pass->reference_id }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="border" style="height:64.251968504px; width: 100%; border-left: 0px; border-top: 0px; ">
+                        <div class="padding">
+                            <p style="font-size: 14px; margin-top: 4px;">CERTIFICATE OF ORIGIN</p>
+                            <p style="font-size: 14px;">(NON-PREFERENTIAL)</p>
+                            <p>(Combined declaration & certificate) issued in india</p>
+                        </div>
+                    </div>
+                    <div class="border"
+                        style="height:173.85826772px; width: 100%; border-left: 0px; border-top: 0px; text-align: center;">
+                        <div class="padding col2">
+                            <div class="logo">
+                                <img width="50px" src="https://skilledworkerscloud.co.uk/export/public/Bharat-logo.png"
+                                    alt="">
+                            </div>
+                            <p
+                                style="font-size: 15px; margin-bottom: 2px; margin-top:-5px; line-height: 18px; letter-spacing: 1px;">
+                                <b>BHARAT CHAMBER OF
+                                    COMMERCE</b>
+                            </p>
+                            <p style="font-size: 13px;">'BHARAT CHAMBERS'</p>
+                            <p style="font-size: 11px; line-height: 13px;">
+                                9/1, Syed Amir Ali Avenue, Kolkata-700 017, India
+                                <br />
+                                Phone: 2282-9591, 2283-9608, Fax: 033-2282-4947
+                                <br />
+                                E-mail: info@bharatchamber.com, bharat.chamber@gmail.com
+                                <br />
+                                CIN:U91110WB1926GAP005483, Website: www.bharatchamber.com
+                            </p>
+                            <p style="font-size: 12px;">
+                                GSTIN: 19AAAAB217101ZH
+                            </p>
+                        </div>
+                    </div>
+                    <div class="border" style="height:147.4015748px; width: 100%; border-left: 0px; border-top: 0px;">
+                        <div class="padding">For official use :</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="item-box2">
-            <p class="ml-10"> Reference No. : {{ $pass->reference_id }}</p>
-        </div>
-        <div class="item-box3">
-            <p class="ml-10">Goods Consigned to<br> (Consignee's Business Name, Address, Country)</p>
-            <div style="color: #1067abc4;">
-             <h3 style="margin-left:20px;">{{ strtoupper($pass->importer_name1)}}</h3>
-             <h4 style="margin-left:20px;">{{strtoupper($pass->importer_address1)}}</h4>
-             @if ($pass->importer_name2 !='')
-             <hr>
-             <p style="color: #000;" class="ml-10">Buyer other than Consignee (If Any)</p>
-             <h3 style="margin-left:20px;">{{strtoupper($pass->importer_name2)}}</h3>
-             <h4 style="margin-left:20px;">{{strtoupper($pass->importer_address2)}}</h4>
-             @endif
-            </div>
-        </div>
-        <div class="item-box4">
-            <p class="ml-10"> CERTIFICATE OF ORIGIN <br>(NON-PREFERENTIAL) <br> <span> (Combined declaration & certificate)
-                issued in india</span></p>
 
         </div>
-        <div class="item-box5">
-            <p class="ml-10">Means of Transport</p>
-            <h4 class="ml-40 color-fixed">{{ strtoupper($pass->means_of_transport) }}</h4>
-        </div>
-        <div class="item-box6">
-            <p class="ml-10">Port of Loading</p>
-            <h4 class="ml-40 color-fixed">{{ strtoupper($pass->port_of_loading) }}</h4>
-        </div>
-        <div class="item-box7">
-            <img width="40px" src="{{asset('Bharat-logo.png')}}" alt="">
-            <h4>BHARAT CHAMBER OF COMMERCE</h4>
-            <span>'BHARAT CHAMBERS' </span>
-            <p>9/1, Syed Amir Ali Avenue, Kolkata-700 017, India <br> Phone: 2282-9591, 2283-9608, Fax: 033-2282-4947
-                <br> E-mail:
-                info@bharatchamber.com, bharat.chamber@gmail.com <br> CIN:U91110WB1926GAP005483, Website:
-                www.bharatchamber.com <br> <span>GSTIN: 19AAAAB217101ZH</span> </p>
-
-        </div>
-        <div class="item-box8">
-            <p class="ml-10">Port of Discharge</p>
-            <h4 class="ml-40 color-fixed">{{ strtoupper($pass->port_of_discharge)}}</h4>
-        </div>
-        <div class="item-box9">
-            <p class="ml-10">Final Destination</p>
-            <h4 class="ml-40 color-fixed">{{ strtoupper($pass->final_destination) }}</h4>
-        </div>
-        <div class="item-box10">
-            <p>For official use <b>:</b></p>
-        </div>
-        <div class="item-box11">
-            <table>
-                <tr>
-                    <td><p>Item No.</p></td>
-                    <td width="150px" ><p>Marks & No. <br> of Packages </p></td>
-                    <td width="120px"><p>No. & kind <br>of Packages </p></td>
-                    <td width="280px" ><p>Description of Goods</p></td>
-                    <td width="100px" ><p>Origin <br>Criteria </p></td>
-                    <td style="text-align: center"><p>Gross weight/ <br>Quantity </p></td>
-                </tr>
-                <tr>
-                    <td width="5%"><p style="font-size: 15px;"><b>1</b></p></td>
-                    <td width="15%">
-                        <p style="font-size: 15px;"><b>{{ strtoupper($pass->marks_of_package) }}</b></p>
-                        <p style="font-size: 15px;"><b>{{ strtoupper($pass->total_package) }}</b></p>
-
-                    </td>
-                    <td width="15%">
-                        <p style="font-size: 15px;"><b>{{ strtoupper($pass->type_of_packeg) }}</b></p>
-                       </td>
-                        <td width="25%">
-                            <p style="font-size: 15px;"><b>{{ strtoupper($goods->name) }}</b></p>
+        <div style="height: 287.24409449px; border-bottom: 1.5px solid #000;">
+            <div class="padding">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="col3">
+                    <tr>
+                        <td class="text_center" style="padding-bottom: 25px;" width="7%">Item No</td>
+                        <td width="12%" style="padding-left: 5px;">Marks & No.
+                            <br />
+                            of Packages
                         </td>
-                    <td width="10%"><p style="font-size: 15px;"><b>{{ strtoupper($pass->origin_criteria) }}</b></p></td>
-                    <td width="30%">
-                        <p style="font-size: 15px;"><b> GROSS WEIGHT {{ strtoupper($pass->gross_weight_quantity) }} KG</b></p>
-                        <p style="font-size: 15px;"><b> NET WEIGHT {{ strtoupper($pass->net_weight_quantity) }} KG</b></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-
-                        @forelse ($goods->products as $product)
-                            <p style="font-size: 15px;"><b>{{ strtoupper($product->name) }}</b></p>
-                        @empty
-
-                        @endforelse
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-            </table>
+                        <td width="12%">No. & kind<br />
+                            of Packages</td>
+                        <td width="40%">Description of Goods</td>
+                        <td width="9%" style="text-align: center;">Origin<br />
+                            Criteria</td>
+                        <td width="20%" class="text_center">Gross weight/<br />
+                            Quantity</td>
+                    </tr>
+                    <tr>
+                        <td class="col4">
+                            <p class="text_center">1.</p>
+                        </td>
+                        <td class="col4" style="padding-left: 5px;">
+                            <p>{{ strtoupper($pass->marks_of_package) }}</p>
+                            <p>{{ strtoupper($pass->total_package) }}</p>
+                        </td>
+                        <td class="col4">
+                            <p>{{ strtoupper($pass->type_of_packeg) }}</p>
+                        </td>
+                        <td class="col4">
+                            <p>{{ strtoupper($goods->name) }}</p>
+                            @forelse ($goods->products as $product)
+                                <p>{{ strtoupper($product->name) }}</p>
+                            @empty
+                            @endforelse
+                        </td>
+                        <td class="col4" style="text-align: center;">
+                            <p>{{ strtoupper($pass->origin_criteria) }}</p>
+                        </td>
+                        <td class="col4">
+                            <p>GROSS WEIGHT {{ strtoupper($pass->gross_weight_quantity) }}</p>
+                            <p>NET WEIGHT {{ strtoupper($pass->net_weight_quantity) }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="item-box12">
-            <table>
-                <tr>
-                    <td><p class="ml-10">Invoice No. <b>: {{ strtoupper($pass->invoice_no) }}</b></p>
-                    </td>
-                    <td width="330px"></td>
-                    <td><p>Date <b>: {{ strtoupper(\Carbon\Carbon::parse($pass->date)->format('d/m/Y')) }}</b></p></td>
-
-                </tr>
-            </table>
+        <div style="height: 30.236220472px; border-bottom: 1.5px solid #000; display: flex;">
+            <div style="width:438.42519685px; height: 100%;">
+                <div class="padding" style="padding-top: 6px;">Invoice No : <span
+                        style="font-size: 13px; margin-left: 15px;"><b>{{ strtoupper($pass->invoice_no) }}</b></span>
+                </div>
+            </div>
+            <div style="height: 100%; width:268.34645669px;">
+                <div class="padding" style="padding-top: 6px;">Date : <span
+                        style="font-size: 13px; margin-left: 15px;"><b>{{ strtoupper(\Carbon\Carbon::parse($pass->date)->format('d/m/Y')) }}</b>
+                    </span></div>
+            </div>
         </div>
-        <div class="item-box13">
-            <div class="box13">
-                <h5><U>CERTIFICATION</U></h5>  <p> It is here by certified, on the basis of control carried out,
-                    that the declaration by <br> the exporter is correct.</p>
-
-                <div class="box13-a">
-                    <div class="box13-a1">
-                    <p>Special Officer/Secretary/secretary General </p>
-                    <span>BHARAT CHAMBER OF COMMERCE</span>
-                    </div>
-                    <div class="box13-a2">
-                        <p>Place   &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp; <b>:</b> Kolkata, India</p>
-                        <p>Date&nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>:</b> </p>
-                        <p>Issued by &nbsp; &nbsp; &nbsp;<b>:</b> </p>
+        <div style="height: 257.00787402px; display: flex;">
+            <div style="width:415px; border-right: 1.5px solid #000; height: 100%;">
+                <div class="padding">
+                    <p
+                        style="font-size: 13px; margin-bottom: 2px; line-height: 18px; letter-spacing: 2px; text-align: center;">
+                        <b>
+                            <u>CERTIFICATION</u></b>
+                    </p>
+                    <p>It is here by certified, on the basis of control carried out, that the declaration by
+                        the exporter is correct.</p>
+                    <div style="width: 300px; margin-top: 50px; margin-left: 122px;">
+                        <div class="text_center">
+                            <p style="margin-bottom: 3px;">Special Officer / Secretary / secretary General</p>
+                            <p>BHARAT CHAMBER OF COMMERCE</p>
+                        </div>
+                        <div style="margin-top: 15px; margin-left: 110px;">
+                            <div style="display: flex;">
+                                <p style="margin-bottom: 10px;"><span
+                                        style="width: 80px; display: inline-block;">Place</span> <small
+                                        style="margin-right: 5px;"><b>:</b></small> Kolkata, India</p>
+                            </div>
+                            <div style="display: flex;">
+                                <p style="margin-bottom: 10px;"><span
+                                        style="width: 80px; display: inline-block;">Date</span> <small
+                                        style="margin-right: 5px;"><b>:</b></small>
+                                </p>
+                            </div>
+                            <div style="display: flex;">
+                                <p style="margin-bottom: 10px;"><span style="width: 80px; display: inline-block;">Issued
+                                        By</span> <small style="margin-right: 5px;"><b>:</b></small>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="item-box14"><p>Declaration by the exporter <b>:</b> </p>
-        <p>The undersigned hereby declares that the above details and statements are correct; that all the goods were produced in India <br><br>
-            and that they comply with the origin requirements
-            for exports
-            to   &nbsp; <span style="position: absolute;"> <b>{{ strtoupper($pass->export_to) }}</b></span>.......................................................
-            (importing country)</p>
-            <p>Place  <b>: {{ strtoupper($pass->place) }}</b></p>
+            <div style="height: 100%; width:285px;">
+                <div class="padding">
+                    <p style="margin-bottom: 8px;">Declaration by the exporter <b>:</b> </p>
+                    <p style="line-height: 18px; letter-spacing:0.4px; text-align: justify;">The undersigned hereby
+                        declares that the
+                        above details and statements are correct; that all the
+                        goods were produced in
+                        India</p>
+                    <p
+                        style="line-height: 18px; letter-spacing:0.4px; text-align: justify; margin-top: 5px; position: relative;">
+                        and that
+                        they comply with
+                        the origin requirements for exports to
+                        <span><b><small
+                                    style="position: absolute; width:75%; text-align: center; font-size: 13px;">{{ strtoupper($pass->export_to) }}</small>
+                                .....................................................</b></span>
+                    </p>
+                    <p>(importing country)</p>
 
-            <p>Date&nbsp;<b>: {{ strtoupper(\Carbon\Carbon::parse($pass->place_date)->format('d/m/Y')) }}</b></p>
-            <td><p style="text-align: right;margin-top:20px;padding-right:7px;"><b>{{ $pass->designation }}</b></p></td>
+                    <div style="margin-top: 10px;">
+                        <div style="display: flex;">
+                            <p style="margin-bottom: 10px;"><span
+                                    style="width: 80px; display: inline-block;">Place</span> <small
+                                    style="margin-right: 5px;"><b>:</b></small> <label style="font-size: 14px;">
+                                        {{ strtoupper($pass->place) }} </label></p>
+                        </div>
+                        <div style="display: flex;">
+                            <p style="margin-bottom: 10px;"><span
+                                    style="width: 80px; display: inline-block;">Date</span> <small
+                                    style="margin-right: 5px;"><b>:</b></small> <label style="font-size: 14px;">
+                                        {{ strtoupper(\Carbon\Carbon::parse($pass->place_date)->format('d/m/Y')) }}</label>
+                            </p>
+                        </div>
+                    </div>
 
-            <div class="box14-a">
-                <p>Signature of authorised signatory  <span>with stamp</span></p>
+                    <div style="text-align: right; margin-top: 0px;">
+                        <p style="margin-bottom: 15px;"><b>Director</b></p>
+                        <p>Signature of authorised signatory</p>
+                        <p>with stamp</p>
+                    </div>
+
+                </div>
             </div>
-
-               </div>
-
+        </div>
     </div>
 </body>
 
