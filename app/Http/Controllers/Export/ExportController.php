@@ -375,5 +375,21 @@ class ExportController extends Controller
 
         echo $result;
     }
+    public function invoic(Request $request){
+        if (!empty(Session::get('admin'))) {
+            return view('export.invoice');
+        } else {
+            return redirect('/');
+        }
+
+    }
+    public function addinvoice(Request $request){
+        if (!empty(Session::get('admin'))) {
+            return view('export.add-invoice');
+        } else {
+            return redirect('/');
+        }
+
+    }
 
 }
