@@ -50,7 +50,7 @@ Export - Importer Information
                     </div> -->
                     <div class="card-body card-block">
                         <form action="{{ route('save-invoice') }}" method="post" enctype="multipart/form-data">
-                        
+
                         <div class="border_main" style="border-bottom:0px;">
                             <div class="border_bottom text-center p-2 text-uppercase"><h4 class="fw-bold">Commercial Invoice</h4>
                             </div>
@@ -63,7 +63,7 @@ Export - Importer Information
                                             <option>Exporter 1</option>
                                         </select>
                                     </div>
-                                    
+
                                 </div>
                         <div class="table-resonsive" style="position: relative;  width: 50%;">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table_col">
@@ -111,7 +111,7 @@ Export - Importer Information
                             </tbody></table>
                         </div>
 
-                
+
             </div>
             <div style="display: flex;">
                                 <div style="width: 50%;">
@@ -128,7 +128,7 @@ Export - Importer Information
                                             <option>Exporter 1</option>
                                         </select>
                                     </div>
-                                    
+
                                 </div>
                         <div style="position: relative;  width: 50%;">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_col">
@@ -148,7 +148,7 @@ Export - Importer Information
                                             </td>
                                         </tr>
                                     </table>
-                                       
+
                                     </td>
                                 </tr>
                                  <tr>
@@ -165,7 +165,7 @@ Export - Importer Information
                             </tbody></table>
                         </div>
 
-                
+
             </div>
             <div class="border" style="border-top: 0px; border-bottom: 0px;">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_col table_col2">
@@ -233,7 +233,7 @@ Export - Importer Information
                         <p>PKGS Size</p>
                     </td>
                     <td class="m-2" width="15%" style="border-right: 0px; border-top: 0px;">
-                        <p>Item Name</p> 
+                        <p>Item Name</p>
                     </td>
                     <td width="8%" style="border-right: 0px; border-top: 0px;">
                         <p>HS CODE</p>
@@ -300,7 +300,7 @@ Export - Importer Information
                         <p class="p-1"><input class="form-control"></p>
                     </td>
                     <td style="border-right: 0px; border-top: 0px; text-align: right;">
-                        <p> 
+                        <p>
                             <a href="#"><span class="material-symbols-outlined text-primary">
                                 add_circle
                                 </span>
@@ -313,7 +313,7 @@ Export - Importer Information
                     </td>
                 </tr>
 
-              
+
                 <tr>
                     <td colspan="9" style="border-left: 0px; border-right: 0px; border-top: 0px;">
                         <p><b>Total Amount Payable in USD</b></p>
@@ -322,7 +322,7 @@ Export - Importer Information
                         <p><b>$5, 179. 17</b></p>
                     </td>
                      <td style="border-right: 0px; border-top: 0px; text-align: right; border-left: 0px;">
-                        
+
                     </td>
                 </tr>
                 <!-- <tr>
@@ -402,7 +402,7 @@ Export - Importer Information
                             <button type="submit" class="btn btn-danger btn-sm">Submit
                             </button> -->
 
-                            
+
                         </form>
                     </div>
 
