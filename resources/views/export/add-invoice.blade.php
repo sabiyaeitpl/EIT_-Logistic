@@ -66,7 +66,7 @@ Export - Importer Information
 
                                 </div>
                         <div class="table-resonsive" style="position: relative;  width: 50%;">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table_col">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table_col mb-0">
                                 <tbody><tr>
                                     <td width="50%" style="border-top:0px;">
                                         <h3 class="p-2">Export Invoice No.</h3>
@@ -245,20 +245,20 @@ Export - Importer Information
                         <p>Rate</p>
                         <select class="form-control">
                             <option>IND</option>
-                            <option>Usd</option>
-                            <option>Nzd</option>
-                            <option>Euro</option>
-                            <option>Pound</option>
+                            <option>USD</option>
+                            <option>NZD</option>
+                            <option>EURO</option>
+                            <option>POUND</option>
                         </select>
                     </td>
                     <td class="p-2" width="15%" style="border-right: 0px; border-top: 0px; white-space: nowrap;">
                         <p>AMOUNT (USD)</p>
                          <select class="form-control">
                             <option>IND</option>
-                            <option>Usd</option>
-                            <option>Nzd</option>
-                            <option>Euro</option>
-                            <option>Pound</option>
+                            <option>USD</option>
+                            <option>NZD</option>
+                            <option>EURO</option>
+                            <option>POUND</option>
                         </select>
                     </td>
                     <td width="15%" style="border-right: 0px; border-top: 0px; white-space: nowrap;">
