@@ -11,21 +11,46 @@
     {{-- <link rel="icon" href="{{ asset('img/logo-small.png') }}" type="image/x-icon"/> --}}
 </head>
 
+<style>
+    #bg-white {
+        background-color: rgba(255,255,255,0.7);
+        /* max-width: 500px; */
+    padding: 40px 30px 50px;
+    }
+    .form h1::before {
+        background-color: transparent;
+    }
+    .login .form-control {
+    border: 0;
+    }
+    .form h1 {
+    margin-bottom: 25px;
+    }
+    .logo::after {
+    background-color: transparent;
+    }
+    img{
+        border-radius:20px;
+    }
+ 
+</style>
+
 <body style="background-color:white;">
     <!-----------------new-login---------------------->
     <div class="login-bg">
         <div class="container login">
             <div class="row main" id="bg-white" style="">
                 <div class="col-lg-6 logo">
-                    <img src="{{ asset('theme/images/download.jfif') }}">
-                    <div class="row">
+                    <img style="max-width:100%;" class="img-fluid" src="{{ asset('images/download.png') }}">
+                    <!-- <div class="row">
                         <h1> <span id="green">Stock</span> <span id="blue">Replenishment </span></h1>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-lg-6 form">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 text-center">
+                            <div style="width:160px; margin: 0 auto;"><img src="http://127.0.0.1:8000/theme/images/Stockx_logo.png" class="logo-fixed" alt=""></div>
                             <h1>Login</h1>
                         </div>
                     </div>
@@ -62,7 +87,7 @@
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <button class="btn btn-default" type="submit">LOGIN </button>
+                                <button class="btn btn-default bg-dark" type="submit">LOGIN </button>
                             </div>
                         </div>
                     </form>
