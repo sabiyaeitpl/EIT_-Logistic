@@ -212,7 +212,7 @@ Export - Pass Information
 
             if (goodsId) {
                 $.ajax({
-                    url: '/get-goods-description/' + goodsId,
+                    url: '{{ url("/get-goods-description/") }}' + '/' + goodsId,
                     type: 'GET',
                     success: function(response) {
                         var descriptions = response.descriptions.join('\n');

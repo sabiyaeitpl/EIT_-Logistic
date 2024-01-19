@@ -119,7 +119,7 @@ Export - Pass Information
                                     </select>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="email-input" class="form-control-label">Description of Goods </label>
                                     <textarea id="goods_description" cols="4" rows="5" class="form-control" readonly></textarea>
                                 </div>
@@ -128,15 +128,19 @@ Export - Pass Information
                                     <label for="email-input" class=" form-control-label">Origin Criteria <span>(*)</span></label>
                                     <input type="text" id=""  name="origin_criteria" class="form-control" required>
                                 </div>
+                                 <div class="col-md-2">
+                                    <label for="email-input" class=" form-control-label">Type of Pkgs <span>(*)</span></label>
+                                    <input type="text" id=""  name="type_of_packeg" class="form-control" required>
+                                </div>
                                 <div class="col-md-3">
                                     <label for="email-input" class=" form-control-label">Gross Weight Quantity <span>(*)</span></label>
                                     <input type="text" id=""  name="gross_weight_quantity" class="form-control" required>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="email-input" class=" form-control-label">Net Weight Quantity <span>(*)</span></label>
                                     <input type="text" id=""  name="net_weight_quantity" class="form-control" required>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="email-input" class=" form-control-label">Designation <span>(*)</span></label>
                                     <input type="text" id=""  name="designation" class="form-control" required>
                                 </div>
@@ -203,7 +207,7 @@ Export - Pass Information
 
             if (goodsId) {
                 $.ajax({
-                    url: '/get-goods-description/' + goodsId,
+                    url: '{{ url("/get-goods-description/") }}' + '/' + goodsId,
                     type: 'GET',
                     success: function(response) {
                         var descriptions = response.descriptions.join('\n');
