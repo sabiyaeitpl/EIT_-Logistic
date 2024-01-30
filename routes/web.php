@@ -49,11 +49,19 @@ Route::post('export/save-goods-master', [ExportController::class, 'goodsSave']);
 Route::get('export/get-add-row-product/{row}', [ExportController::class, 'ajaxgoodsProduct']);
 Route::post('export/update-goods-master', [ExportController::class, 'updateGoodsMaster']);
 
+//Bank Master
+Route::get('export/bank-master', [ExportController::class,'bankMaster'])->name('bank-master');
+Route::get('export/add-bank-master', [ExportController::class,'addBankMaster'])->name('add-bank-master');
+Route::post('export/save-bank-master', [ExportController::class,'saveBankMaster'])->name('save-bank-master');
+Route::get('export/edit-bank-master/{id}', [ExportController::class,'editBankMaster'])->name('edit-bank-master');
+Route::post('export/update-bank-master', [ExportController::class,'updateBankMaster'])->name('update-bank-master');
 
 //invoice route
 Route::get('export/invoice', [ExportController::class,'invoic'])->name('invoice');
-Route::get('export/add-invoice', [ExportController::class,'addinvoice'])->name('add-invoice');
-Route::post('export/save-invoice', [ExportController::class,'saveinvoice'])->name('save-invoice');
+Route::get('export/add-invoice', [ExportController::class,'addInvoice'])->name('add-invoice');
+Route::post('export/save-invoice', [ExportController::class,'saveInvoice'])->name('save-invoice');
+Route::get('export/get-hs-code', [ExportController::class,'getHsCode'])->name('get-hs-code');
+Route::get('export/get-add-row-item/{row}', [ExportController::class, 'ajaxgoodsItem']);
 
 // create pdf export/add-exporter-pass
 Route::get('export/create-pdf', [ExportController::class, 'createPdf'])->name('export.createpdf');

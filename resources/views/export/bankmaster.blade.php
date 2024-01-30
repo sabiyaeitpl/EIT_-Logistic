@@ -16,7 +16,6 @@ Company Export Information
 @endsection
 
 @section('content')
-
 <!-- Content -->
 <style>
     .right-panel {
@@ -33,15 +32,14 @@ Company Export Information
     <div class="animated fadeIn">
         <div class="row" style="border:none;">
             <div class="col-md-6">
-                <h5 class="card-title">Invoice</h5>
+                <h5 class="card-title">Bank Master</h5>
             </div>
             <div class="col-md-6">
                 <span class="right-brd" style="padding-right:15x;">
                     <ul class="">
                         <li><a href="#">Export</a></li>
                         <li>/</li>
-                        <li class="active">Invoice</li>
-
+                        <li class="active">Bank Master List</li>
                     </ul>
                 </span>
             </div>
@@ -54,13 +52,13 @@ Company Export Information
 
                     <div class="card-header">
                         <div class="aply-lv">
-                            <a href="{{route('add-invoice')}}" class="btn btn-outline-info mb-2">
-                                    Add Invoice
+                            <a href="{{url('export/add-bank-master')}}" class="btn btn-outline-info mb-2">
+                                    Add Bank Master
                              </a>
 
                             </div>
                             @include('include.messages')
-                        </div>
+                    </div>
 
                     <br />
                     <div class="clear-fix">
@@ -68,34 +66,30 @@ Company Export Information
                             <thead>
                                 <tr>
                                     <th>Sl No.</th>
-                                    <th>Invoice No</th>
-                                    <th>Exporter Name</th>
-                                    <th>Importer name</th>
-                                    <th>Date of Invoice</th>
-                                    <th>Dispatch Date</th>
+                                    <th>Bank Name</th>
+                                    <th>Account Name</th>
+                                    <th>Account Number</th>
+                                    <th>IFSC Code</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             @if(count($data) != 0)
-                                <tbody>
-                                    @foreach ($data as $key => $val)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$val->invoice_no}}</td>
-                                            <td>{{$val->exporter->company_name}}</td>
-                                            <td>{{$val->importer->name}}</td>
-                                            <td>{{$val->date_invoice}}</td>
-                                            <td>{{$val->dispatch_date}}</td>
-                                            <td><a href="#"><i class="ti-pencil-alt"></i></a>
-                                                <a href="#" title="Generate pdf" class="ml-3" target="_blank"><i class="ti-book"></i></a>
-                                                {{-- <a href="{{url('export/export-pass-download-pdf/')}}/{{$val->id}}" title="Download pdf" class="ml-3"><i class="ti-download"></i></a> --}}
-                                            </td>
-                                        </tr>
+                            <tbody>
+                                @foreach ($data as $key => $val)
+                                <tr>
+                                  <td>{{$loop->iteration}}</td>
+                                  <td>{{$val->bank_name}}</td>
+                                  <td>{{$val->account_name}}</td>
+                                  <td>{{$val->account_number}}</td>
+                                  <td>{{$val->ifsc_code}}</td>
+                                  <td><a href="{{url('export/edit-bank-master/')}}/{{$val->id}}"><i class="ti-pencil-alt"></i></a>
+
+                                </tr>
                                 @endforeach
 
-                                </tbody>
+                            </tbody>
                             @else
-                                <tr><td colspan="25"><div class="alert alert-danger">No Data</div></td></tr>
+                            <tr><td colspan="25"><div class="alert alert-danger">No Data</div></td></tr>
                             @endif
                         </table>
 

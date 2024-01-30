@@ -9,6 +9,9 @@ use App\Models\Export\Goods;
 use App\Models\Export\Product;
 use App\Models\Export\ExportPass;
 use App\Models\Export\Importer;
+use App\Models\Export\Bank;
+use App\Models\Export\Invoice;
+use App\Models\Export\InvoiceItem;
 use Session;
 use Carbon\Carbon;
 use view;
@@ -146,6 +149,80 @@ class ExportController extends Controller
             return redirect('/');
         }
     }
+    public function bankMaster(Request $request){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = Bank::get();
+            return view('export.bankmaster', $data);
+
+        }else{
+            return redirect('/');
+        }
+    }
+    public function addBankMaster(Request $request){
+        if (!empty(Session::get('admin'))) {
+            return view('export.add-bank-master');
+        }else{
+            return redirect('/');
+        }
+
+    }
+    public function saveBankMaster(Request $request)
+    {
+        if (!empty(Session::get('admin'))) {
+            $validatedData = $request->validate([
+                'bank_name' => 'required',
+                'account_name' => 'nullable',
+                'account_number' => 'nullable',
+                'swift_code' => 'nullable',
+                'ifsc_code' => 'nullable',
+                'dealer_code' => 'nullable',
+                'address' => 'nullable',
+            ]);
+            Bank::create($validatedData);
+            Session::flash('message', 'Record has been successfully saved');
+            return redirect()->route('bank-master');
+        }else{
+            return redirect('/');
+        }
+    }
+    public function editBankMaster(Request $request, $id)
+    {
+        if (!empty(Session::get('admin'))) {
+            $bank = Bank::find($id);
+            if (!$bank) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-bank-master', compact('bank'));
+        }else{
+            return redirect('/');
+        }
+    }
+    public function updateBankMaster(Request $request)
+    {
+        $id = $request->bank_id;
+        if (!empty(Session::get('admin'))) {
+            $bank = Bank::find($id);
+            if (!$bank) {
+                return redirect()->route('error.page');
+            }
+
+            $validatedData = $request->validate([
+                'bank_name' => 'required',
+                'account_name' => 'nullable',
+                'account_number' => 'nullable',
+                'swift_code' => 'nullable',
+                'ifsc_code' => 'nullable',
+                'dealer_code' => 'nullable',
+                'address' => 'nullable',
+            ]);
+            $bank->update($validatedData);
+            Session::flash('message', 'Record has been successfully saved');
+            return redirect()->route('bank-master');
+        } else {
+            return redirect('/');
+        }
+    }
+
     public function goodsMaster(Request $request){
         if (!empty(Session::get('admin'))) {
             $data['data'] = Goods::with('products')->get();
@@ -377,19 +454,150 @@ class ExportController extends Controller
     }
     public function invoic(Request $request){
         if (!empty(Session::get('admin'))) {
-            return view('export.invoice');
+            $data['data'] = Invoice::with(['items', 'exporter', 'importer','bank'])->get();
+            //dd($data);
+            return view('export.invoice', $data);
         } else {
             return redirect('/');
         }
 
     }
-    public function addinvoice(Request $request){
+    public function addInvoice(Request $request){
         if (!empty(Session::get('admin'))) {
-            return view('export.add-invoice');
+            $data['goods'] = Goods::get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['bank'] = Bank::get();
+            return view('export.add-invoice',$data);
         } else {
             return redirect('/');
         }
 
     }
+    public function saveInvoice(Request $request)
+    {
+       // dd($request->all());
+        // Validate the form data
+
+        // Create a new Invoice instance and save the data
+        $invoice = new Invoice([
+            'exporter_id' => $request->input('exporter_id'),
+            'invoice_no' => $request->input('invoice_no'),
+            'date_invoice' => $request->input('date_invoice'),
+            'dispatch_date' => $request->input('dispatch_date'),
+            'po_no' => $request->input('po_no'),
+            'order_by_date' => $request->input('order_by_date'),
+            'importer_id1' => $request->input('importer_id1'),
+            'importer_id2'=> $request->input('importer_id2'),
+            'awb_no'=> $request->input('awb_no'),
+            'gst_no'=> $request->input('gst_no'),
+            'buyer_consigne'=> $request->input('buyer_consigne'),
+            'pre_carriage'=> $request->input('pre_carriage'),
+            'pre_carrier'=> $request->input('pre_carrier'),
+            'country_origin_goods'=> $request->input('country_origin_goods'),
+            'country_final_destination'=> $request->input('country_final_destination'),
+            'vesel'=> $request->input('vesel'),
+            'flight_no'=> $request->input('flight_no'),
+            'port_of_loading'=> $request->input('port_of_loading'),
+            'port_of_discharge'=> $request->input('port_of_discharge'),
+            'final_destination'=> $request->input('final_destination'),
+            'bank1'=> $request->input('bank1'),
+            'bank2'=> $request->input('bank2'),
+        ]);
+
+        $invoice->save();
+
+        // Save the invoice items
+        $this->saveInvoiceItems($request, $invoice->id);
+
+        Session::flash('message', 'Record has been successfully saved');
+        return redirect()->route('invoice');
+    }
+    private function saveInvoiceItems(Request $request, $invoiceId)
+    {
+        // Loop through the submitted items and save them
+        foreach ($request->input('counting') as $key => $counting) {
+            $item = new InvoiceItem([
+                'invoice_id' => $invoiceId,
+                'counting' => $counting,
+                'dimention' => $request->input('dimention')[$key],
+                'no_of_bag_box' => $request->input('no_of_bag_box')[$key],
+                'type_bag_box' => $request->input('type_bag_box')[$key],
+                'pkgs_size' => $request->input('pkgs_size')[$key],
+                'item_no' => $request->input('item_no')[$key],
+                'quantity' => $request->input('quantity')[$key],
+                'rate' => $request->input('rate')[$key],
+                'amount' => $request->input('amount')[$key],
+            ]);
+
+            $item->save();
+        }
+    }
+    public function getHsCode(Request $request) {
+        $itemId = $request->input('id');
+        $product = Product::where('id', $itemId)->first();
+        $hsCode = $product->hscode;
+        return response()->json(['hscode' => $hsCode]);
+    }
+    public function ajaxgoodsItem($row){
+        $product = Product::get();
+        $row = $row + 1;
+        $defaultHsCode='';
+
+        $result = '<tr class="itemslotdoc" id="' . $row . '" >
+                    <td style="border-left: 0px; border-right: 0px; border-top: 0px;">
+                    <p class="p-1"><input type="text" name="counting[]" id="" class="form-control" required></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1"><input type="text" name="dimention[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1"><input type="text" name="no_of_bag_box[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1"><input type="text" name="type_bag_box[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px; text-align: left;">
+                        <p class="p-1"><input type="text" name="pkgs_size[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1">
+                            <select data-placeholder="Select Item" name="item_no[]"
+                                    class="form-control" id="item" onchange="itemFetch()" required>
+                                <option value="" selected> Select </option>';
+                                foreach ($product as $products) {
+                                    $result .= '<option value="' . $products->id . '">' . $products->name . '</option>';
+                                }
+                                $result .= '
+                            </select>
+                        </p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1"><input type="text" name="quantity[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px;">
+                        <p class="p-1"><input type="text" name="rate[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px; text-align: right;">
+                        <p class="p-1"><input type="text" name="amount[]" class="form-control"></p>
+                    </td>
+                    <td style="border-right: 0px; border-top: 0px; text-align: right;">
+                        <p>
+                            <a id="addproduct_' .$row . '" onClick="addnewproduct(' . $row  . ')" data-id="' . $row . '">
+                                <span class="material-symbols-outlined text-primary">add_circle</span>
+                            </a>
+                            <a type="buttom" class="deleteButton" id="del' . $row . '"  onClick="delRowProduct(' . $row . ')"><span class="material-symbols-outlined text-danger">
+                                delete
+                                </span>
+                            </a>
+                        </p>
+                    </td>
+                </tr>';
+
+        echo $result;
+    }
+
+
 
 }

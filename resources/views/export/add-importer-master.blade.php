@@ -62,28 +62,28 @@ Export - Importer Information
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">Address <span>(*)</span></label>
-                                    <input type="text" id="" required name="address" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">Address <span></span></label>
+                                    <input type="text" id=""  name="address" class="form-control" >
                                     @if ($errors->has('address'))
                                     <div class="error" style="color:red;">{{ $errors->first('address') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">CR NO <span>(*)</span></label>
+                                    <label for="email-input" class=" form-control-label">CR NO <span></span></label>
                                     <input type="text" id="" name="crno" class="form-control" >
                                     @if ($errors->has('crno'))
                                     <div class="error" style="color:red;">{{ $errors->first('crno') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">P.O BOX <span>(*)</span></label>
+                                    <label for="email-input" class=" form-control-label">P.O BOX <span></span></label>
                                     <input type="text" id="" name="pobox" class="form-control" >
                                     @if ($errors->has('pobox'))
                                     <div class="error" style="color:red;">{{ $errors->first('pobox') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">GST <span>(*)</span></label>
+                                    <label for="email-input" class=" form-control-label">GST <span></span></label>
                                     <input type="text" id=""  name="gst" class="form-control" >
                                     @if ($errors->has('gst'))
                                     <div class="error" style="color:red;">{{ $errors->first('gst') }}</div>

@@ -62,28 +62,28 @@ Export - Importer Information
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="address" class="form-control-label">Address <span>(*)</span></label>
-                                    <input type="text" id="address" required name="address" class="form-control" value="{{ $importer->address }}">
+                                    <label for="address" class="form-control-label">Address <span></span></label>
+                                    <input type="text" id="address"  name="address" class="form-control" value="{{ $importer->address }}">
                                     @if ($errors->has('address'))
                                         <div class="error" style="color:red;">{{ $errors->first('address') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="crno" class="form-control-label">CR NO <span>(*)</span></label>
+                                    <label for="crno" class="form-control-label">CR NO <span></span></label>
                                     <input type="text" id="crno" name="crno" class="form-control" value="{{ $importer->crno }}">
                                     @if ($errors->has('crno'))
                                         <div class="error" style="color:red;">{{ $errors->first('crno') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="pobox" class="form-control-label">P.O BOX <span>(*)</span></label>
+                                    <label for="pobox" class="form-control-label">P.O BOX <span></span></label>
                                     <input type="text" id="pobox" name="pobox" class="form-control" value="{{ $importer->pobox }}">
                                     @if ($errors->has('pobox'))
                                         <div class="error" style="color:red;">{{ $errors->first('pobox') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="gst" class="form-control-label">GST <span>(*)</span></label>
+                                    <label for="gst" class="form-control-label">GST <span></span></label>
                                     <input type="text" id="gst" name="gst" class="form-control" value="{{ $importer->gst }}">
                                     @if ($errors->has('gst'))
                                         <div class="error" style="color:red;">{{ $errors->first('gst') }}</div>

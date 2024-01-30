@@ -3,7 +3,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-	
+
 	<script src="{{ asset('vendor/pagination/bootstrap-4.min.js') }}"></script>
 
 	<script src="{{ asset('js/lib/data-table/datatables.min.js') }}"></script>
@@ -16,13 +16,13 @@
     <script src="{{ asset('js/lib/data-table/buttons.print.min.js') }}"></script>
     <script src="{{ asset('js/lib/data-table/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('js/init/datatables-init.js') }}"></script>
-	
+
 	 <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
       } );
 	</script>
-	
+
 
     <!--  Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
 
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
 
@@ -39,7 +39,7 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="{{ asset('js/init/fullcalendar-init.js') }}"></script>
-	
+
 	<script src="{{ asset('js/lib/chosen/chosen.jquery.min.js') }}"></script>
 
 	<script>
@@ -51,7 +51,7 @@
 			});
 		});
 	</script>
-	
+
 
     <!--Local Stuff-->
     <script>
