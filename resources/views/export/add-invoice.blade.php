@@ -88,7 +88,7 @@ Export - Importer Information
                                           <h3 class="p-2" style="font-weight: normal;">Buyer's Order / PO.No.</h3>
                                        </td>
                                        <td>
-                                          <h3 class="d-flex" style="font-weight: normal;"><span class="d-inline-block mt-3 pl-2 text-dark"> AMF/SE/</span> <input type="textment" name="po_no" class="form-control m-2">
+                                          <h3 class="d-flex" style="font-weight: normal;"><input type="textment" name="po_no" class="form-control m-2">
                                           </h3>
                                        </td>
                                     </tr>
@@ -202,7 +202,7 @@ Export - Importer Information
                                     </h3>
                                  </td>
                                  <td class="p-2"  style=" border-right: 0px;">
-                                    <h2>ANSM</h2>
+                                    <h2><input type="text" name="port_of_discharge" class="form-control"></h2>
                                  </td>
                               </tr>
                               <tr>

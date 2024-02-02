@@ -60,4 +60,8 @@ class Invoice extends Model
     {
         return $this->belongsTo(Bank::class, 'bank2');
     }
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank1');
+    }
 }

@@ -89,7 +89,7 @@
                 <h2 style="margin-top: 8px; margin-bottom: 8px;">Commercial Invoice</h2>
             </div>
             <div style="display: flex;">
-                <div class="border box1" style="width: 50%; border-top: 0px; display: flex;">
+                <div class="border box1" style="width: 50%; border-top: 0px; display: flex; position: relative;">
                     <div style="padding: 5px;">
                         @php
                          $coutry='';
@@ -115,7 +115,7 @@
                         <h3 style="margin-bottom: 15px;">{{ $data->exporter->company_name }}.</h3>
                         <p style="margin-bottom: 15px;"><b>Regd. Office: {{ $data->exporter->address }},</b></p>
                         <p><b>{{  $full }}</b></p>
-                        <img src="{{ asset('storage/' . $data->exporter->image) }}" alt="" width="40px">
+                        <div style="position:absolute; top:15px; bottom:0px; right: 10px;"><img src="{{ asset('storage/' . $data->exporter->image) }}" alt="" width="80px"></div>
                     </div>
                     <div>
                         <img style="width: 75px; margin-top: 20px;"
@@ -175,8 +175,29 @@
 
         <div style="width:100%;">
             <div style="display: flex;">
-                <div class="border box1" style="width: 60%; border-top: 0px; display: flex;">
+                <div class="border box1" style="width: 60%; border-top: 0px; height:155px;">
                     <div style="padding: 5px;">
+                        <p style="margin-bottom: 6px;"><b>Importer / Consignee:</b></p>
+                        @php
+                            $crno='';
+                            $pobox='';
+                            $address='';
+
+                            if($data->importer->crno !='' ){
+                                $crno = 'C.R NO : '.$data->importer->crno.',';
+                            }
+                            if($data->importer->pobox !='' ){
+                                $crno = 'P.O BOX : '.$data->importer->pobox.',';
+                            }
+                            if($data->importer->address !='' ){
+                                $crno = $data->importer->address;
+                            }
+                            $full_impoter = $crno.''.$pobox.''.$address;
+
+                        @endphp
+                        <h3 style="margin-bottom: 6px;">{{ $data->importer->name }}</h3>
+                        <p><b>{{ $full_impoter }}</b></p>
+                        <hr>
                         <p style="margin-bottom: 6px;"><b>Importer / Consignee:</b></p>
                         @php
                             $crno='';
@@ -201,7 +222,7 @@
                 </div>
 
                 <div class="border box1"
-                    style="margin-top: -2px; position: relative;  width: 40%;border-left: 0px;border-top: 0px;">
+                    style="margin-top: -2px; position: relative;  width: 40%;border-left: 0px;border-top: 0px; height:155px;">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_col">
                         <tr>
                             <td><b>
