@@ -47,9 +47,17 @@ class Invoice extends Model
     {
         return $this->belongsTo(Importer::class, 'importer_id1');
     }
+    public function importer2()
+    {
+        return $this->belongsTo(Importer::class, 'importer_id2');
+    }
 
-    public function bank()
+    public function bank1()
     {
         return $this->belongsTo(Bank::class, 'bank1');
+    }
+    public function bank2()
+    {
+        return $this->belongsTo(Bank::class, 'bank2');
     }
 }

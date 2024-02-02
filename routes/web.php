@@ -62,6 +62,7 @@ Route::get('export/add-invoice', [ExportController::class,'addInvoice'])->name('
 Route::post('export/save-invoice', [ExportController::class,'saveInvoice'])->name('save-invoice');
 Route::get('export/get-hs-code', [ExportController::class,'getHsCode'])->name('get-hs-code');
 Route::get('export/get-add-row-item/{row}', [ExportController::class, 'ajaxgoodsItem']);
+Route::get('export/invoice-pdf/{id}', [ExportController::class, 'invoicePdf'])->name('invoice-pdf');
 
 // create pdf export/add-exporter-pass
 Route::get('export/create-pdf', [ExportController::class, 'createPdf'])->name('export.createpdf');

@@ -87,7 +87,7 @@ Company Export Information
                                             <td>{{$val->date_invoice}}</td>
                                             <td>{{$val->dispatch_date}}</td>
                                             <td><a href="#"><i class="ti-pencil-alt"></i></a>
-                                                <a href="#" title="Generate pdf" class="ml-3" target="_blank"><i class="ti-book"></i></a>
+                                                <a href="{{ route('invoice-pdf', ['id' => $val->id]) }}" title="Generate pdf" class="ml-3" target="_blank"><i class="ti-book"></i></a>
                                                 {{-- <a href="{{url('export/export-pass-download-pdf/')}}/{{$val->id}}" title="Download pdf" class="ml-3"><i class="ti-download"></i></a> --}}
                                             </td>
                                         </tr>

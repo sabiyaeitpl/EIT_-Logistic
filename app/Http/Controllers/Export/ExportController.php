@@ -514,9 +514,31 @@ class ExportController extends Controller
         Session::flash('message', 'Record has been successfully saved');
         return redirect()->route('invoice');
     }
+    public function invoicePdf(Request $request, $id) {
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = Invoice::with(['items.product', 'exporter', 'importer','importer2','bank2'])->find($id);
+            $data['bank1'] = Invoice::leftJoin('banks', 'invoices.bank1', '=', 'banks.id')
+            ->select('banks.*')
+            ->first();
+            $data['bank2'] = Invoice::leftJoin('banks', 'invoices.bank2', '=', 'banks.id')
+            ->select('banks.*')
+            ->first();
+            //dd($data['bank1']);
+            //$data['data']->load('bank1');
+            $data['invoiceitem'] = InvoiceItem::calculateTotals($id);
+            //dd($data);
+            if ($data['data']) {
+                return view('export.invoice-pdf', $data);
+            } else {
+                Session::flash('error', 'Record not found');
+                return redirect()->back();
+            }
+        } else {
+            return redirect('/');
+        }
+    }
     private function saveInvoiceItems(Request $request, $invoiceId)
     {
-        // Loop through the submitted items and save them
         foreach ($request->input('counting') as $key => $counting) {
             $item = new InvoiceItem([
                 'invoice_id' => $invoiceId,
