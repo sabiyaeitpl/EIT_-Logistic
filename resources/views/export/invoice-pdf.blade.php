@@ -155,7 +155,7 @@
                                 <h3 style="font-weight: normal;">Buyer's Order / PO.No.</h3>
                             </td>
                             <td>
-                                <h3 style="font-weight: normal;">AMF/SE/ <span style="margin: 0 15px;">{{ $data->po_no }}</span>
+                                <h3 style="font-weight: normal;"><span style="margin: 0 15px;">{{ $data->po_no }}</span>
                                 </h3>
                             </td>
                         </tr>
