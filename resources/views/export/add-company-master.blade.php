@@ -70,57 +70,57 @@ Export - Company Information
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Country <span>(*)</span></label>
-                                    <input type="text" id="" required name="country" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">Country <span></span></label>
+                                    <input type="text" id=""  name="country" class="form-control" >
                                     @if ($errors->has('country'))
                                     <div class="error" style="color:red;">{{ $errors->first('country') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">State <span>(*)</span></label>
-                                    <input type="text" id="" required name="state" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">State <span></span></label>
+                                    <input type="text" id=""  name="state" class="form-control" >
                                     @if ($errors->has('state'))
                                     <div class="error" style="color:red;">{{ $errors->first('state') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">City <span>(*)</span></label>
-                                    <input type="text" id="" required name="city" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">City <span></span></label>
+                                    <input type="text" id=""  name="city" class="form-control" >
                                     @if ($errors->has('city'))
                                     <div class="error" style="color:red;">{{ $errors->first('city') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Pin <span>(*)</span></label>
-                                    <input type="text" id="" required name="pin" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">Pin <span></span></label>
+                                    <input type="text" id=""  name="pin" class="form-control" >
                                     @if ($errors->has('pin'))
                                     <div class="error" style="color:red;">{{ $errors->first('pin') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">IE Code <span>(*)</span></label>
-                                    <input type="text" id="" required name="ie_code" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">IE Code <span></span></label>
+                                    <input type="text" id=""  name="ie_code" class="form-control" >
                                     @if ($errors->has('ie_code'))
                                     <div class="error" style="color:red;">{{ $errors->first('ie_code') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">GST <span>(*)</span></label>
-                                    <input type="text" id="" required name="gst" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">GST <span></span></label>
+                                    <input type="text" id=""  name="gst" class="form-control" >
                                     @if ($errors->has('gst'))
                                     <div class="error" style="color:red;">{{ $errors->first('gst') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">CIN Number <span>(*)</span></label>
-                                    <input type="text" id="" required name="cin" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">CIN Number <span></span></label>
+                                    <input type="text" id=""  name="cin" class="form-control" >
                                     @if ($errors->has('cin'))
                                     <div class="error" style="color:red;">{{ $errors->first('cin') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">Image <span>(*)</span></label>
-                                    <input type="file" id="" required name="image" class="form-control">
+                                    <label for="email-input" class=" form-control-label">Image <span></span></label>
+                                    <input type="file" id=""  name="image" class="form-control">
                                 </div>
 
 

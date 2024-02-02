@@ -202,7 +202,7 @@ Export - Importer Information
                                     </h3>
                                  </td>
                                  <td class="p-2"  style=" border-right: 0px;">
-                                    <h2><input type="text" name="port_of_discharge" class="form-control"></h2>
+                                    <h2><input type="text" name="box_marking" class="form-control"></h2>
                                  </td>
                               </tr>
                               <tr>

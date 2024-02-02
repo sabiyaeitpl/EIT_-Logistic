@@ -504,6 +504,7 @@ class ExportController extends Controller
             'final_destination'=> $request->input('final_destination'),
             'bank1'=> $request->input('bank1'),
             'bank2'=> $request->input('bank2'),
+            'box_marking'=> $request->input('box_marking'),
         ]);
 
         $invoice->save();
@@ -518,9 +519,11 @@ class ExportController extends Controller
         if (!empty(Session::get('admin'))) {
             $data['data'] = Invoice::with(['items.product', 'exporter', 'importer','importer2','bank2'])->find($id);
             $data['bank1'] = Invoice::leftJoin('banks', 'invoices.bank1', '=', 'banks.id')
+            ->where('invoices.id','=', $id)
             ->select('banks.*')
             ->first();
             $data['bank2'] = Invoice::leftJoin('banks', 'invoices.bank2', '=', 'banks.id')
+            ->where('invoices.id','=', $id)
             ->select('banks.*')
             ->first();
             //dd($data['bank1']);

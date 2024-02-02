@@ -197,27 +197,29 @@
                         @endphp
                         <h3 style="margin-bottom: 6px;">{{ $data->importer->name }}</h3>
                         <p><b>{{ $full_impoter }}</b></p>
-                        <hr>
-                        <p style="margin-bottom: 6px;"><b>Importer / Consignee:</b></p>
-                        @php
-                            $crno='';
-                            $pobox='';
-                            $address='';
+                           @if ($data->importer2 !='')
+                            <hr>
+                            <p style="margin-bottom: 6px;"><b>Importer / Consignee:</b></p>
+                            @php
+                                $crno='';
+                                $pobox='';
+                                $address='';
 
-                            if($data->importer->crno !='' ){
-                                $crno = 'C.R NO : '.$data->importer->crno.',';
-                            }
-                            if($data->importer->pobox !='' ){
-                                $crno = 'P.O BOX : '.$data->importer->pobox.',';
-                            }
-                            if($data->importer->address !='' ){
-                                $crno = $data->importer->address;
-                            }
-                            $full_impoter = $crno.''.$pobox.''.$address;
+                                if($data->importer2->crno !='' ){
+                                    $crno = 'C.R NO : '.$data->importer2->crno.',';
+                                }
+                                if($data->importer->pobox !='' ){
+                                    $crno = 'P.O BOX : '.$data->importer2->pobox.',';
+                                }
+                                if($data->importer2->address !='' ){
+                                    $crno = $data->importer2->address;
+                                }
+                                $full_impoter = $crno.''.$pobox.''.$address;
 
-                        @endphp
-                        <h3 style="margin-bottom: 6px;">{{ $data->importer->name }}</h3>
-                        <p><b>{{ $full_impoter }}</b></p>
+                            @endphp
+                            <h3 style="margin-bottom: 6px;">{{ $data->importer2->name }}</h3>
+                            <p><b>{{ $full_impoter }}</b></p>
+                            @endif
                     </div>
                 </div>
 
@@ -303,7 +305,7 @@
                         </h3>
                     </td>
                     <td style=" border-right: 0px;">
-                        <h1>ANSM</h1>
+                        <h1>{{ isset($data->box_marking) ? strtoupper($data->box_marking) : 'NA' }}</h1>
                     </td>
                 </tr>
 
@@ -542,7 +544,7 @@
                                     <p style="margin-bottom: 10px;"><b>Bank Name:</b></p>
                                 </td>
                                 <td width="60%">
-                                    {{ isset($bank2->bank_name) ? $bank2->bank_name : 'NA' }}
+                                    <p>{{ isset($bank2->bank_name) ? $bank2->bank_name : 'NA' }}</p>
                                 </td>
                             </tr>
                             <tr>
@@ -625,8 +627,7 @@
                     </div>
 
                     <div>
-                        <p style="text-transform: uppercase; margin-top: 15px;"><b>For Shalia Export & Import PVT.
-                                LTD.</b></p>
+                        <p style="text-transform: uppercase; margin-top: 15px;"><b>{{ $data->exporter->company_name }}.</b></p>
                     </div>
                     <div style="display: flex;">
                         <div style="margin-left: 15px;">

@@ -32,6 +32,7 @@ class Invoice extends Model
         'final_destination',
         'bank1',
         'bank2',
+        'box_marking',
     ];
 
     public function items()
