@@ -76,12 +76,46 @@
                             <p>(Exporter's Business Name, Address, Country)</p>
                             <div class="col1"
                                 style="position: relative; padding-top: 26px; padding-left: 26.456692913px;">
+                                @php
+                                $country='';
+                                $state='';
+                                $city='';
+                                $pin='';
+                                $gst ='';
+                                $iecode='';
+                                $cin='';
+
+                                 if($exporter->country !=''){
+                                   $country = $exporter->country;
+                                 }
+                                 if($exporter->state !=''){
+                                   $state = '('.$exporter->state.')';
+                                 }
+                                 if($exporter->city !=''){
+                                   $city = $exporter->city.'-';
+                                 }
+                                 if($exporter->pin !=''){
+                                   $pin = $exporter->pin;
+                                 }
+                                 $full = $city.''.$pin.''.$state.' '.$country;
+
+                                 if ($exporter->gst != '') {
+                                     $gst = 'GST NO : '.$exporter->gst;
+                                 }
+                                 if ($exporter->ie_code != '') {
+                                    $iecode = 'IE CODE : '.$exporter->ie_code;
+                                 }
+                                 if ($exporter->cin != '') {
+                                    $cin = 'CIN : '.$exporter->cin;
+                                 }
+
+                               @endphp
                                 <p style="font-size: 14px; margin-bottom: 2px;"><b>{{ $exporter->company_name }}</b></p>
                                 <p>Regd.off : {{$exporter->address}}</p>
-                                <p>{{$exporter->city}} - {{$exporter->pin}} ({{$exporter->state}}){{$exporter->country}}</p>
-                                <p> GST NO : {{$exporter->gst}}</p>
-                                <p>IE CODE : {{$exporter->ie_code}}</p>
-                                <p>CIN : {{$exporter->cin}}</p>
+                                <p>{{ $full }}</p>
+                                <p> {{$gst}}</p>
+                                <p>{{$iecode}}</p>
+                                <p>{{$cin}}</p>
                                 <div style="position: absolute; right: 85px; top: 55px;">
                                     <img width="40px"
                                         src="{{ asset('storage/' . $exporter->image) }}" alt="">
@@ -95,20 +129,56 @@
                             <p>(Consignee's Business Name, Address, Country)</p>
                             <div class="col1"
                                 style="position: relative; padding-top: 20px; padding-left: 26.456692913px;">
-                                <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px; letter-spacing: 1px;">
-                                    {{ strtoupper($pass->importer_name1)}}</p>
-                                <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px;">{{strtoupper($pass->importer_address1)}}</p>
+                                <p style="font-size: 14px; margin-bottom: 2px; line-height: 18px;"><b>
+                                    {{ strtoupper($importer1->name)}}</b></p>
+                                    @php
+                                        $gst ='';
+                                        $pobox='';
+                                        $crno='';
 
+                                        if ($importer1->gst !='') {
+                                           $gst = 'GST NO: '.$importer1->gst;
+                                        }
+                                        if ($importer1->crno !='') {
+                                            $crno= 'CR NO: '.$importer1->crno;
+                                        }
+                                        if ($importer1->pobox !='') {
+                                            $pobox= 'P.O BOX: '.$importer1->pobox;
+                                        }
 
+                                    @endphp
+                                <p>{{strtoupper($importer1->address)}}</p>
+                                <p>{{strtoupper($gst)}}</p>
+                                <p>{{strtoupper($crno)}}</p>
+                                <p>{{strtoupper($pobox)}}</p>
 
                             </div>
                             @if ($pass->importer_name2 !='')
                             <hr>
                             <div class="col1"
                             style="position: relative; padding-left: 26.456692913px;">
-                            <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px; letter-spacing: 1px;">
-                                {{ strtoupper($pass->importer_name1)}}</p>
-                            <p style="font-size: 16px; margin-bottom: 2px; line-height: 18px;">{{strtoupper($pass->importer_address1)}}</p>
+                            <p style="font-size: 14px; margin-bottom: 2px; line-height: 18px;"><b>
+                                {{ strtoupper($importer2->name)}}</b></p>
+                                @php
+                                    $gst ='';
+                                    $pobox='';
+                                    $crno='';
+
+                                    if ($importer2->gst !='') {
+                                       $gst = 'GST NO: '.$importer2->gst;
+                                    }
+                                    if ($importer2->crno !='') {
+                                        $crno= 'CR NO: '.$importer2->crno;
+                                    }
+                                    if ($importer2->pobox !='') {
+                                        $pobox= 'P.O BOX: '.$importer2->pobox;
+                                    }
+
+                                @endphp
+                            <p>{{strtoupper($importer2->address)}}</p>
+                            <p>{{strtoupper($gst)}}</p>
+                            <p>{{strtoupper($crno)}}</p>
+                            <p>{{strtoupper($pobox)}}</p>
                         </div>
                         @endif
                         </div>

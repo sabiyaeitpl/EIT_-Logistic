@@ -49,4 +49,12 @@ class ExportPass extends Model
     {
         return $this->belongsTo(Goods::class, 'no_of_package');
     }
+    public function importername1()
+    {
+        return $this->belongsTo(Importer::class, 'importer_name1');
+    }
+    public function importername2()
+    {
+        return $this->belongsTo(Importer::class, 'importer_name2');
+    }
 }

@@ -92,7 +92,7 @@
                 <div class="border box1" style="width: 50%; border-top: 0px; display: flex; position: relative;">
                     <div style="padding: 5px;">
                         @php
-                         $coutry='';
+                         $country='';
                          $state='';
                          $city='';
                          $pin='';
@@ -114,7 +114,7 @@
                         <h3 style="margin-bottom: 15px;">Exporter / Consignor:</h3>
                         <h3 style="margin-bottom: 15px;">{{ $data->exporter->company_name }}.</h3>
                         <p style="margin-bottom: 15px;"><b>Regd. Office: {{ $data->exporter->address }},</b></p>
-                        <p><b>{{  $full }}</b></p>
+                        <p><b>{{ $full }}</b></p>
                         <div style="position:absolute; top:15px; bottom:0px; right: 10px;"><img src="{{ asset('storage/' . $data->exporter->image) }}" alt="" width="80px"></div>
                     </div>
                     <div>

@@ -70,7 +70,7 @@ Company Export Information
                                     <th>Sl No.</th>
                                     <th>Reference Id</th>
                                     <th>Exporter Name</th>
-                                    <th>Importer name</th>
+                                    {{-- <th>Importer name</th> --}}
                                     <th>Goods</th>
                                     <th>Action</th>
                                 </tr>
@@ -82,7 +82,7 @@ Company Export Information
                                   <td>{{$loop->iteration}}</td>
                                   <td>{{$val->reference_id}}</td>
                                   <td>{{$val->company->company_name}}</td>
-                                  <td>{{$val->importer_name1}}</td>
+                                  {{-- <td>{{$val->importername1->name}}</td> --}}
                                   <td>{{$val->goods->name}}</td>
                                   <td><a href="{{url('export/edit-pass-generate/')}}/{{$val->id}}"><i class="ti-pencil-alt"></i></a>
                                     <a href="{{url('export/export-pass-generate-pdf/')}}/{{$val->id}}" title="Generate pdf" class="ml-3" target="_blank"><i class="ti-book"></i></a>

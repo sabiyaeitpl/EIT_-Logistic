@@ -63,57 +63,57 @@ Export - Company Information
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">Address <span>(*)</span></label>
-                                    <input type="text" id="" required name="address" class="form-control" value="{{ isset($data->address) ? $data->address : '' }}">
+                                    <label for="email-input" class=" form-control-label">Address </label>
+                                    <input type="text" id=""  name="address" class="form-control" value="{{ isset($data->address) ? $data->address : '' }}">
                                     @if ($errors->has('address'))
                                     <div class="error" style="color:red;">{{ $errors->first('address') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Country <span>(*)</span></label>
-                                    <input type="text" id="" required name="country" class="form-control" value="{{ isset($data->country) ? $data->country : '' }}">
+                                    <label for="email-input" class=" form-control-label">Country </label>
+                                    <input type="text" id=""  name="country" class="form-control" value="{{ isset($data->country) ? $data->country : '' }}">
                                     @if ($errors->has('country'))
                                     <div class="error" style="color:red;">{{ $errors->first('country') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">State <span>(*)</span></label>
-                                    <input type="text" id="" required name="state" class="form-control" value="{{ isset($data->state) ? $data->state : '' }}">
+                                    <label for="email-input" class=" form-control-label">State </label>
+                                    <input type="text" id=""  name="state" class="form-control" value="{{ isset($data->state) ? $data->state : '' }}">
                                     @if ($errors->has('state'))
                                     <div class="error" style="color:red;">{{ $errors->first('state') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">City <span>(*)</span></label>
-                                    <input type="text" id="" required name="city" class="form-control" value="{{isset($data->city) ? $data->city : '' }}">
+                                    <label for="email-input" class=" form-control-label">City </label>
+                                    <input type="text" id=""  name="city" class="form-control" value="{{isset($data->city) ? $data->city : '' }}">
                                     @if ($errors->has('city'))
                                     <div class="error" style="color:red;">{{ $errors->first('city') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Pin <span>(*)</span></label>
-                                    <input type="text" id="" required name="pin" class="form-control" value="{{ isset($data->pin) ? $data->pin : '' }}">
+                                    <label for="email-input" class=" form-control-label">Pin </label>
+                                    <input type="text" id="" name="pin" class="form-control" value="{{ isset($data->pin) ? $data->pin : '' }}">
                                     @if ($errors->has('pin'))
                                     <div class="error" style="color:red;">{{ $errors->first('pin') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">IE Code <span>(*)</span></label>
-                                    <input type="text" id="" required name="ie_code" class="form-control" value="{{ isset($data->ie_code) ? $data->ie_code : '' }}">
+                                    <label for="email-input" class=" form-control-label">IE Code </label>
+                                    <input type="text" id=""  name="ie_code" class="form-control" value="{{ isset($data->ie_code) ? $data->ie_code : '' }}">
                                     @if ($errors->has('ie_code'))
                                     <div class="error" style="color:red;">{{ $errors->first('ie_code') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">GST <span>(*)</span></label>
-                                    <input type="text" id="" required name="gst" class="form-control" value="{{ isset($data->gst) ? $data->gst : '' }}">
+                                    <label for="email-input" class=" form-control-label">GST </label>
+                                    <input type="text" id=""  name="gst" class="form-control" value="{{ isset($data->gst) ? $data->gst : '' }}">
                                     @if ($errors->has('gst'))
                                     <div class="error" style="color:red;">{{ $errors->first('gst') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">CIN Number <span>(*)</span></label>
-                                    <input type="text" id="" required name="cin" class="form-control" value="{{ isset($data->cin) ? $data->cin : '' }}">
+                                    <label for="email-input" class=" form-control-label">CIN Number </label>
+                                    <input type="text" id=""  name="cin" class="form-control" value="{{ isset($data->cin) ? $data->cin : '' }}">
                                     @if ($errors->has('cin'))
                                     <div class="error" style="color:red;">{{ $errors->first('cin') }}</div>
                                     @endif

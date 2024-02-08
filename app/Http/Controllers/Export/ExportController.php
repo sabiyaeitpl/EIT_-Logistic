@@ -328,12 +328,14 @@ class ExportController extends Controller
 
 
     public function createPdf(Request $request){
-        $data['data'] = ExportPass::with(['company', 'goods'])->get();
+        $data['data'] = ExportPass::with(['company','importername1','goods'])->get();
+       // dd($data);
         return view('export.exporterpass', $data);
     }
     public function addExporterPass(Request $request){
         $data['goods'] = Goods::get();
         $data['exporter'] = Company::get();
+        $data['importer'] = Importer::get();
         return view('export.add-exporter-pass', $data);
 
     }
@@ -352,11 +354,16 @@ class ExportController extends Controller
         }
         $exporterId = $data['pass']->exporter_id;
         $goodsId = $data['pass']->no_of_package;
+        $importer1 = $data['pass']->importer_name1;
+        $importer2 = $data['pass']->importer_name2;
         $data['goods'] = Goods::with('products')->find($goodsId);
         if (!$data['goods']) {
             return redirect()->route('export.createpdf');
         }
         $data['exporter'] = Company::where('id', $exporterId)->first();
+        $data['importer1'] = Importer::where('id', $importer1)->first();
+        $data['importer2'] = Importer::where('id', $importer2)->first();
+        //dd($data);
         if (!$data['exporter']) {
             return redirect()->route('export.createpdf');
         }
@@ -395,6 +402,7 @@ class ExportController extends Controller
         }
         $data['goods'] = Goods::get();
         $data['exporter'] = Company::get();
+        $data['importer'] = Importer::get();
         //dd($data['pass']);
         return view('export.editgeneratepasspdf', $data);
 

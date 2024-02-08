@@ -69,22 +69,36 @@ Export - Pass Information
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="email-input" class=" form-control-label">Importer-1 <span>(*)</span></label>
-                                    <input type="text" id=""  name="importer_name1" class="form-control" required>
+                                    {{-- <input type="text" id=""  name="importer_name1" class="form-control" required> --}}
+                                    <select class="form-control" name="importer_name1" required>
+                                        <option value="">Slect Importer</option>
+                                        @foreach ($importer as $importers)
+                                        <option value="{{$importers->id}}">{{$importers->name}}</option>
+                                        @endforeach
+                                     </select>
                                 </div>
-                                <div class="col-md-8">
+                                {{-- <div class="col-md-8">
                                     <label for="email-input" class=" form-control-label">Address(Importer-1) <span>(*)</span></label>
                                     <textarea name="importer_address1" id="importer_address1" cols="4" rows="2" class="form-control" required></textarea>
-                                </div>
-                                <div class="col-md-4">
+                                </div> --}}
+                                <div class="col-md-6">
                                     <label for="email-input" class=" form-control-label">Importer-2 </label>
-                                    <input type="text" id=""  name="importer_name2" class="form-control" >
+                                    {{-- <input type="text" id=""  name="importer_name2" class="form-control" > --}}
+                                    <select class="form-control" name="importer_name2">
+                                        <option value="">Slect Importer</option>
+                                        @foreach ($importer as $importers)
+                                        <option value="{{$importers->id}}">{{$importers->name}}</option>
+                                        @endforeach
+                                     </select>
                                 </div>
-                                <div class="col-md-8">
+                                <input type="hidden" name="importer_address2">
+                                <input type="hidden" name="importer_address1">
+                                {{-- <div class="col-md-8">
                                     <label for="email-input" class=" form-control-label">Address(Importer-2) </label>
                                     <textarea name="importer_address2" id="importer_address2" cols="4" rows="2" class="form-control"></textarea>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-3">
                                     <label for="email-input" class=" form-control-label">Means of Transport <span>(*)</span></label>
                                     <input type="text" id=""  name="means_of_transport" class="form-control" required>
