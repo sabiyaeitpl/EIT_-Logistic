@@ -56,6 +56,11 @@ Route::post('export/save-bank-master', [ExportController::class,'saveBankMaster'
 Route::get('export/edit-bank-master/{id}', [ExportController::class,'editBankMaster'])->name('edit-bank-master');
 Route::post('export/update-bank-master', [ExportController::class,'updateBankMaster'])->name('update-bank-master');
 
+//indent invoice
+Route::get('export/indent', [ExportController::class,'indent'])->name('indent');
+Route::get('export/add-indent', [ExportController::class,'addIndent'])->name('add-indent');
+Route::post('export/save-indent', [ExportController::class,'saveIndent'])->name('save-indent');
+
 //invoice route
 Route::get('export/invoice', [ExportController::class,'invoic'])->name('invoice');
 Route::get('export/add-invoice', [ExportController::class,'addInvoice'])->name('add-invoice');

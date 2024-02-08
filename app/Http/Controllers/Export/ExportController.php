@@ -548,6 +548,20 @@ class ExportController extends Controller
             return redirect('/');
         }
     }
+    public function indent(Request $request) {
+        if (!empty(Session::get('admin'))) {
+            return view('export.indent');
+        }else{
+            return redirect('/');
+        }
+    }
+    public function addIndent(Request $request) {
+        if (!empty(Session::get('admin'))) {
+            return view('export.add-indent');
+        }else{
+            return redirect('/');
+        }
+    }
     private function saveInvoiceItems(Request $request, $invoiceId)
     {
         foreach ($request->input('counting') as $key => $counting) {
@@ -630,6 +644,7 @@ class ExportController extends Controller
 
         echo $result;
     }
+
 
 
 

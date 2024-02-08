@@ -47,7 +47,7 @@ Export - Importer Information
                               <div style="padding: 5px; width:100%;">
                                  <h3 style="margin-bottom: 5px;">Exporter / Consignor:</h3>
                                  <select class="form-control" name="exporter_id" required >
-                                    <option value="">Slect Exporter</option>
+                                    <option value="">Select Exporter</option>
                                     @foreach ($exporter as $exporters)
                                     <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
                                     @endforeach
@@ -109,7 +109,7 @@ Export - Importer Information
                               <div style="padding: 5px; width:100%;">
                                  <h3 style="margin-bottom: 5px;">Importer / Consignor:</h3>
                                  <select class="form-control" name="importer_id1">
-                                    <option value="">Slect Importer</option>
+                                    <option value="">Select Importer</option>
                                     @foreach ($importer as $importers)
                                     <option value="{{$importers->id}}">{{$importers->name}}</option>
                                     @endforeach
@@ -117,7 +117,7 @@ Export - Importer Information
                                  <hr class="border-dark" />
                                  <h3 style="margin-bottom: 5px;">Importer / Consignor 2:</h3>
                                  <select class="form-control" name="importer_id2">
-                                    <option value="">Slect Importer</option>
+                                    <option value="">Select Importer</option>
                                     @foreach ($importer as $importers)
                                     <option value="{{$importers->id}}">{{$importers->name}}</option>
                                     @endforeach

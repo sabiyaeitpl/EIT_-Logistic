@@ -1,6 +1,6 @@
 @extends('export.layouts.master')
 @section('title')
-Company Export Information
+Export Information
 @endsection
 
 @section('sidebar')
@@ -33,14 +33,14 @@ Company Export Information
     <div class="animated fadeIn">
         <div class="row" style="border:none;">
             <div class="col-md-6">
-                <h5 class="card-title">Invoice</h5>
+                <h5 class="card-title">Indent Invoice</h5>
             </div>
             <div class="col-md-6">
                 <span class="right-brd" style="padding-right:15x;">
                     <ul class="">
                         <li><a href="#">Export</a></li>
                         <li>/</li>
-                        <li class="active">Invoice</li>
+                        <li class="active">Indent Invoice</li>
 
                     </ul>
                 </span>
@@ -54,8 +54,8 @@ Company Export Information
 
                     <div class="card-header">
                         <div class="aply-lv">
-                            <a href="{{route('add-invoice')}}" class="btn btn-outline-info mb-2">
-                                    Add Invoice
+                            <a href="{{route('add-indent')}}" class="btn btn-outline-info mb-2">
+                                    Add Indent Invoice
                              </a>
 
                             </div>
@@ -76,27 +76,22 @@ Company Export Information
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            @if(count($data) != 0)
+
                                 <tbody>
-                                    @foreach ($data as $key => $val)
+
                                         <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$val->invoice_no}}</td>
-                                            <td>{{$val->exporter->company_name}}</td>
-                                            <td>{{$val->importer->name}}</td>
-                                            <td>{{$val->date_invoice}}</td>
-                                            <td>{{$val->dispatch_date}}</td>
-                                            <td><a href="#"><i class="ti-pencil-alt"></i></a>
-                                                <a href="{{ route('invoice-pdf', ['id' => $val->id]) }}" title="Generate pdf" class="ml-3" target="_blank"><i class="ti-book"></i></a>
-                                                <a href="{{ route('invoice-pdf', ['id' => $val->id]) }}" title="Download pdf" class="ml-3"><i class="ti-book"></i></a>
-                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
-                                @endforeach
+
 
                                 </tbody>
-                            @else
-                                <tr><td colspan="25"><div class="alert alert-danger">No Data</div></td></tr>
-                            @endif
+
                         </table>
 
 
