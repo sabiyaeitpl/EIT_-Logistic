@@ -286,6 +286,9 @@ Indent Information
                 </tr>
 
             </table>
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </div>
                   </form>
