@@ -82,16 +82,16 @@ Indent Information
    <div class="animated fadeIn">
       <div class="row" style="border:none;">
          <div class="col-md-6">
-            <h5 class="card-title">Add Indent Invoice</h5>
+            <h5 class="card-title" style="font-size: 18px !important">Add Buyer Indent</h5>
          </div>
          <div class="col-md-6">
             <span class="right-brd" style="padding-right:15x;">
                <ul class="">
                   <li><a href="#">Export</a></li>
                   <li>/</li>
-                  <li><a href="#">Indent Invoice</a></li>
+                  <li><a href="#">Buyer Indent</a></li>
                   <li>/</li>
-                  <li class="active">Indent Invoice Add</li>
+                  <li class="active">Add Buyer Indent</li>
                </ul>
             </span>
          </div>
@@ -102,7 +102,7 @@ Indent Information
             <div class="card">
                <div class="card-body card-block">
                   <form action="{{ url('export/add-exporter-pass') }}" method="post" enctype="multipart/form-data">
-                     <h4 class="text-uppercase">Indent Invoice</h4>
+                     <h4 class="text-uppercase">Buyer Indent</h4>
                      <div class="container_main">
         <div>
             <table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
