@@ -8,7 +8,7 @@
 
    <!-- <img src="{{ asset('img/logo-2.webp')}}" alt="SEWA Logo" class="brand-image img-circle">-->
 
-    <span class="brand-text font-weight-light">Bellevue</span>
+    <span class="brand-text font-weight-light">Import export</span>
 
 
 
