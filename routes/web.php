@@ -59,6 +59,7 @@ Route::post('export/update-bank-master', [ExportController::class,'updateBankMas
 //indent invoice
 Route::get('export/indent', [ExportController::class,'indent'])->name('indent');
 Route::get('export/add-indent', [ExportController::class,'addIndent'])->name('add-indent');
+Route::get('export/get-add-row-indent/{row}', [ExportController::class, 'ajaxIndent']);
 Route::post('export/save-indent', [ExportController::class,'saveIndent'])->name('save-indent');
 
 //invoice route
@@ -108,4 +109,5 @@ Route::get('role/delete-users-role/{role_authorization_id}', [UserAccessRightsCo
 Route::get('role/get-sub-modules/{id_module}', [UserAccessRightsController::class, 'subModuleID']);
 Route::get('role/get-role-menu/{id_sub_module}', [UserAccessRightsController::class, 'subMenuID']);
 
+// Add Buyer Indent
 

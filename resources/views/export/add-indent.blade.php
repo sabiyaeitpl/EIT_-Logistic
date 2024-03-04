@@ -100,199 +100,202 @@ Indent Information
       <div class="row">
          <div class="main-card">
             <div class="card">
-               <div class="card-body card-block">
-                  <form action="{{ url('export/add-exporter-pass') }}" method="post" enctype="multipart/form-data">
-                     <h4 class="text-uppercase">Buyer Indent</h4>
-                     <div class="container_main">
-        <div>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
-                <tr>
-                    <td colspan="4" rowspan="4" style="vertical-align: top; text-align: left;">
-                        <div class="d-flex mb-1">
-                            <p class="mt-2" style="width:65%;">Exporter / Consignor :</p>
-                            <select class="form-select form-control" aria-label="Default select example">
-                                    <option selected>1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">3</option>
-                                </select>
+                <div class="card-body card-block">
+                    <form action="{{ route('save-indent') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <h4 class="text-uppercase">Buyer Indent</h4>
+                        <div class="container_main">
+                            <div>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
+                                    <tr>
+                                        <td colspan="4" rowspan="4" style="vertical-align: top; text-align: left;">
+                                            <div class="d-flex mb-1">
+                                                <p class="mt-2" style="width:65%;">Exporter / Consignor :</p>
+                                                <select class="form-select form-control" name="exporter" aria-label="Default select example">
+                                                        <option selected>Select</option>
+                                                        @foreach ($exporter as $exporters)
+                                                        <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                            </div>
+                                            <div class="d-flex mb-1">
+                                                <p class="mt-2" style="width:65%;">Importer :</p>
+                                                <select class="form-select form-control" name="importer" aria-label="Default select example">
+                                                    <option selected>Select</option>
+                                                        @foreach ($importer as $importers)
+                                                        <option value="{{$importers->id}}">{{$importers->name}}</option>
+                                                        @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="mt-2" style="width:65%;">Buyer Order No :</p>
+                                                <input type="text" class="form-control" name="buyer_order_no" id="exampleInputEmail1"
+                                                        aria-describedby="emailHelp" placeholder="Box">
+                                            </div>
+                                        </td>
+                                        <td colspan="2">
+                                            <p>Buyer's Order / PO.NO.</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>Date of Packing.</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>Flight Date.</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="date" class="form-control" name="flight_date" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>Gross Weight</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" name="gross_weight" aria-describedby="emailHelp">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="d-flex mb-1">
+                                                <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
+                                                <div><input type="text" class="form-control" id="exampleInputEmail1" name="vessel" placeholder="By Air"
+                                                        aria-describedby="emailHelp"></div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="mt-2" style="width: 120px; text-align: left;">Flight No :</div>
+                                                <div><input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" placeholder="QR0541"
+                                                        aria-describedby="emailHelp"></div>
+                                            </div>
+                                        </td>
+                                        <td colspan="2">
+                                            <p class="mb-2">Port of Discharge</p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_discharge"placeholder="QR0541"
+                                                    aria-describedby="emailHelp"></p>
+                                        </td>
+                                        <td colspan="2">
+                                            <p class="mb-2">Final Destination</p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" placeholder="QR0541"
+                                                    aria-describedby="emailHelp"></p>
+                                        </td>
+                                        <td colspan="3">
+                                            <h4>BOX MARKING</h4>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="5%" style="">
+                                            <p>SL. No.</p>
+                                        </td>
+                                        <td width="20%" style="">
+                                            <p>Item Name / List</p>
+                                        </td>
+                                        <td width="10%" style="">
+                                            <p>Box / Bag</p>
+                                        </td>
+                                        <td width="12%" style="">
+                                            <p>No of Boxes <br /> / Bags</p>
+                                        </td>
+                                        <td width="12%" style="">
+                                            <p>Packing Size <br /> (In Kgs)</p>
+                                        </td>
+                                        <td width="25%" style="">
+                                            <p>Net Qty Packed <br /> (In Kgs)</p>
+                                        </td>
+                                        <td style="">
+                                            <p style="width: 90px;">Box / Bag <br /> Weight (In Kgs)</p>
+                                        </td>
+                                        <td style="">
+                                            <p style="width: 58px;">Gross Weight<br /> Box / Bag (In Kgs)</p>
+                                        </td>
+                                        <td style="">
+                                            <p style="width: 58px;">Action</p>
+                                        </td>
+
+                                    </tr>
+                                    <tbody id="productshow">
+                                        <?php $tr_id = 0;?>
+                                        <tr class="itemslotdoc" id="<?php echo $tr_id; ?>">
+                                            <td>
+                                                <P>1.</P>
+                                            </td>
+                                            <td>
+                                                <select class="form-select form-control" name='product[]' aria-label="Default select example">
+                                                    <option selected="">Select Item</option>
+                                                    @foreach ($product as $products)
+                                                        <option value="{{$products->id}}">{{$products->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control "  name='box[]'  oninput="boxFunction()" placeholder="Box">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control no_of_box" name='no_of_box[]' id="no_of_box" oninput="boxFunction()" aria-describedby="emailHelp" placeholder="No Of Box">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name='packing_size[]' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Packing Size">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control net_quantity" name='net_quantity[]' id="net_quantity" aria-describedby="emailHelp" placeholder="Net Qty Packed">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name='box_weight[]' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box Weight">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control box_gross_weight" name='box_gross_weight[]'id="box_gross_weight" aria-describedby="emailHelp" placeholder="Gross Weight">
+                                            </td>
+                                            <td>
+                                                <a id="addproduct<?php echo ($tr_id + 1); ?>" onClick="addnewproduct(<?php echo ($tr_id + 1); ?>)" data-id="<?php echo ($tr_id + 1); ?>">
+                                                    <span class="material-symbols-outlined text-primary">add_circle
+                                                    </span>
+                                                    </a>
+                                                <a class="text-danger" href="#">
+                                                    <span class="material-symbols-outlined text-danger">
+                                                        delete
+                                                    </span>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tr>
+                                        <td colspan="3">
+                                            <h3 ><strong>Total</strong></h3>
+                                        </td>
+                                        <td>
+                                            <h3 ><strong id="total-no-of-boxes"></strong></h3>
+                                        </td>
+                                        <td colspan="3">
+                                            <h3 id="total-net-quantity"id="total-net-quantity"><strong>1168.00</strong></h3>
+                                        </td>
+                                        <td>
+                                            <h3 id="total-gross-weight"><strong>1838.85</strong></h3>
+                                        </td>
+                                        <td>
+                                            <h3></h3>
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+                                <div class="text-center mt-4">
+                                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex mb-1">
-                            <p class="mt-2" style="width:65%;">Importer :</p>
-                            <select class="form-select form-control" aria-label="Default select example">
-                                    <option selected>1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">3</option>
-                                </select>
-                        </div>
-                        <div class="d-flex">
-                            <p class="mt-2" style="width:65%;">Buyer Order No :</p>
-                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp">
-                        </div>
-                    </td>
-                    <td colspan="2">
-                        <p>Buyer's Order / PO.NO.</p>
-                    </td>
-                    <td colspan="4">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <p>Date of Packing.</p>
-                    </td>
-                    <td colspan="4">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <p>Flight Date.</p>
-                    </td>
-                    <td colspan="4">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <p>Gross Weight</p>
-                    </td>
-                    <td colspan="4">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="2">
-                        <div class="d-flex mb-1">
-                            <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
-                            <div><input type="email" class="form-control" id="exampleInputEmail1" placeholder="By Air"
-                                    aria-describedby="emailHelp"></div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="mt-2" style="width: 120px; text-align: left;">Flight No :</div>
-                            <div><input type="email" class="form-control" id="exampleInputEmail1" placeholder="QR0541"
-                                    aria-describedby="emailHelp"></div>
-                        </div>
-                    </td>
-                    <td colspan="2">
-                        <p class="mb-2">Port of Discharge</p>
-                        <p><input type="email" class="form-control" id="exampleInputEmail1" placeholder="QR0541"
-                                aria-describedby="emailHelp"></p>
-                    </td>
-                    <td colspan="2">
-                        <p class="mb-2">Final Destination</p>
-                        <p><input type="email" class="form-control" id="exampleInputEmail1" placeholder="QR0541"
-                                aria-describedby="emailHelp"></p>
-                    </td>
-                    <td colspan="3">
-                        <h4>BOX MARKING</h4>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="5%" style="">
-                        <p>SL. No.</p>
-                    </td>
-                    <td width="20%" style="">
-                        <p>Item Name / List</p>
-                    </td>
-                    <td width="10%" style="">
-                        <p>Box / Bag</p>
-                    </td>
-                    <td width="12%" style="">
-                        <p>No of Boxes <br /> / Bags</p>
-                    </td>
-                    <td width="12%" style="">
-                        <p>Packing Size <br /> (In Kgs)</p>
-                    </td>
-                    <td width="25%" style="">
-                        <p>Net Qty Packed <br /> (In Kgs)</p>
-                    </td>
-                    <td style="">
-                        <p style="width: 90px;">Box / Bag <br /> Weight (In Kgs)</p>
-                    </td>
-                    <td style="">
-                        <p style="width: 58px;">Gross Weight<br /> Box / Bag (In Kgs)</p>
-                    </td>
-                    <td style="">
-                        <p style="width: 58px;">Action</p>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <P>1.</P>
-                    </td>
-                    <td>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected="">1</option>
-                            <option value="1">2</option>
-                            <option value="2">3</option>
-                            <option value="3">3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </td>
-                    <td>
-                        <a class="text-primary" href="#">
-                            <span class="material-symbols-outlined text-primary">
-                                add_circle
-                            </span>
-                        </a>
-                        <a class="text-danger" href="#">
-                            <span class="material-symbols-outlined text-danger">
-                                delete
-                            </span>
-                        </a>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <h3><strong>Total</strong></h3>
-                    </td>
-                    <td>
-                        <h3><strong>293</strong></h3>
-                    </td>
-                    <td colspan="3">
-                        <h3><strong>1168.00</strong></h3>
-                    </td>
-                    <td>
-                        <h3><strong>1838.85</strong></h3>
-                    </td>
-                    <td>
-                        <h3></h3>
-                    </td>
-
-                </tr>
-
-            </table>
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-                  </form>
-               </div>
+                    </form>
+                </div>
             </div>
          </div>
       </div>
@@ -300,5 +303,89 @@ Indent Information
 </div>
 @endsection
 @section('scripts')
+<script>
+        // function addnewproduct(rowid){
+        //     if (rowid != ''){
+        //             $('#addproduct'+rowid).attr('disabled',true);
+
+        //     }
+        //     $.ajax({
+
+        //         url:'{{url('export/get-add-row-indent')}}/'+rowid,
+        //         type: "GET",
+
+        //         success: function(response) {
+        //             //console.log(response);
+        //             $("#productshow").append(response);
+
+        //         }
+        //     });
+        // }
+    // Delete row Product
+//     function delRowProduct(rowid) {
+//         var lastrow = $(".itemslotdoc:last").attr("id");
+//         var active_div = parseInt(lastrow, 10); // Convert to integer
+
+//             if (!isNaN(active_div)) {
+//             // If active_div is a valid number
+//                 $('#add' + active_div).attr('disabled', false);
+
+//                 $(document).on('click', '.deleteButton', function () {
+//                     $(this).closest("tr.itemslotdoc").remove();
+
+//                     // After removing the row, update the total amount
+//                     updateTotalAmount();
+//                 });
+//             } else {
+//                 console.log("Error: lastrow is not a valid number.");
+//             }
+//    }    
+
+
+</script>
+<script>
+    // function addnewproduct(id) {
+    //     var $row = $("#productshow tr:last").clone();
+    //     $row.find("td:first p").text($("#productshow tr").length + ".");
+    //     $("#productshow").append($row);
+    // }
+</script>
+<script>
+   
+
+    function addnewproduct(id) {
+    var $row = $("#productshow tr:last").clone();
+    $row.find('input[type="text"]').val('');
+    $row.find('input[type="number"]').val('');
+    $row.find("td:first p").text($("#productshow tr").length + ".");
+    $("#productshow").append($row);
+    refreshSerialNumbers();
+}
+
+    // function boxFunction() {
+    //     var totalBox = 0;
+    //     $("#no_of_box").each(function() {
+    //         var boxValue = parseFloat($(this).val()) || 0;
+    //         totalBox += boxValue;
+    //     });
+    //     //console.log(totalBox);
+    //     $("#total-no-of-boxes").text(totalBox); // Update the total sum of boxes
+    // }
+
+    function refreshSerialNumbers() {
+        $("#productshow tr").each(function (index) {
+            $(this).find("td:first p").text(index + 1 + ".");
+        });
+    }   
+    function boxFunction() {
+    var totalBox = 0;
+    $(".no_of_box").each(function() {
+        var boxValue = parseFloat($(this).val()) || 0;
+        totalBox += boxValue;
+    });
+    $("#total-no-of-boxes").text(totalBox); // Update the total sum of boxes
+}
+ 
+</script>
 @include('export.partials.scripts')
 @endsection
