@@ -53,14 +53,14 @@ Export Information
                 <div class="card">
 
                     <div class="card-header">
-                        <div class="aply-lv">
+                        {{-- <div class="aply-lv">
                             <a href="{{route('add-indent')}}" class="btn btn-outline-info mb-2">
                                     Add Buyer Indent
                              </a>
 
                             </div>
                             @include('include.messages')
-                        </div>
+                        </div> --}}
 
                     <br />
                     <div class="clear-fix">
@@ -68,24 +68,27 @@ Export Information
                             <thead>
                                 <tr>
                                     <th>Sl No.</th>
-                                    <th>Exporter Name</th>
-                                    <th>Importer name</th>
-                                    <th>Action</th>
+                                    <th>Product Name</th>
+                                    <th>Bag / Box</th>
+                                    <th>No of Boxes / Bags</th>
+                                    <th>Packing Size(In Kgs)</th>
+                                    <th>Net Qty Packed(In Kgs)</th>
+                                    <th>Box / Bag Weight (In Kgs)</th>
+                                    <th>Gross Weight(In Kgs)</th>
                                 </tr>
                             </thead>
 
                                 <tbody>
-                                @foreach($buyer_records as $key => $buyer_record)
+                                 @foreach($buyer_box as $key => $buyer_boxs)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>
-                                            <a href="{{url('export/buyerbox/'.$buyer_record->id)}}">{{$buyer_record->company_name }}</a>
-                                        </td>
-                                        <td>{{ $buyer_record->name }}</td>
-                                        <td> 
-                                            <a href="{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
-                                            <a href="#"><i class="ti-trash text-danger"></i></a>
-                                        </td>
+                                        <td>{{$buyer_boxs->name}}</td>
+                                        <td>{{$buyer_boxs->box_or_bag}}</td>
+                                        <td>{{$buyer_boxs->number_of_box}}</td>
+                                        <td>{{$buyer_boxs->packing_size}}</td>
+                                        <td>{{$buyer_boxs->net_quentity_packed}}</td>
+                                        <td>{{$buyer_boxs->box_weight}}</td>
+                                        <td>{{$buyer_boxs->box_gross_weight}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

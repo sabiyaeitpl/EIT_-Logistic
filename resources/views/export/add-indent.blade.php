@@ -223,11 +223,11 @@ Indent Information
                                         </td>
 
                                     </tr>
-                                    <tbody id="productshow">
+                                    <tbody class="productshow">
                                         <?php $tr_id = 0;?>
                                         <tr class="itemslotdoc" id="<?php echo $tr_id; ?>">
                                             <td>
-                                                <P>1.</P>
+                                                <P>0.</P>
                                             </td>
                                             <td>
                                                 <select class="form-select form-control" name='product[]' aria-label="Default select example">
@@ -238,32 +238,26 @@ Indent Information
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control "  name='box[]'  oninput="boxFunction()" placeholder="Box">
+                                                <input type="text" class="form-control "  name='box[]'   placeholder="Box">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control no_of_box" name='no_of_box[]' id="no_of_box" oninput="boxFunction()" aria-describedby="emailHelp" placeholder="No Of Box">
+                                                <input type="text" class="form-control no_of_box" name='no_of_box[]' id="no_of_box" oninput="calculateTotalNoOfBoxes()" aria-describedby="emailHelp" placeholder="No Of Box">
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" name='packing_size[]' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Packing Size">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control net_quantity" name='net_quantity[]' id="net_quantity" aria-describedby="emailHelp" placeholder="Net Qty Packed">
+                                                <input type="text" class="form-control net_quantity" name='net_quantity[]' id="net_quantity"  aria-describedby="emailHelp" placeholder="Net Qty Packed">
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" name='box_weight[]' id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box Weight">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control box_gross_weight" name='box_gross_weight[]'id="box_gross_weight" aria-describedby="emailHelp" placeholder="Gross Weight">
+                                                <input type="text" class="form-control box_gross_weight" name='box_gross_weight[]'id="box_gross_weight"  aria-describedby="emailHelp" placeholder="Gross Weight">
                                             </td>
                                             <td>
                                                 <a id="addproduct<?php echo ($tr_id + 1); ?>" onClick="addnewproduct(<?php echo ($tr_id + 1); ?>)" data-id="<?php echo ($tr_id + 1); ?>">
-                                                    <span class="material-symbols-outlined text-primary">add_circle
-                                                    </span>
-                                                    </a>
-                                                <a class="text-danger" href="#">
-                                                    <span class="material-symbols-outlined text-danger">
-                                                        delete
-                                                    </span>
+                                                    <span class="material-symbols-outlined text-primary">add_circle</span>
                                                 </a>
                                             </td>
 
@@ -274,13 +268,13 @@ Indent Information
                                             <h3 ><strong>Total</strong></h3>
                                         </td>
                                         <td>
-                                            <h3 ><strong id="total-no-of-boxes"></strong></h3>
+                                            <h3 ><strong id="total-no-of-boxes">00.00</strong></h3>
                                         </td>
                                         <td colspan="3">
-                                            <h3 id="total-net-quantity"id="total-net-quantity"><strong>1168.00</strong></h3>
+                                            <h3 id="total-net-quantity"id="total-net-quantity"><strong>00.00</strong></h3>
                                         </td>
                                         <td>
-                                            <h3 id="total-gross-weight"><strong>1838.85</strong></h3>
+                                            <h3 id="total-gross-weight"><strong>00.00</strong></h3>
                                         </td>
                                         <td>
                                             <h3></h3>
@@ -304,88 +298,68 @@ Indent Information
 @endsection
 @section('scripts')
 <script>
-        // function addnewproduct(rowid){
-        //     if (rowid != ''){
-        //             $('#addproduct'+rowid).attr('disabled',true);
-
-        //     }
-        //     $.ajax({
-
-        //         url:'{{url('export/get-add-row-indent')}}/'+rowid,
-        //         type: "GET",
-
-        //         success: function(response) {
-        //             //console.log(response);
-        //             $("#productshow").append(response);
-
-        //         }
-        //     });
-        // }
-    // Delete row Product
-//     function delRowProduct(rowid) {
-//         var lastrow = $(".itemslotdoc:last").attr("id");
-//         var active_div = parseInt(lastrow, 10); // Convert to integer
-
-//             if (!isNaN(active_div)) {
-//             // If active_div is a valid number
-//                 $('#add' + active_div).attr('disabled', false);
-
-//                 $(document).on('click', '.deleteButton', function () {
-//                     $(this).closest("tr.itemslotdoc").remove();
-
-//                     // After removing the row, update the total amount
-//                     updateTotalAmount();
-//                 });
-//             } else {
-//                 console.log("Error: lastrow is not a valid number.");
-//             }
-//    }    
-
-
-</script>
-<script>
-    // function addnewproduct(id) {
-    //     var $row = $("#productshow tr:last").clone();
-    //     $row.find("td:first p").text($("#productshow tr").length + ".");
-    //     $("#productshow").append($row);
-    // }
-</script>
-<script>
-   
-
-    function addnewproduct(id) {
-    var $row = $("#productshow tr:last").clone();
-    $row.find('input[type="text"]').val('');
-    $row.find('input[type="number"]').val('');
-    $row.find("td:first p").text($("#productshow tr").length + ".");
-    $("#productshow").append($row);
-    refreshSerialNumbers();
-}
-
-    // function boxFunction() {
-    //     var totalBox = 0;
-    //     $("#no_of_box").each(function() {
-    //         var boxValue = parseFloat($(this).val()) || 0;
-    //         totalBox += boxValue;
-    //     });
-    //     //console.log(totalBox);
-    //     $("#total-no-of-boxes").text(totalBox); // Update the total sum of boxes
-    // }
-
-    function refreshSerialNumbers() {
-        $("#productshow tr").each(function (index) {
-            $(this).find("td:first p").text(index + 1 + ".");
+    function calculateTotalNoOfBoxes() {
+        var total = 0;
+        $('.no_of_box').each(function() {
+            var value = parseFloat($(this).val());
+            console.log(value);
+            if (!isNaN(value)) {
+                total += value;
+            }
         });
-    }   
-    function boxFunction() {
-    var totalBox = 0;
-    $(".no_of_box").each(function() {
-        var boxValue = parseFloat($(this).val()) || 0;
-        totalBox += boxValue;
+        $('#total-no-of-boxes').text(total);
+        
+    }
+    $(document).ready(function() {
+        calculateTotalNoOfBoxes();
+        $('.no_of_box').on('input', calculateTotalNoOfBoxes);
     });
-    $("#total-no-of-boxes").text(totalBox); // Update the total sum of boxes
-}
- 
 </script>
+
+
+
+<script>
+        function addnewproduct(rowid){
+            if (rowid != ''){
+                    $('#addproduct'+rowid).attr('disabled',true);
+            }
+            $.ajax({
+                url:'{{url('export/get-add-row-indent')}}/'+rowid,
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    $(".productshow").append(response);
+                        function updateTotal() {
+                            var total = 0;
+                            $('.no_of_box').each(function() {
+                            var val = parseFloat($(this).val()) || 0;
+                            total += val;
+                            });
+                            $('#total-no-of-boxes').text(total);
+                        }
+                }
+            });
+        }
+    // Delete row Product
+    function delRowProduct(rowid) {
+        var lastrow = $(".itemslotdoc:last").attr("id");
+        var active_div = parseInt(lastrow, 10); // Convert to integer
+            if (!isNaN(active_div)) {
+            // If active_div is a valid number
+                $('#add' + active_div).attr('disabled', false);
+                $(document).on('click', '.deleteButton', function () {
+                    $(this).closest("tr.itemslotdoc").remove();
+                    // After removing the row, update the total amount
+                    updateTotalAmount();
+                });
+            } else {
+                console.log("Error: lastrow is not a valid number.");
+            }
+   }    
+</script>
+
+
+
+
 @include('export.partials.scripts')
 @endsection

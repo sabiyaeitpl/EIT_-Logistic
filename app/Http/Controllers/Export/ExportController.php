@@ -552,10 +552,26 @@ class ExportController extends Controller
     }
     public function indent(Request $request) {
         if (!empty(Session::get('admin'))) {
-            return view('export.indent');
+          $buyer_records = BuyerIndent::select('buyer_indents.*', 'companys.company_name', 'importers.name')
+                            ->join('companys', 'companys.id', '=', 'buyer_indents.exporter_id')
+                            ->join('importers', 'importers.id', '=', 'buyer_indents.importer_id')
+                            ->orderBy('buyer_indents.created_at', 'desc') 
+                            ->get();
+
+           // dd($buyer_records);
+            return view('export.indent', ['buyer_records' => $buyer_records]);
         }else{
             return redirect('/');
         }
+    }
+
+    public function indenwisebug($id){
+        
+        $buyer_box = BuyerBoxMarking::join('products','products.id','=', 'buyer_box_markings.item_name')
+        ->where('buyer_indent_id', $id)->get();
+        //dd($buyer_box);
+        return view('export.box-marking', ['buyer_box' => $buyer_box]);
+       
     }
     public function addIndent(Request $request) {
         if (!empty(Session::get('admin'))) {
@@ -655,10 +671,10 @@ class ExportController extends Controller
 
     public function ajaxIndent($row){
         $product = Product::get();
-        $row = $row + 1;
+       // $row = $row + 1;
 
-        $result = '<tbody id="productshow">
-            <tr class="itemslotdoc" id="' . $row . '">
+        $result = 
+            '<tr class="itemslotdoc" id="' . $row . '">
                 <td>
                     <p>' . $row . '.</p>
                 </td>
@@ -674,7 +690,7 @@ class ExportController extends Controller
                     <input type="text" class="form-control" name="box[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box">
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="no_of_box[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="No Of Box">
+                    <input type="text" class="form-control" name="no_of_box[]" oninput="calculateTotalNoOfBoxes()" id="no_of_box" aria-describedby="emailHelp" placeholder="No Of Box">
                 </td>
                 <td>
                     <input type="text" class="form-control" name="packing_size[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Packing Size">
@@ -698,7 +714,7 @@ class ExportController extends Controller
                     </a>
                 </td>
             </tr>
-        </tbody>';
+        ';
         echo $result; 
     }
 
@@ -755,7 +771,6 @@ class ExportController extends Controller
         }
     }
 
-    
 
 
 

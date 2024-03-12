@@ -61,6 +61,7 @@ Route::get('export/indent', [ExportController::class,'indent'])->name('indent');
 Route::get('export/add-indent', [ExportController::class,'addIndent'])->name('add-indent');
 Route::get('export/get-add-row-indent/{row}', [ExportController::class, 'ajaxIndent']);
 Route::post('export/save-indent', [ExportController::class,'saveIndent'])->name('save-indent');
+Route::get('export/buyerbox/{row}', [ExportController::class, 'indenwisebug']);
 
 //invoice route
 Route::get('export/invoice', [ExportController::class,'invoic'])->name('invoice');
