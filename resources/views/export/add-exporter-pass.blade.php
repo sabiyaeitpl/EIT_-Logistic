@@ -60,7 +60,7 @@ Export - Pass Information
                                     <label for="email-input" class=" form-control-label">Reference Id <span>(*)</span></label>
                                     <input type="text" id="reference_id" name="reference_id" class="form-control" required>
                                 </div> --}}
-                                <input type="hiddin" name="reference_id" value="">
+                                <input type="hidden" name="reference_id" value="">
                                 <div class="col-md-6">
                                     <label for="email-input" class=" form-control-label">Exporter <span>(*)</span></label>
                                     <select name="exporter_id" id="exporter_id" class="form-control" required>
