@@ -75,15 +75,19 @@ Export Information
                             </thead>
 
                                 <tbody>
-
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-
-
+                                @foreach($buyer_records as $key => $buyer_record)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            <a href="{{url('export/buyerbox/'.$buyer_record->id)}}">{{$buyer_record->company_name }}</a>
+                                        </td>
+                                        <td>{{ $buyer_record->name }}</td>
+                                        <td> 
+                                            <a href="{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
+                                            <a href="#"><i class="ti-trash text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
 
                         </table>
@@ -112,3 +116,4 @@ Export Information
 <!-- /#right-panel -->
 
 @endsection
+

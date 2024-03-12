@@ -12,6 +12,8 @@ use App\Models\Export\Importer;
 use App\Models\Export\Bank;
 use App\Models\Export\Invoice;
 use App\Models\Export\InvoiceItem;
+use App\Models\Export\BuyerIndent;
+use App\Models\Export\BuyerBoxMarking;
 use Session;
 use Carbon\Carbon;
 use view;
@@ -301,7 +303,7 @@ class ExportController extends Controller
                     ];
                 }
             }
-
+            //dd($products);
             // Delete existing products and insert the updated or new products
             Product::where('goods_id', $goods->id)->delete();
             Product::insert($products);
@@ -550,14 +552,36 @@ class ExportController extends Controller
     }
     public function indent(Request $request) {
         if (!empty(Session::get('admin'))) {
-            return view('export.indent');
+          $buyer_records = BuyerIndent::select('buyer_indents.*', 'companys.company_name', 'importers.name')
+                            ->join('companys', 'companys.id', '=', 'buyer_indents.exporter_id')
+                            ->join('importers', 'importers.id', '=', 'buyer_indents.importer_id')
+                            ->orderBy('buyer_indents.created_at', 'desc') 
+                            ->get();
+
+           // dd($buyer_records);
+            return view('export.indent', ['buyer_records' => $buyer_records]);
         }else{
             return redirect('/');
         }
     }
+
+    public function indenwisebug($id){
+        
+        $buyer_box = BuyerBoxMarking::join('products','products.id','=', 'buyer_box_markings.item_name')
+        ->where('buyer_indent_id', $id)->get();
+        //dd($buyer_box);
+        return view('export.box-marking', ['buyer_box' => $buyer_box]);
+       
+    }
     public function addIndent(Request $request) {
         if (!empty(Session::get('admin'))) {
-            return view('export.add-indent');
+            $data['goods'] = Goods::get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['bank'] = Bank::get();
+            //dd($data);
+            return view('export.add-indent',$data);
         }else{
             return redirect('/');
         }
@@ -644,6 +668,109 @@ class ExportController extends Controller
 
         echo $result;
     }
+
+    public function ajaxIndent($row){
+        $product = Product::get();
+       // $row = $row + 1;
+
+        $result = 
+            '<tr class="itemslotdoc" id="' . $row . '">
+                <td>
+                    <p>' . $row . '.</p>
+                </td>
+                <td>
+                    <select class="form-select form-control" name="product[]"aria-label="Default select example">
+                        <option selected="">Select Item</option>';
+                        foreach ($product as $products){
+                            $result .= '<option value="' . $products->id . '">' . $products->name . '</option>';
+                        }
+                        $result .= '</select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="box[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="no_of_box[]" oninput="calculateTotalNoOfBoxes()" id="no_of_box" aria-describedby="emailHelp" placeholder="No Of Box">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="packing_size[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Packing Size">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="net_quantity[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Net Qty Packed">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="box_weight[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box Weight">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="box_gross_weight[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Gross Weight">
+                </td>
+
+                <td>
+                    <a id="addproduct_' . ($row + 1) . '" onClick="addnewproduct(' . ($row + 1) . ')" data-id="' . ($row + 1) . '">
+                        <span class="material-symbols-outlined text-primary">add_circle</span>
+                    </a>
+                    <a type="buttom" class="deleteButton" id="del' . $row . '"  onClick="delRowProduct(' . $row . ')">
+                        <span class="material-symbols-outlined text-danger">delete</span>
+                    </a>
+                </td>
+            </tr>
+        ';
+        echo $result; 
+    }
+
+
+    public function saveIndent(Request $request){
+        //dd($request->all());
+        if (!empty(Session::get('admin'))) {
+             $existingGoods = Product::where('name', $request->name)->first();
+            if ($existingGoods) {
+                Session::flash('error', 'Record with the same name already exists');
+                session()->put('_old_input', $request->input());
+                return redirect()->back();
+            }
+            $invoice = new BuyerIndent([
+                'exporter_id'=>$request->input('exporter') ?? null,
+                'importer_id'=>$request->input('importer') ?? null,
+                'buyer_order_no'=>$request->input('buyer_order_no') ?? null,
+                'buyer_order_po_no'=>$request->input('po_no') ?? null,
+                'paking_date'=>$request->input('date_of_packing') ?? null,
+                'flight_date'=>$request->input('flight_date') ?? null,
+                'gross_weight'=>$request->input('gross_weight') ?? null,
+                'vessel'=>$request->input('vessel') ?? null,
+                'flight_no'=>$request->input('flight_no') ?? null,
+                'port_of_discharge'=>$request->input('port_discharge') ?? null,
+                'final_destination'=>$request->input('final_destination') ?? null,
+            ]);
+            $invoiceId=$invoice->save();
+            $invoiceId = $invoice->id;
+
+        //    $goodsId = BuyerIndent::orderBy('id', 'desc')->first()->id;
+        //    BuyerBoxMarking::save(); 
+            //dd($invoiceId);
+            //dd($request->product);
+            $arrauValue=[];
+                    foreach ($request->input('product') as $index => $productId) {
+                        // $boxMarking = new BuyerBoxMarking();
+                        $arrauValue[]=[
+                            'buyer_indent_id' => $invoice->id,
+                            'item_name' => $productId,
+                            'box_or_bag' => $request->input('box')[$index],
+                            'number_of_box' => $request->input('no_of_box')[$index],
+                            'packing_size' => $request->input('packing_size')[$index],
+                            'net_quentity_packed' => $request->input('net_quantity')[$index],
+                            'box_weight' => $request->input('box_weight')[$index],
+                            'box_gross_weight' => $request->input('box_gross_weight')[$index],
+                        ];
+                        // $boxMarking->save();
+                    }
+                    //dd($arrauValue);
+                    BuyerBoxMarking::insert($arrauValue);
+            //return view('export.add-indent',$data);
+        }else{
+            return redirect('/');
+        }
+    }
+
 
 
 

@@ -74,7 +74,7 @@ Export - Goods Information
                                             <tr>
                                                 <th>Sl.No.</th>
                                                 <th>Product Name</th>
-                                                <th></th>
+                                                <th>Hs Code</th>
                                             </tr>
                                             </thead>
                                             <tbody id="productshow">
