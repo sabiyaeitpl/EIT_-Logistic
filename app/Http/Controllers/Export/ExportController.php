@@ -555,7 +555,7 @@ class ExportController extends Controller
           $buyer_records = BuyerIndent::select('buyer_indents.*', 'companys.company_name', 'importers.name')
                             ->join('companys', 'companys.id', '=', 'buyer_indents.exporter_id')
                             ->join('importers', 'importers.id', '=', 'buyer_indents.importer_id')
-                            ->orderBy('buyer_indents.created_at', 'desc') 
+                            ->orderBy('buyer_indents.created_at', 'desc')
                             ->get();
 
            // dd($buyer_records);
@@ -566,12 +566,12 @@ class ExportController extends Controller
     }
 
     public function indenwisebug($id){
-        
+
         $buyer_box = BuyerBoxMarking::join('products','products.id','=', 'buyer_box_markings.item_name')
         ->where('buyer_indent_id', $id)->get();
         //dd($buyer_box);
         return view('export.box-marking', ['buyer_box' => $buyer_box]);
-       
+
     }
     public function addIndent(Request $request) {
         if (!empty(Session::get('admin'))) {
@@ -673,7 +673,7 @@ class ExportController extends Controller
         $product = Product::get();
        // $row = $row + 1;
 
-        $result = 
+        $result =
             '<tr class="itemslotdoc" id="' . $row . '">
                 <td>
                     <p>' . $row . '.</p>
@@ -715,7 +715,7 @@ class ExportController extends Controller
                 </td>
             </tr>
         ';
-        echo $result; 
+        echo $result;
     }
 
 
@@ -745,7 +745,7 @@ class ExportController extends Controller
             $invoiceId = $invoice->id;
 
         //    $goodsId = BuyerIndent::orderBy('id', 'desc')->first()->id;
-        //    BuyerBoxMarking::save(); 
+        //    BuyerBoxMarking::save();
             //dd($invoiceId);
             //dd($request->product);
             $arrauValue=[];
@@ -765,7 +765,8 @@ class ExportController extends Controller
                     }
                     //dd($arrauValue);
                     BuyerBoxMarking::insert($arrauValue);
-            //return view('export.add-indent',$data);
+                    Session::flash('message', 'Record has been successfully saved');
+                    return redirect()->route('indent');
         }else{
             return redirect('/');
         }

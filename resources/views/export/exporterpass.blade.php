@@ -68,7 +68,7 @@ Company Export Information
                             <thead>
                                 <tr>
                                     <th>Sl No.</th>
-                                    <th>Reference Id</th>
+                                    {{-- <th>Reference Id</th> --}}
                                     <th>Exporter Name</th>
                                     {{-- <th>Importer name</th> --}}
                                     <th>Goods</th>
@@ -80,7 +80,7 @@ Company Export Information
                                 @foreach ($data as $key => $val)
                                 <tr>
                                   <td>{{$loop->iteration}}</td>
-                                  <td>{{$val->reference_id}}</td>
+                                  {{-- <td>{{$val->reference_id}}</td> --}}
                                   <td>{{$val->company->company_name}}</td>
                                   {{-- <td>{{$val->importername1->name}}</td> --}}
                                   <td>{{$val->goods->name}}</td>
