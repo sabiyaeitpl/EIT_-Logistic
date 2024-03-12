@@ -93,12 +93,10 @@ class Company extends Model
                     $extension = $request->emp_image->extension();
                     $filename = $request->emp_image->store('emp_pic', 'public');
                     $input['image']=$filename;
-                    dd($input['image']);
                 } else {
 
                     $filename = "";
                     $input['image']=$filename;
-                    dd($input['image']);
                 }
 
                 $data->update($input);
