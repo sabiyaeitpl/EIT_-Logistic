@@ -356,10 +356,10 @@ Indent Information
                                         <label for="exampleFormControlInput1" class="form-label">Change Status:</label>
                                         <select class="form-select form-control" name="status" aria-label="Default select example">
                                             <option value="Select">Select</option>
-                                            <option value="1"{{ $data->status == '1' ? 'selected' : '' }}>Buyer Indent</option>
+                                            {{-- <option value="1"{{ $data->status == '1' ? 'selected' : '' }}>Buyer Indent</option>
                                             <option value="2"{{ $data->status == '2' ? 'selected' : '' }}>Tentetive Paking List</option>
-                                            <option value="3"{{ $data->status == '3' ? 'selected' : '' }}>Confirm Paking List</option>
-                                            <option value="4"{{ $data->status == '4' ? 'selected' : '' }}>Invoice Cum Paking List</option>
+                                            <option value="3"{{ $data->status == '3' ? 'selected' : '' }}>Confirm Paking List</option> --}}
+                                            <option value="4"{{ $data->status == '4' ? 'selected' : '' }}>Invoice Cum Paking List And CoO</option>
                                             <option value="5"{{ $data->status == '5' ? 'selected' : '' }}>Invoice Dispatch List</option>
                                             <option value="6"{{ $data->status == '6' ? 'selected' : '' }}>Commercial Packing List</option>
                                         </select>	

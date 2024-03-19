@@ -41,4 +41,8 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo(Importer::class, 'importer_id');
     }
+     public function purcheseDtl()
+    {
+        return $this->belongsTo(PurchaseProductDetail::class, 'importer_id');
+    }
 }

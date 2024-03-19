@@ -23,6 +23,7 @@ use view;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use DB;
 
 class ExportController extends Controller
 {
@@ -555,7 +556,7 @@ class ExportController extends Controller
     }
     public function indent(Request $request) {
         if (!empty(Session::get('admin'))) {
-    // $buyer_records = PurchaseOrder::select('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name', PurchaseProductDetail::raw('SUM(purchase_product_details.box_gross_weight) as total_gross_weight'))
+    // $data = PurchaseOrder::select('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name', PurchaseProductDetail::raw('SUM(purchase_product_details.box_gross_weight) as total_gross_weight'))
     // ->join('companys', 'companys.id', '=', 'purchase_orders.exporter_id')
     // ->join('importers', 'importers.id', '=', 'purchase_orders.importer_id')
     // ->join('purchase_product_details', 'purchase_product_details.purchase_id', '=', 'purchase_orders.id')
@@ -563,9 +564,8 @@ class ExportController extends Controller
     // ->groupBy('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name') // Group by all non-aggregated columns from purchase_orders table
     // ->get();
     $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',1)->get();
- 
-
-           //dd($data);
+    
+       // dd($data);
             return view('export.indent',$data);
         }else{
             return redirect('/');
