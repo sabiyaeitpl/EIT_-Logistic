@@ -5,14 +5,14 @@ namespace App\Models\Export;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BuyerBoxMarking extends Model
+class BoxMaster extends Model
 {
     use HasFactory;
+    protected $table = 'box_masters';
     protected $fillable = [
-        'exporter_id',
-        'importer_id',
-        'buyer_order_no',
-        'buyer_order_po_no',
-        'paking_date',
+        'box_name',
+        'box_size',
+        'box_weight',
+        'box_price'
     ];
 }

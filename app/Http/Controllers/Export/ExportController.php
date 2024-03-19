@@ -14,6 +14,9 @@ use App\Models\Export\Invoice;
 use App\Models\Export\InvoiceItem;
 use App\Models\Export\BuyerIndent;
 use App\Models\Export\BuyerBoxMarking;
+use App\Models\Export\BoxMaster;
+use App\Models\Export\PurchaseOrder;
+use App\Models\Export\PurchaseProductDetail;
 use Session;
 use Carbon\Carbon;
 use view;
@@ -552,14 +555,18 @@ class ExportController extends Controller
     }
     public function indent(Request $request) {
         if (!empty(Session::get('admin'))) {
-          $buyer_records = BuyerIndent::select('buyer_indents.*', 'companys.company_name', 'importers.name')
-                            ->join('companys', 'companys.id', '=', 'buyer_indents.exporter_id')
-                            ->join('importers', 'importers.id', '=', 'buyer_indents.importer_id')
-                            ->orderBy('buyer_indents.created_at', 'desc') 
-                            ->get();
+    // $buyer_records = PurchaseOrder::select('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name', PurchaseProductDetail::raw('SUM(purchase_product_details.box_gross_weight) as total_gross_weight'))
+    // ->join('companys', 'companys.id', '=', 'purchase_orders.exporter_id')
+    // ->join('importers', 'importers.id', '=', 'purchase_orders.importer_id')
+    // ->join('purchase_product_details', 'purchase_product_details.purchase_id', '=', 'purchase_orders.id')
+    // ->orderBy('purchase_orders.created_at', 'desc')
+    // ->groupBy('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name') // Group by all non-aggregated columns from purchase_orders table
+    // ->get();
+    $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',1)->get();
+ 
 
-           // dd($buyer_records);
-            return view('export.indent', ['buyer_records' => $buyer_records]);
+           //dd($data);
+            return view('export.indent',$data);
         }else{
             return redirect('/');
         }
@@ -580,6 +587,7 @@ class ExportController extends Controller
             $data['importer'] = Importer::get();
             $data['product'] = Product::get();
             $data['bank'] = Bank::get();
+            $data['box'] = BoxMaster::get();
             //dd($data);
             return view('export.add-indent',$data);
         }else{
@@ -671,15 +679,16 @@ class ExportController extends Controller
 
     public function ajaxIndent($row){
         $product = Product::get();
-       // $row = $row + 1;
+        $box = BoxMaster::get();
+       $rows = $row + 1;
 
         $result = 
             '<tr class="itemslotdoc" id="' . $row . '">
                 <td>
-                    <p>' . $row . '.</p>
+                    <p>' . $rows . '.</p>
                 </td>
                 <td>
-                    <select class="form-select form-control" name="product[]"aria-label="Default select example">
+                    <select class="form-select form-control" name="product_id[]"aria-label="Default select example">
                         <option selected="">Select Item</option>';
                         foreach ($product as $products){
                             $result .= '<option value="' . $products->id . '">' . $products->name . '</option>';
@@ -687,22 +696,30 @@ class ExportController extends Controller
                         $result .= '</select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="box[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box">
+                    <select class="form-select form-control" name="box_or_bag[]"aria-label="Default select example">
+                        <option selected="">Select</option>';
+                        foreach ($box as $boxs){
+                            $result .= '<option value="' . $boxs->id . '">' . $boxs->box_name . '</option>';
+                        }
+                        $result .= '</select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="no_of_box[]" oninput="calculateTotalNoOfBoxes()" id="no_of_box" aria-describedby="emailHelp" placeholder="No Of Box">
+                    <input type="text" class="form-control no_of_box" name="box_weight[]" id="box_weight' . $row . '"  aria-describedby="emailHelp" >
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="packing_size[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Packing Size">
+                    <input type="text" class="form-control" name="no_of_box[]"  id="no_of_box' . $row . '" aria-describedby="emailHelp" >
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="net_quantity[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Net Qty Packed">
+                    <input type="text" class="form-control" name="packing_size[]" id="packing_size' . $row . '" aria-describedby="emailHelp" >
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="box_weight[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Box Weight">
+                    <input type="text" class="form-control" name="net_quantity[]" id="net_quantity' . $row . '" aria-describedby="emailHelp" readonly>
                 </td>
                 <td>
-                    <input type="text" class="form-control" name="box_gross_weight[]" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Gross Weight">
+                    <input type="text" class="form-control" name="box_weight_kg[]" id="boxWeightKg' . $row . '" aria-describedby="emailHelp" readonly>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="box_gross_weight[]" id="box_gross_weight' . $row . '" aria-describedby="emailHelp" readonly>
                 </td>
 
                 <td>
@@ -722,56 +739,370 @@ class ExportController extends Controller
     public function saveIndent(Request $request){
         //dd($request->all());
         if (!empty(Session::get('admin'))) {
-             $existingGoods = Product::where('name', $request->name)->first();
-            if ($existingGoods) {
-                Session::flash('error', 'Record with the same name already exists');
-                session()->put('_old_input', $request->input());
-                return redirect()->back();
-            }
-            $invoice = new BuyerIndent([
-                'exporter_id'=>$request->input('exporter') ?? null,
-                'importer_id'=>$request->input('importer') ?? null,
-                'buyer_order_no'=>$request->input('buyer_order_no') ?? null,
-                'buyer_order_po_no'=>$request->input('po_no') ?? null,
-                'paking_date'=>$request->input('date_of_packing') ?? null,
-                'flight_date'=>$request->input('flight_date') ?? null,
-                'gross_weight'=>$request->input('gross_weight') ?? null,
-                'vessel'=>$request->input('vessel') ?? null,
-                'flight_no'=>$request->input('flight_no') ?? null,
-                'port_of_discharge'=>$request->input('port_discharge') ?? null,
-                'final_destination'=>$request->input('final_destination') ?? null,
+            $validated = $request->validate([
+                'exporter_id' => 'required',
+                'importer_id' => 'required',
+                'buyer_or_no' => 'required',
+                'buyer_or_date' => 'required|date|before:today',
+                'date_of_packing' =>'required|date|after_or_equal:today',
+                'flight_date' => 'required|date|after_or_equal:today',
+                'po_no' => 'required',
+                'gross_weight_limit' => 'required', 
             ]);
-            $invoiceId=$invoice->save();
-            $invoiceId = $invoice->id;
 
-        //    $goodsId = BuyerIndent::orderBy('id', 'desc')->first()->id;
-        //    BuyerBoxMarking::save(); 
-            //dd($invoiceId);
-            //dd($request->product);
-            $arrauValue=[];
-                    foreach ($request->input('product') as $index => $productId) {
-                        // $boxMarking = new BuyerBoxMarking();
-                        $arrauValue[]=[
-                            'buyer_indent_id' => $invoice->id,
-                            'item_name' => $productId,
-                            'box_or_bag' => $request->input('box')[$index],
-                            'number_of_box' => $request->input('no_of_box')[$index],
-                            'packing_size' => $request->input('packing_size')[$index],
-                            'net_quentity_packed' => $request->input('net_quantity')[$index],
-                            'box_weight' => $request->input('box_weight')[$index],
-                            'box_gross_weight' => $request->input('box_gross_weight')[$index],
-                        ];
-                        // $boxMarking->save();
-                    }
-                    //dd($arrauValue);
-                    BuyerBoxMarking::insert($arrauValue);
-            //return view('export.add-indent',$data);
+            $invoice = new PurchaseOrder([
+                'exporter_id'=>$request->input('exporter_id'),
+                'importer_id'=>$request->input('importer_id'),
+                'buyer_or_no'=>$request->input('buyer_or_no'),
+                'buyer_or_date'=>$request->input('buyer_or_date'),
+                'confirmation_type'=>$request->input('confirmation_type'),
+                'po_no'=>$request->input('po_no'),
+                'date_of_packing'=>$request->input('date_of_packing'),
+                'flight_date'=>$request->input('flight_date'),
+                'gross_weight_limit'=>$request->input('gross_weight_limit'),
+                'vessel'=>$request->input('vessel'),
+                'flight_no'=>$request->input('flight_no'),
+                'port_of_discharge'=>$request->input('port_of_discharge'),
+                'final_destination'=>$request->input('final_destination'),
+                'box_marking'=>$request->input('box_marking'),
+            ]);            
+            $invoice->save();
+            $this->purchaseProductsave($request, $invoice->id);
+            
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            Session::flash('message', 'Record has been successfully saved');
+            return redirect('export/indent');
         }else{
             return redirect('/');
         }
     }
 
+    private function purchaseProductsave(Request $request, $invoiceId)
+    {
+        foreach ($request->input('product_id') as $key => $counting) {
+            $item = new PurchaseProductDetail([
+                'purchase_id' => $invoiceId,
+                'product_id' => $counting,
+                'box_or_bag' => $request->input('box_or_bag')[$key],
+                'box_weight' => $request->input('box_weight')[$key],
+                'no_of_box' => $request->input('no_of_box')[$key],
+                'packing_size' => $request->input('packing_size')[$key],
+                'net_quantity' => $request->input('net_quantity')[$key],
+                'box_weight_kg' => $request->input('box_weight_kg')[$key],
+                'box_gross_weight' => $request->input('box_gross_weight')[$key],
+            ]);
+            $item->save();
+        }
+    }
 
+    public function editIndent($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-indent', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
+
+    public function updateIndent(Request $request){
+        //dd($request->all());
+        if (!empty(Session::get('admin'))) {
+            $validated = $request->validate([
+                'update_id' => 'required',
+                'exporter_id' => 'required',
+                'importer_id' => 'required',
+                'buyer_or_no' => 'required',
+                'buyer_or_date' => 'required',
+                'date_of_packing' =>'required',
+                'flight_date' => 'required',
+                'po_no' => 'required',
+                'gross_weight_limit' => 'required',
+                'status' => 'required' 
+            ]);
+            $delete_id = $request->input('update_id');
+            $purchaseOrder = PurchaseOrder::find($delete_id);
+            if(!$purchaseOrder){
+                return redirect()->route('error.404');
+            }
+
+            $purchaseOrder->update([
+                'exporter_id'=>$request->input('exporter_id'),
+                'importer_id'=>$request->input('importer_id'),
+                'buyer_or_no'=>$request->input('buyer_or_no'),
+                'buyer_or_date'=>$request->input('buyer_or_date'),
+                'confirmation_type'=>$request->input('confirmation_type'),
+                'po_no'=>$request->input('po_no'),
+                'date_of_packing'=>$request->input('date_of_packing'),
+                'flight_date'=>$request->input('flight_date'),
+                'gross_weight_limit'=>$request->input('gross_weight_limit'),
+                'vessel'=>$request->input('vessel'),
+                'flight_no'=>$request->input('flight_no'),
+                'port_of_discharge'=>$request->input('port_of_discharge'),
+                'final_destination'=>$request->input('final_destination'),
+                'box_marking'=>$request->input('box_marking'),
+                'status'=>$request->input('status'),
+                'updated_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+            ]);            
+            // first delete product from purchase_product_details table 
+            PurchaseProductDetail::where('purchase_id', $delete_id)->delete();
+            // insert new data in in table 
+            $this->purchaseProductsave($request, $delete_id);
+            
+            // $data['exporter'] = Company::get();
+            // $data['importer'] = Importer::get();
+            // $data['product'] = Product::get();
+            // $data['box'] = BoxMaster::get();
+            Session::flash('message', 'Record has been Updated successfully');
+            return redirect()->back();
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function indentPdf($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with(['product','box'])->where('purchase_id', $id)->get();
+            //dd($data);
+            return view('export/indent-pdf',$data);
+        }else{
+            return redirect('/');
+        } 
+    }
+
+
+
+    public function boxMaster(Request $request){
+         if (!empty(Session::get('admin'))) {
+        $data['data'] = BoxMaster::get();
+        return view('export.box-master', $data);
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function addBoxMaster(Request $request){
+        if (!empty(Session::get('admin'))) {
+            return view('export.add-box-master');
+        }
+        else{
+            return redirect('/');
+        }
+    }
+
+    public function saveBoxMaster(Request $request)
+    {
+        $request->validate([
+            'box_name' => 'required|string|max:255',
+            'box_size' => 'required|string|max:255',
+            'box_weight' => 'nullable|string|max:255',
+            'box_price' => 'nullable|string|max:255',
+        ]);
+        $boxMasterData = [
+            'box_name' => $request->input('box_name'),
+            'box_size' => $request->input('box_size'),
+            'box_weight' => $request->input('box_weight'),
+            'box_price' => $request->input('box_price'),
+            
+        ];
+        BoxMaster::insert($boxMasterData);
+        Session::flash('message', 'Record has been successfully saved');
+        return redirect()->route('box-master');
+    }
+
+    public function editBoxMaster($id)
+    {
+        if (!empty(Session::get('admin'))) {
+            $boxMaster = BoxMaster::find($id);
+            if (!$boxMaster) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-box-master', compact('boxMaster'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function updateBoxMaster(Request $request)
+    {
+        if (!empty(Session::get('admin'))) {
+            $request->validate([
+                'box_name' => 'required|string|max:255',
+                'box_size' => 'required|string|max:255',
+                'box_weight' => 'nullable|string|max:255',
+                'box_price' => 'nullable|string|max:255',
+            ]);
+            $id = $request->id;
+            $boxMaster = BoxMaster::find($id);
+            if (!$boxMaster) {
+                return redirect()->route('error.404');
+            }
+            $boxMaster->update([
+                'box_name' => $request->input('box_name'),
+                'box_size' => $request->input('box_size'),
+                'box_weight' => $request->input('box_weight'),
+                'box_price' => $request->input('box_price'),
+                'updated_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+            Session::flash('message', 'Record has been successfully Updated');
+            return redirect()->route('box-master');
+        }else{
+            return redirect('/');
+        }
+    }
+//----------------------------------------
+    public function tentetiveList(){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',2)->get();
+            return view('export/tentetive-paking-list',$data);
+        }else{
+           return redirect('/'); 
+        }
+    }
+
+    public function editTentetive($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-tentetive', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
+    //---------------------------------------------
+    public function cPakingList(){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',3)->get();
+            return view('export/confirm-paking-list',$data);
+        }else{
+           return redirect('/'); 
+        }
+    }
+
+    public function editeConfirmPaking($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-confirm-paking', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
+    //---------------------------------------
+    public function InvoicePakingList(){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',4)->get();
+            return view('export/invoice-cum-paking-list',$data);
+        }else{
+           return redirect('/'); 
+        }
+    }
+
+
+    public function editeInvoiceCumPaking($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-invoice-cum-packing', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
+
+//-------------------------------------------- Invoice Dispatch List
+
+
+    public function invoiceDispatchList(){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',5)->get();
+            return view('export/invoice-dispatch-list',$data);
+        }else{
+           return redirect('/'); 
+        }
+    }
+
+    public function editeDispatch($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-invoice-dispatch', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
+
+//--------------------------------------- 
+
+    public function commercialPakingList(){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',6)->get();
+            return view('export/commercial-packing-list',$data);
+        }else{
+           return redirect('/'); 
+        }
+    }
+
+    public function editCommercialPacking($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with('product')->where('purchase_id', $id)->get();
+            $data['exporter'] = Company::get();
+            $data['importer'] = Importer::get();
+            $data['product'] = Product::get();
+            $data['box'] = BoxMaster::get();
+            //dd($data);
+            if (!$data) {
+                return redirect()->route('error.page');
+            }
+            return view('export.edit-commercial-packing', $data);
+        }else{
+            return redirect('/');
+        } 
+    }
 
 
 

@@ -38,10 +38,16 @@
                             {{-- <li><a href="{{ url('export/list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Export List</a></li> --}}
                             <li><a href="{{ url('export/export-master') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Exporter Master</a></li>
                             <li><a href="{{ url('export/importer-master') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Importer Master</a></li>
+                            <li><a href="{{ url('export/box-master') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Box Master</a></li>
                             <li><a href="{{ url('export/bank-master') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Bank Master</a></li>
                             <li><a href="{{ url('export/good-master') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Product Master</a></li>
 
                             <li><a href="{{ url('export/indent') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Buyer Indent</a></li>
+                            <li><a href="{{ url('export/tentetive-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Tentetive Paking List</a></li>
+                            <li><a href="{{ url('export/confirm-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Confirm Paking List</a></li>
+                            <li><a href="{{ url('export/invoice-cum-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice Cum Paking List</a></li>
+                            <li><a href="{{ url('export/invoice-dispatch-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice Dispatch List</a></li>
+                            <li><a href="{{ url('export/commercial-packing-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Commercial Packing List</a></li>
                             <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Packing List</a></li>
                             <li><a href="{{ url('export/create-pdf') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice and Exporter Packing CoO</a></li>
                             <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Comercial Invoice cum Packing List</a></li>

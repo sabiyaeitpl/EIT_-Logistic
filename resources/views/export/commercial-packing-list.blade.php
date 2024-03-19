@@ -33,14 +33,14 @@ Export Information
     <div class="animated fadeIn">
         <div class="row" style="border:none;">
             <div class="col-md-6">
-                <h5 class="card-title">Buyer Indent</h5>
+                <h5 class="card-title">Commercial Packing List </h5>
             </div>
             <div class="col-md-6">
                 <span class="right-brd" style="padding-right:15x;">
                     <ul class="">
                         <li><a href="#">Export</a></li>
                         <li>/</li>
-                        <li class="active">Buyer Indent</li>
+                        <li class="active">Commercial Packing List</li>
 
                     </ul>
                 </span>
@@ -55,7 +55,7 @@ Export Information
                     <div class="card-header">
                         <div class="aply-lv">
                             <a href="{{route('add-indent')}}" class="btn btn-outline-info mb-2">
-                                    Add Buyer Indent
+                                    Add Commercial Packing List
                              </a>
 
                             </div>
@@ -93,7 +93,7 @@ Export Information
                                         <td>{{ $buyer_record->gross_weight_limit }}</td>
                                         {{-- <td>{{ $buyer_record->total_box_gross_weight }}</td> --}}
                                         <td> 
-                                            <a href="{{url('export/edit-indent/')}}/{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
+                                            <a href="{{url('export/edit-commercial-packing/')}}/{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
                                             <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a>
                                             <a href="{{ route('indent-pdf', ['id' => $buyer_record->id]) }}" title="Generate pdf"><i class="ti-book"></i></a>
                                             <a href="#" title="Downlode pdf"><i class="ti-download"></i></a>

@@ -41,6 +41,13 @@ Route::post('export/save-importer-master', [ExportController::class,'saveImporte
 Route::get('export/edit-importer-master/{id}', [ExportController::class,'editImporterMaster'])->name('edit-importer-master');
 Route::post('export/update-importer-master', [ExportController::class,'updateImporterMaster'])->name('update-importer-master');
 
+// Box Master
+Route::get('export/box-master', [ExportController::class,'boxMaster'])->name('box-master');
+Route::get('export/add-box-master', [ExportController::class,'addBoxMaster'])->name('add-box-master');
+Route::post('export/save-box-master', [ExportController::class,'saveBoxMaster'])->name('save-box-master');
+Route::get('export/edit-box-master/{id}', [ExportController::class,'editBoxMaster'])->name('edit-box-master');
+Route::post('export/update-box-master', [ExportController::class,'updateBoxMaster'])->name('update-box-master');
+
 // Goods Master
 Route::get('export/good-master', [ExportController::class, 'goodsMaster'])->name('export.goodsmaster');
 Route::get('export/add-goods-master', [ExportController::class, 'goodsAdd']);
@@ -56,12 +63,33 @@ Route::post('export/save-bank-master', [ExportController::class,'saveBankMaster'
 Route::get('export/edit-bank-master/{id}', [ExportController::class,'editBankMaster'])->name('edit-bank-master');
 Route::post('export/update-bank-master', [ExportController::class,'updateBankMaster'])->name('update-bank-master');
 
-//indent invoice
+//Buyer indent invoice
 Route::get('export/indent', [ExportController::class,'indent'])->name('indent');
+Route::get('export/edit-indent/{id}', [ExportController::class,'editIndent'])->name('indent');
 Route::get('export/add-indent', [ExportController::class,'addIndent'])->name('add-indent');
 Route::get('export/get-add-row-indent/{row}', [ExportController::class, 'ajaxIndent']);
 Route::post('export/save-indent', [ExportController::class,'saveIndent'])->name('save-indent');
 Route::get('export/buyerbox/{row}', [ExportController::class, 'indenwisebug']);
+Route::post('export/update-indent', [ExportController::class, 'updateIndent'])->name('update-indent');
+Route::get('export/indent-pdf/{id}',[ExportController::class, 'indentPdf'])->name('indent-pdf');
+//Tentetive Packing List --------------------------------
+Route::get('export/tentetive-paking-list', [ExportController::class,'tentetiveList'])->name('tentetive-paking-list');
+Route::get('export/edit-tentetive/{id}', [ExportController::class,'editTentetive'])->name('edit-tentetive');
+
+// Confirm Packing List ------------------------
+Route::get('export/confirm-paking-list', [ExportController::class,'cPakingList'])->name('confirm-paking-list');
+Route::get('export/edit-confirm-paking/{id}', [ExportController::class,'editeConfirmPaking'])->name('edit-confirm-paking');
+
+// Invoice Cum Packing List ---------------------
+Route::get('export/invoice-cum-paking-list', [ExportController::class,'InvoicePakingList'])->name('invoice-cum-paking-list');
+Route::get('export/edit-invoice-cum-packing/{id}', [ExportController::class,'editeInvoiceCumPaking'])->name('edit-invoice-cum-packing');
+
+// Invoice Dispatch List --------------------------
+Route::get('export/invoice-dispatch-list', [ExportController::class,'invoiceDispatchList'])->name('invoice-dispatch-list');
+Route::get('export/edit-invoice-dispatch/{id}', [ExportController::class,'editeDispatch'])->name('edit-invoice-dispatch');
+// Commercial Packing List -----------------------------
+Route::get('export/commercial-packing-list', [ExportController::class,'commercialPakingList'])->name('commercial-packing-list');
+Route::get('export/edit-commercial-packing/{id}', [ExportController::class,'editCommercialPacking'])->name('edit-commercial-packing');
 
 //invoice route
 Route::get('export/invoice', [ExportController::class,'invoic'])->name('invoice');
