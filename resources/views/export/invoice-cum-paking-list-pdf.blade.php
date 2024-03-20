@@ -77,48 +77,49 @@
                             <div class="col1"
                                 style="position: relative; padding-top: 26px; padding-left: 26.456692913px;">
                                 @php
-                                $country='';
-                                $state='';
-                                $city='';
-                                $pin='';
-                                $gst ='';
-                                $iecode='';
-                                $cin='';
+                                // $country='';
+                                // $state='';
+                                // $city='';
+                                // $pin='';
+                                // $gst ='';
+                                // $iecode='';
+                                // $cin='';
 
-                                 if($exporter->country !=''){
-                                   $country = $exporter->country;
-                                 }
-                                 if($exporter->state !=''){
-                                   $state = '('.$exporter->state.')';
-                                 }
-                                 if($exporter->city !=''){
-                                   $city = $exporter->city.'-';
-                                 }
-                                 if($exporter->pin !=''){
-                                   $pin = $exporter->pin;
-                                 }
-                                 $full = $city.''.$pin.''.$state.' '.$country;
+                                //  if($exporter->country !=''){
+                                //    $country = $exporter->country;
+                                //  }
+                                //  if($exporter->state !=''){
+                                //    $state = '('.$exporter->state.')';
+                                //  }
+                                //  if($exporter->city !=''){
+                                //    $city = $exporter->city.'-';
+                                //  }
+                                //  if($exporter->pin !=''){
+                                //    $pin = $exporter->pin;
+                                //  }
+                                //  $full = $city.''.$pin.''.$state.' '.$country;
 
-                                 if ($exporter->gst != '') {
-                                     $gst = 'GST NO : '.$exporter->gst;
-                                 }
-                                 if ($exporter->ie_code != '') {
-                                    $iecode = 'IE CODE : '.$exporter->ie_code;
-                                 }
-                                 if ($exporter->cin != '') {
-                                    $cin = 'CIN : '.$exporter->cin;
-                                 }
+                                //  if ($exporter->gst != '') {
+                                //      $gst = 'GST NO : '.$exporter->gst;
+                                //  }
+                                //  if ($exporter->ie_code != '') {
+                                //     $iecode = 'IE CODE : '.$exporter->ie_code;
+                                //  }
+                                //  if ($exporter->cin != '') {
+                                //     $cin = 'CIN : '.$exporter->cin;
+                                //  }
 
                                @endphp
-                                <p style="font-size: 14px; margin-bottom: 2px;"><b>{{ $exporter->company_name }}</b></p>
-                                <p>Regd.off : {{$exporter->address}}</p>
-                                <p>{{ $full }}</p>
-                                <p> {{$gst}}</p>
-                                <p>{{$iecode}}</p>
-                                <p>{{$cin}}</p>
+                               
+                                <p style="font-size: 14px; margin-bottom: 2px;"><b>{{ $data->exporter->company_name }}</b></p>
+                                <p>Regd.off : {{ $data->exporter->address }}</p>
+                                <p>{{ $data->exporter->country }}{{ $data->exporter->state }}{{ $data->exporter->city }}{{ $data->exporter->pin }}</p>
+                                <p> {{$data->exporter->gst}}</p>
+                                <p>{{$data->exporter->iecode}}</p>
+                                <p>{{$data->exporter->cin}}</p>
                                 <div style="position: absolute; right: 85px; top: 55px;">
                                     <img width="40px"
-                                        src="{{ asset('storage/' . $exporter->image) }}" alt="">
+                                        src="{{ asset('storage/' . $data->exporter->image) }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -130,7 +131,7 @@
                             <div class="col1"
                                 style="position: relative; padding-top: 20px; padding-left: 26.456692913px;">
                                 <p style="font-size: 14px; margin-bottom: 2px; line-height: 18px;"><b>
-                                    {{ strtoupper($importer1->name)}}</b></p>
+                                    {{ strtoupper($data->importer->name)}}</b></p>
                                     @php
                                         $gst ='';
                                         $pobox='';
@@ -147,38 +148,38 @@
                                         }
 
                                     @endphp
-                                <p>{{strtoupper($importer1->address)}}</p>
-                                <p>{{strtoupper($gst)}}</p>
-                                <p>{{strtoupper($crno)}}</p>
-                                <p>{{strtoupper($pobox)}}</p>
+                                <p>{{strtoupper($data->importer->address)}}</p>
+                                <p>{{strtoupper($data->importer->gst)}}</p>
+                                <p>{{strtoupper($data->importer->crno)}}</p>
+                                <p>{{strtoupper($data->importer->pobox)}}</p>
 
                             </div>
                             @if ($pass->importer_name2 !='')
                             <hr>
                             <div class="col1"
                             style="position: relative; padding-left: 26.456692913px;">
-                            <p style="font-size: 14px; margin-bottom: 2px; line-height: 18px;"><b>
-                                {{ strtoupper($importer2->name)}}</b></p>
+                            {{-- <p style="font-size: 14px; margin-bottom: 2px; line-height: 18px;"><b>
+                                {{ strtoupper($importer2->name)}}</b></p> --}}
                                 @php
-                                    $gst ='';
-                                    $pobox='';
-                                    $crno='';
+                                    // $gst ='';
+                                    // $pobox='';
+                                    // $crno='';
 
-                                    if ($importer2->gst !='') {
-                                       $gst = 'GST NO: '.$importer2->gst;
-                                    }
-                                    if ($importer2->crno !='') {
-                                        $crno= 'CR NO: '.$importer2->crno;
-                                    }
-                                    if ($importer2->pobox !='') {
-                                        $pobox= 'P.O BOX: '.$importer2->pobox;
-                                    }
+                                    // if ($importer2->gst !='') {
+                                    //    $gst = 'GST NO: '.$importer2->gst;
+                                    // }
+                                    // if ($importer2->crno !='') {
+                                    //     $crno= 'CR NO: '.$importer2->crno;
+                                    // }
+                                    // if ($importer2->pobox !='') {
+                                    //     $pobox= 'P.O BOX: '.$importer2->pobox;
+                                    // }
 
                                 @endphp
-                            <p>{{strtoupper($importer2->address)}}</p>
+                            {{-- <p>{{strtoupper($importer2->address)}}</p>
                             <p>{{strtoupper($gst)}}</p>
                             <p>{{strtoupper($crno)}}</p>
-                            <p>{{strtoupper($pobox)}}</p>
+                            <p>{{strtoupper($pobox)}}</p> --}}
                         </div>
                         @endif
                         </div>
@@ -188,13 +189,13 @@
                             <div style="width:50%; border-right: 1.5px solid #000; height: 100%;">
                                 <div class="padding">
                                     <p>Means of Transport</p>
-                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($pass->means_of_transport) }}</b></p>
+                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($data->vessel) }}</b></p>
                                 </div>
                             </div>
                             <div style=" width:50%; height: 100%;">
                                 <div class="padding">
                                     <p>Port of Loading</p>
-                                    <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($pass->port_of_loading) }}</b></p>
+                                    {{-- <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($pass->port_of_loading) }}</b></p> --}}
                                 </div>
                             </div>
                         </div>
@@ -204,13 +205,13 @@
                             <div style="width:50%; border-right: 1.5px solid #000; height: 100%;">
                                 <div class="padding">
                                     <p>Port of Discharge</p>
-                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($pass->port_of_discharge)}}</b></p>
+                                    <p style="font-size: 12px; padding-left: 35px;"><b>{{ strtoupper($data->port_of_discharge)}}</b></p>
                                 </div>
                             </div>
                             <div style="width:50%; height: 100%;">
                                 <div class="padding">
                                     <p>Final Destination</p>
-                                    <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($pass->final_destination) }}</b></p>
+                                    <p style="font-size: 12px; padding-left: 16px;"><b>{{ strtoupper($data->final_destination) }}</b></p>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +224,7 @@
                 <div style="width: 100%;">
                     <div class="border" style="height:22.677165354px; width: 100%; border-left: 0px; border-top: 0px;">
                         <div class="padding" style="padding-top: 3px;">
-                            <p style="font-size: 14px;">Reference No. : <span style="margin-left: 20px;">{{ $pass->reference_id }}</span>
+                            <p style="font-size: 14px;">Reference No. : <span style="margin-left: 20px;"></span>
                             </p>
                         </div>
                     </div>

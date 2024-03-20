@@ -119,8 +119,8 @@ Indent Information
                                                     <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
                                                     @endforeach
                                                 </select> --}}
-                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example">
-                                                    <option value="" selected>Select</option>
+                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example" required>
+                                                    <option value="">Select</option>
                                                     @foreach ($exporter as $exporters)
                                                         <option value="{{$exporters->id}}" {{ $data->exporter_id == $exporters->id ? 'selected' : '' }}>
                                                             {{$exporters->company_name}}
@@ -130,8 +130,8 @@ Indent Information
                                             </div>
                                             <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Importer :</p>
-                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example">
-                                                    <option selected>Select</option>
+                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example" required>
+                                                    <option value="">Select</option>
                                                         @foreach ($importer as $importers)
                                                         <option value="{{$importers->id}}"{{ $data->importer_id == $importers->id ? 'selected' : '' }}>
                                                             {{$importers->name}}
@@ -141,21 +141,21 @@ Indent Information
                                             </div>
                                             <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order No :</p>
-                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" >
+                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" required>
                                                 @error('buyer_or_no')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                              <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order date :</p>
-                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}">
+                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}" required>
                                                 @error('buyer_or_date')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                              <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Confirmation Type :</p>
-                                                <select class="form-select form-control" name="confirmation_type" aria-label="Default select example">
+                                                <select class="form-select form-control" name="confirmation_type" value="" aria-label="Default select example" required>
                                                     <option value="Select" {{ $data->confirmation_type == 'Select' ? 'selected' : '' }}>Select</option>
                                                     <option value="WhatsAPP" {{ $data->confirmation_type == 'WhatsAPP' ? 'selected' : '' }}>WhatsAPP</option>
                                                     <option value="Verbal" {{ $data->confirmation_type == 'Verbal' ? 'selected' : '' }}>Verbal</option>
@@ -167,7 +167,7 @@ Indent Information
                                             <p>Buyer's Order / PO.NO.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->po_no }}">
+                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->po_no }}" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,7 +175,7 @@ Indent Information
                                             <p>Date of Packing.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp" value="{{ $data->date_of_packing }}">
+                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp" value="{{ $data->date_of_packing }}" required>
                                             @error('date_of_packing')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -186,7 +186,7 @@ Indent Information
                                             <p>Flight Date.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="date" class="form-control" name="flight_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->flight_date }}">
+                                            <input type="date" class="form-control" name="flight_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->flight_date }}" required>
                                             @error('flight_date')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -209,27 +209,27 @@ Indent Information
                                             <div class="d-flex mb-1">
                                                 <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
                                                 <div>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vessel" aria-describedby="emailHelp" value="{{ $data->vessel }}">
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vessel" aria-describedby="emailHelp" value="{{ $data->vessel }}" required>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="mt-2" style="width: 120px; text-align: left;">Flight No :</div>
                                                 <div>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}">
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}" required>
                                                 </div>
                                             </div>
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Port of Discharge</p>
-                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_discharge" aria-describedby="emailHelp" value="{{ $data->port_of_discharge }}"></p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_discharge" aria-describedby="emailHelp" value="{{ $data->port_of_discharge }}" required></p>
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Final Destination</p>
-                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" aria-describedby="emailHelp" value="{{ $data->final_destination }}"></p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" aria-describedby="emailHelp" value="{{ $data->final_destination }}" required></p>
                                         </td>
                                         <td colspan="4">
                                             <p>BOX MARKING</p>
-                                            <input type="text" class="form-control" name="box_marking" value="{{ $data->box_marking }}">
+                                            <input type="text" class="form-control" name="box_marking" value="{{ $data->box_marking }}" required>
                                         </td>
                                     </tr>
 
@@ -274,8 +274,8 @@ Indent Information
                                                 <P>1.</P>
                                             </td>
                                             <td>
-                                                <select class="form-select form-control" name='product_id[]' aria-label="Default select example">
-                                                    <option selected="">Select Item</option>
+                                                <select class="form-select form-control" name='product_id[]' aria-label="Default select example" required>
+                                                    <option value="">Select Item</option>
                                                     @foreach ($product as $products)
                                                         <option value="{{$products->id}}"{{ $purchaseorders->product_id == $products->id ? 'selected' : '' }}>
                                                             {{$products->name}}
@@ -284,8 +284,8 @@ Indent Information
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example">
-                                                        <option selected>Select</option>
+                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example" required>
+                                                        <option value="">Select</option>
                                                         @foreach ($box as $boxs)
                                                         <option value="{{$boxs->id}}"{{ $purchaseorders->box_or_bag == $boxs->id ? 'selected' : '' }}>
                                                             {{$boxs->box_name}}
@@ -294,13 +294,13 @@ Indent Information
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control box_weight" name='box_weight[]' id="box_weight"  aria-describedby="emailHelp" value="{{ $purchaseorders->box_weight }}">
+                                                <input type="text" class="form-control box_weight" name='box_weight[]' id="box_weight"  aria-describedby="emailHelp" value="{{ $purchaseorders->box_weight }}" required>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control no_of_box" name='no_of_box[]' id="no_of_box"  aria-describedby="emailHelp" value="{{ $purchaseorders->no_of_box }}">
+                                                <input type="text" class="form-control no_of_box" name='no_of_box[]' id="no_of_box"  aria-describedby="emailHelp" value="{{ $purchaseorders->no_of_box }}" required>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control packing_size" name='packing_size[]' id="packing_size" aria-describedby="emailHelp" value="{{ $purchaseorders->packing_size }}">
+                                                <input type="text" class="form-control packing_size" name='packing_size[]' id="packing_size" aria-describedby="emailHelp" value="{{ $purchaseorders->packing_size }}" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control net_quantity" name='net_quantity[]' id="net_quantity"  aria-describedby="emailHelp" value="{{ $purchaseorders->net_quantity }}" readonly >
@@ -354,9 +354,9 @@ Indent Information
                                 <div class="row">
                                     <div class="col-mb-4">
                                         <label for="exampleFormControlInput1" class="form-label">Change Status:</label>
-                                        <select class="form-select form-control" name="status" aria-label="Default select example">
-                                            <option value="Select">Select</option>
-                                            <option value="1"{{ $data->status == '1' ? 'selected' : '' }}>Buyer Indent</option>
+                                        <select class="form-select form-control" name="status" aria-label="Default select example" required>
+                                            <option value="">Select</option>
+                                            {{-- <option value="1"{{ $data->status == '1' ? 'selected' : '' }}>Buyer Indent</option> --}}
                                             <option value="2"{{ $data->status == '2' ? 'selected' : '' }}>Tentetive Paking List</option>
                                             <option value="3"{{ $data->status == '3' ? 'selected' : '' }}>Confirm Paking List</option>
                                             <option value="4"{{ $data->status == '4' ? 'selected' : '' }}>Invoice Cum Paking List And CoO</option>

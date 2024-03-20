@@ -91,7 +91,7 @@ Export Information
                                         <td>{{ $buyer_record->buyer_or_date }}</td>
                                         <td>{{ $buyer_record->box_marking }}</td>
                                         <td>{{ $buyer_record->gross_weight_limit }}</td>
-                                        <td>{{ $buyer_record->total_box_gross_weight }}</td>
+                                        {{-- <td>{{ $buyer_record->total_box_gross_weight }}</td> --}}
                                         <td> 
                                             <a href="{{url('export/edit-indent/')}}/{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
                                             <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a>

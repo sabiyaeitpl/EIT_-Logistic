@@ -80,9 +80,11 @@ Route::get('export/edit-tentetive/{id}', [ExportController::class,'editTentetive
 Route::get('export/confirm-paking-list', [ExportController::class,'cPakingList'])->name('confirm-paking-list');
 Route::get('export/edit-confirm-paking/{id}', [ExportController::class,'editeConfirmPaking'])->name('edit-confirm-paking');
 
-// Invoice Cum Packing List ---------------------
+// Invoice Cum Packing List CoO ---------------------
 Route::get('export/invoice-cum-paking-list', [ExportController::class,'InvoicePakingList'])->name('invoice-cum-paking-list');
 Route::get('export/edit-invoice-cum-packing/{id}', [ExportController::class,'editeInvoiceCumPaking'])->name('edit-invoice-cum-packing');
+Route::get('export/edit-invoice-cum-packing-pdf/{id}',[ExportController::class, 'invoicePackingCooPdf'])->name('edit-invoice-cum-packing-pdf');
+Route::post('export/update-invoice-packing-coo', [ExportController::class, 'updateInvoicePacCoO'])->name('update-invoice-packing-coo');
 
 // Invoice Dispatch List --------------------------
 Route::get('export/invoice-dispatch-list', [ExportController::class,'invoiceDispatchList'])->name('invoice-dispatch-list');

@@ -53,15 +53,15 @@ Export Information
                 <div class="card">
 
                     <div class="card-header">
-                        <div class="aply-lv">
+                        {{-- <div class="aply-lv">
                             <a href="{{route('add-indent')}}" class="btn btn-outline-info mb-2">
                                     Add Buyer Indent
                              </a>
 
                             </div>
                             @include('include.messages')
-                        </div>
-
+                        </div> --}}
+                        @include('include.messages')
                     <br />
                     <div class="clear-fix">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -94,7 +94,7 @@ Export Information
                                         {{-- <td>{{ $buyer_record->total_box_gross_weight }}</td> --}}
                                         <td> 
                                             <a href="{{url('export/edit-tentetive/')}}/{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
-                                            <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a>
+                                            {{-- <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a> --}}
                                             <a href="{{ route('indent-pdf', ['id' => $buyer_record->id]) }}" title="Generate pdf"><i class="ti-book"></i></a>
                                             {{-- <a href="#" title="Downlode pdf"><i class="ti-download"></i></a> --}}
                                         </td>

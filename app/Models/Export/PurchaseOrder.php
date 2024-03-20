@@ -27,6 +27,13 @@ class PurchaseOrder extends Model
         'box_marking',
         'status',
         'send_status',
+        'importer_id2',
+        'invoice_no',
+        'invoice_date',
+        'origin_criteria',
+        'designation',
+        'place',
+        'port_of_loading'
     ];
       public function items()
     {

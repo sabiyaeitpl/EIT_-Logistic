@@ -119,7 +119,7 @@ Indent Information
                                                     <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
                                                     @endforeach
                                                 </select> --}}
-                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example">
+                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example" readonly>
                                                     <option value="" selected>Select</option>
                                                     @foreach ($exporter as $exporters)
                                                         <option value="{{$exporters->id}}" {{ $data->exporter_id == $exporters->id ? 'selected' : '' }}>
@@ -130,7 +130,7 @@ Indent Information
                                             </div>
                                             <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Importer :</p>
-                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example">
+                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example" readonly>
                                                     <option selected>Select</option>
                                                         @foreach ($importer as $importers)
                                                         <option value="{{$importers->id}}"{{ $data->importer_id == $importers->id ? 'selected' : '' }}>
@@ -140,22 +140,22 @@ Indent Information
                                                 </select>
                                             </div>
                                             <div class="d-flex">
-                                                <p class="mt-2" style="width:65%;">Buyer Order No :</p>
-                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" >
+                                                {{-- <p class="mt-2" style="width:65%;">Buyer Order No :</p> --}}
+                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" hidden>
                                                 @error('buyer_or_no')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                              <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order date :</p>
-                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}">
+                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}" readonly>
                                                 @error('buyer_or_date')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                              <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Confirmation Type :</p>
-                                                <select class="form-select form-control" name="confirmation_type" aria-label="Default select example">
+                                                <select class="form-select form-control" name="confirmation_type" aria-label="Default select example" readonly>
                                                     <option value="Select" {{ $data->confirmation_type == 'Select' ? 'selected' : '' }}>Select</option>
                                                     <option value="WhatsAPP" {{ $data->confirmation_type == 'WhatsAPP' ? 'selected' : '' }}>WhatsAPP</option>
                                                     <option value="Verbal" {{ $data->confirmation_type == 'Verbal' ? 'selected' : '' }}>Verbal</option>
@@ -167,7 +167,7 @@ Indent Information
                                             <p>Buyer's Order / PO.NO.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->po_no }}">
+                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->po_no }}" readonly>
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,7 +175,7 @@ Indent Information
                                             <p>Date of Packing.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp" value="{{ $data->date_of_packing }}">
+                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp" value="{{ $data->date_of_packing }}" readonly>
                                             @error('date_of_packing')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -186,7 +186,7 @@ Indent Information
                                             <p>Flight Date.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="date" class="form-control" name="flight_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->flight_date }}">
+                                            <input type="date" class="form-control" name="flight_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->flight_date }}" readonly>
                                             @error('flight_date')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -197,7 +197,7 @@ Indent Information
                                             <p>Gross Weight</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="text" class="form-control"  name="gross_weight_limit" id="gross_weight" aria-describedby="emailHelp" value="{{ $data->gross_weight_limit }}" required>
+                                            <input type="text" class="form-control"  name="gross_weight_limit" id="gross_weight" aria-describedby="emailHelp" value="{{ $data->gross_weight_limit }}" readonly >
                                             @error('gross_weight_limit')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -209,27 +209,27 @@ Indent Information
                                             <div class="d-flex mb-1">
                                                 <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
                                                 <div>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vessel" aria-describedby="emailHelp" value="{{ $data->vessel }}">
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vessel" aria-describedby="emailHelp" value="{{ $data->vessel }}" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="mt-2" style="width: 120px; text-align: left;">Flight No :</div>
                                                 <div>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}">
+                                                    <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}" readonly>
                                                 </div>
                                             </div>
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Port of Discharge</p>
-                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_discharge" aria-describedby="emailHelp" value="{{ $data->port_of_discharge }}"></p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_discharge" aria-describedby="emailHelp" value="{{ $data->port_of_discharge }}" readonly></p>
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Final Destination</p>
-                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" aria-describedby="emailHelp" value="{{ $data->final_destination }}"></p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" aria-describedby="emailHelp" value="{{ $data->final_destination }}" readonly></p>
                                         </td>
                                         <td colspan="4">
                                             <p>BOX MARKING</p>
-                                            <input type="text" class="form-control" name="box_marking" value="{{ $data->box_marking }}">
+                                            <input type="text" class="form-control" name="box_marking" value="{{ $data->box_marking }}" readonly>
                                         </td>
                                     </tr>
 
@@ -274,7 +274,7 @@ Indent Information
                                                 <P>1.</P>
                                             </td>
                                             <td>
-                                                <select class="form-select form-control" name='product_id[]' aria-label="Default select example">
+                                                <select class="form-select form-control" name='product_id[]' aria-label="Default select example" onchange="this.disabled=true;">
                                                     <option selected="">Select Item</option>
                                                     @foreach ($product as $products)
                                                         <option value="{{$products->id}}"{{ $purchaseorders->product_id == $products->id ? 'selected' : '' }}>
@@ -284,7 +284,7 @@ Indent Information
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example">
+                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example" onchange="this.disabled=true;">
                                                         <option selected>Select</option>
                                                         @foreach ($box as $boxs)
                                                         <option value="{{$boxs->id}}"{{ $purchaseorders->box_or_bag == $boxs->id ? 'selected' : '' }}>
@@ -312,12 +312,12 @@ Indent Information
                                                 <input type="text" class="form-control box_gross_weight" name='box_gross_weight[]'id="box_gross_weight"  aria-describedby="emailHelp" value="{{ $purchaseorders->box_gross_weight }}" readonly>
                                             </td>
                                             <td>
-                                                <a id="addproduct<?php echo ($tr_id + 1); ?>" onClick="addnewproduct(<?php echo ($tr_id + 1); ?>)" data-id="<?php echo ($tr_id + 1); ?>">
+                                                {{-- <a id="addproduct<?php echo ($tr_id + 1); ?>" onClick="addnewproduct(<?php echo ($tr_id + 1); ?>)" data-id="<?php echo ($tr_id + 1); ?>">
                                                     <span class="material-symbols-outlined text-primary">add_circle</span>
                                                 </a>
                                                 <a type="buttom" class="deleteButton" id="del<?php echo ($tr_id + 1); ?>"  onClick="delRowProduct(<?php echo ($tr_id + 1); ?>)">
                                                     <span class="material-symbols-outlined text-danger">delete</span>
-                                                </a>
+                                                </a> --}}
                                             </td>
 
                                         </tr>

@@ -101,7 +101,7 @@ Indent Information
          <div class="main-card">
             <div class="card">
                 <div class="card-body card-block">
-                    <form action="{{ route('update-indent') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('update-invoice-packing-coo') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="update_id" value="{{ $data->id }}" >
                         <h4 class="text-uppercase">Edit Invoice Cum Packing</h4>
@@ -113,12 +113,6 @@ Indent Information
                                         <td colspan="4" rowspan="4" style="vertical-align: top; text-align: left;">
                                             <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Exporter / Consignor :</p>
-                                                {{-- <select class="form-select form-control" name="exporter_id" aria-label="Default select example">
-                                                    <option selected>Select</option>
-                                                    @foreach ($exporter as $exporters)
-                                                    <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
-                                                    @endforeach
-                                                </select> --}}
                                                 <select class="form-select form-control" name="exporter_id" aria-label="Default select example">
                                                     <option value="" selected>Select</option>
                                                     @foreach ($exporter as $exporters)
@@ -129,7 +123,7 @@ Indent Information
                                                 </select>
                                             </div>
                                             <div class="d-flex mb-1">
-                                                <p class="mt-2" style="width:65%;">Importer :</p>
+                                                <p class="mt-2" style="width:65%;">Importer :1</p>
                                                 <select class="form-select form-control" name="importer_id" aria-label="Default select example">
                                                     <option selected>Select</option>
                                                         @foreach ($importer as $importers)
@@ -139,13 +133,24 @@ Indent Information
                                                         @endforeach
                                                 </select>
                                             </div>
-                                            <div class="d-flex">
+                                             <div class="d-flex mb-1">
+                                                <p class="mt-2" style="width:65%;">Importer :2</p>
+                                                <select class="form-select form-control" name="importer_id2" aria-label="Default select example">
+                                                    <option selected>Select</option>
+                                                        @foreach ($importer as $importers)
+                                                        <option value="{{$importers->id}}"{{ $data->importer_id == $importers->id ? 'selected' : '' }}>
+                                                            {{$importers->name}}
+                                                        </option>
+                                                        @endforeach
+                                                </select>
+                                            </div>
+                                            {{-- <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order No :</p>
                                                 <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" >
                                                 @error('buyer_or_no')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                              <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order date :</p>
                                                 <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}">
@@ -172,6 +177,27 @@ Indent Information
                                     </tr>
                                     <tr>
                                         <td colspan="2">
+                                            <p>Invoice No</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" name="invoice_no" aria-describedby="emailHelp" value="">
+                                            @error('invoice_no')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                     <td colspan="2">
+                                            <p>Invoice Date</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="date" class="form-control" id="exampleInputEmail1" name="invoice_date" aria-describedby="emailHelp" value="">
+                                            @error('invoice_date')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+
+                                    <tr>
+                                        <td colspan="2">
                                             <p>Date of Packing.</p>
                                         </td>
                                         <td colspan="4">
@@ -192,6 +218,39 @@ Indent Information
                                             @enderror
                                         </td>
                                     </tr>
+                                     <tr>
+                                        <td colspan="2">
+                                            <p>Origin Criteria *</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" name="origin_criteria" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+                                            @error('origin_criteria')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <td colspan="2">
+                                            <p>Designation (*)</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" name="designation" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+                                            @error('designation')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p>Place (*)</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control" name="place" id="exampleInputEmail1" aria-describedby="emailHelp" value="">
+                                            @error('place')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td colspan="2">
                                             <p>Gross Weight</p>
@@ -203,6 +262,17 @@ Indent Information
                                             @enderror
                                         </td>
                                     </tr>
+                                    {{-- <tr>
+                                        <td colspan="2">
+                                            <p>Description of Goods</p>
+                                        </td>
+                                        <td colspan="4">
+                                            <input type="text" class="form-control"  name="goods_description" aria-describedby="emailHelp" value="" required>
+                                            @error('gross_weight_limit')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr> --}}
 
                                     <tr>
                                         <td colspan="2">
@@ -218,6 +288,10 @@ Indent Information
                                                     <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}">
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td colspan="2">
+                                            <p class="mb-2">Port of Loding</p>
+                                            <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_loading" aria-describedby="emailHelp" value=""></p>
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Port of Discharge</p>
@@ -544,102 +618,7 @@ Indent Information
     });
 
 </script>
-{{-- <script>
-    function addnewproduct(rowid){
-        if (rowid != ''){
-            $('#addproduct'+rowid).attr('disabled',true);
-        }
-        $.ajax({
-            url:'{{url('export/get-add-row-indent')}}/'+rowid,
-            type: "GET",
-            success: function(response) {
-                console.log(response);
-                $(".productshow").append(response);
-            }
-        });
-    }
 
-    function delRowProduct(rowid) {
-        var lastrow = $(".itemslotdoc:last").attr("id");
-        var active_div = parseInt(lastrow, 10); // Convert to integer
-        if (!isNaN(active_div)) {
-            // If active_div is a valid number
-            $('#add' + active_div).attr('disabled', false);
-            $(document).on('click', '.deleteButton', function () {
-                $(this).closest("tr.itemslotdoc").remove();
-                // After removing the row, update the total amount
-                $(".itemslotdoc").each(function() {
-                    calculateTotal(this); // Update total for each row after removing a row
-                });
-                checkGrossWeight(); // Check gross weight after removing a row
-            });
-        } else {
-            console.log("Error: lastrow is not a valid number.");
-        }
-    }
-
-    function calculateTotal(parentRow) {
-        var boxWeightInput = parentRow.querySelector('[id^="box_weight"]');
-        var numberOfBoxInput = parentRow.querySelector('[id^="no_of_box"]');
-        var pakingSizeInput = parentRow.querySelector('[id^="packing_size"]');
-        var boxWeightKgOutput = parentRow.querySelector('[id^="boxWeightKg"]');
-        var netQuantityOutput = parentRow.querySelector('[id^="net_quantity"]');
-        var grossWeightKgOutput = document.getElementById('total-box_gross_weight');
-
-        var boxWeight = parseFloat(boxWeightInput.value);
-        var numberOfBox = parseFloat(numberOfBoxInput.value);
-        var pakingSize = parseFloat(pakingSizeInput.value);
-
-        if (!isNaN(boxWeight) && !isNaN(numberOfBox) && !isNaN(pakingSize)) {
-            var total = boxWeight * numberOfBox;
-            var netQtyPacked = numberOfBox * pakingSize;
-            var grossWeightKgs = total + netQtyPacked;
-            boxWeightKgOutput.value = total.toFixed(2);
-            netQuantityOutput.value = netQtyPacked.toFixed(2);
-            grossWeightKgOutput.value = grossWeightKgs.toFixed(2);
-        } else {
-            console.log("Please enter valid numbers.");
-        }
-    }
-
-    function checkGrossWeight() {
-        var grossWeightInput = document.getElementById('gross_weight');
-        var totalBoxGrossWeightInput = document.getElementById('total-box_gross_weight');
-        var grossWeight = parseFloat(grossWeightInput.value);
-        var totalBoxGrossWeight = parseFloat(totalBoxGrossWeightInput.value);
-        console.log(grossWeight);
-        if (!isNaN(grossWeight) && !isNaN(totalBoxGrossWeight)) {
-            // Calculate 2% and 4% thresholds
-            var threshold2Percent = grossWeight * 0.02;
-            var threshold4Percent = grossWeight * 0.04;
-            var threshold2Percent1 = grossWeight + threshold2Percent;
-            var threshold4Percent1 = grossWeight + threshold4Percent;
-            
-            if (totalBoxGrossWeight > threshold2Percent1) {
-                // Display message in the input field
-                totalBoxGrossWeightInput.value = "Total box gross weight exceeds 2% of the gross weight!";
-            }
-            
-            if (totalBoxGrossWeight > threshold4Percent1) {
-                // Reload the entire page
-                window.location.reload();
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var productshowTable = document.querySelector('.productshow');
-
-        productshowTable.addEventListener("input", function(event) {
-            var target = event.target;
-            if (target.classList.contains("no_of_box") || target.id.startsWith("box_weight") || target.id.startsWith("no_of_box") || target.id.startsWith("packing_size")) {
-                calculateTotal(target.closest('.itemslotdoc'));
-                checkGrossWeight();
-            }
-        });
-    });
-
-</script> --}}
 
 
 

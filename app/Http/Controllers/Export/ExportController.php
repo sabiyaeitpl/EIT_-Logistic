@@ -563,7 +563,8 @@ class ExportController extends Controller
     // ->orderBy('purchase_orders.created_at', 'desc')
     // ->groupBy('purchase_orders.id', 'purchase_orders.exporter_id', 'purchase_orders.importer_id', 'purchase_orders.buyer_or_no', 'purchase_orders.buyer_or_date', 'purchase_orders.date_of_packing', 'purchase_orders.flight_date', 'purchase_orders.po_no', 'purchase_orders.gross_weight_limit', 'companys.company_name', 'importers.name') // Group by all non-aggregated columns from purchase_orders table
     // ->get();
-    $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',1)->get();
+    $data['data'] = PurchaseOrder::with(['exporter', 'importer'])
+    ->where('status',1)->get();
     
        // dd($data);
             return view('export.indent',$data);
@@ -865,7 +866,7 @@ class ExportController extends Controller
             // $data['product'] = Product::get();
             // $data['box'] = BoxMaster::get();
             Session::flash('message', 'Record has been Updated successfully');
-            return redirect()->back();
+            return redirect('export/tentetive-paking-list');
         }else{
             return redirect('/');
         }
@@ -1017,6 +1018,7 @@ class ExportController extends Controller
         } 
     }
     //---------------------------------------
+    //invoicePackingCooPdf
     public function InvoicePakingList(){
         if (!empty(Session::get('admin'))) {
             $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->where('status',4)->get();
@@ -1024,6 +1026,17 @@ class ExportController extends Controller
         }else{
            return redirect('/'); 
         }
+    }
+
+    public function invoicePackingCooPdf($id){
+        if (!empty(Session::get('admin'))) {
+            $data['data'] = PurchaseOrder::with(['exporter', 'importer'])->find($id);
+            $data['purchaseorder'] = PurchaseProductDetail::with(['product','box'])->where('purchase_id', $id)->get();
+            dd($data);
+            return view('export/invoice-cum-paking-list-pdf',$data);
+        }else{
+            return redirect('/');
+        } 
     }
 
 
@@ -1035,7 +1048,7 @@ class ExportController extends Controller
             $data['importer'] = Importer::get();
             $data['product'] = Product::get();
             $data['box'] = BoxMaster::get();
-            //dd($data);
+            // dd($data);
             if (!$data) {
                 return redirect()->route('error.page');
             }
@@ -1043,6 +1056,79 @@ class ExportController extends Controller
         }else{
             return redirect('/');
         } 
+    }
+
+        public function updateInvoicePacCoO(Request $request){
+       //dd($request->all());
+        if (!empty(Session::get('admin'))) {
+            //dd($request->all());
+            $validated = $request->validate([
+                'update_id'         =>  'required',
+                'invoice_no'        =>  'required',
+                'invoice_date'      =>  'required',
+                'origin_criteria'   =>  'required',
+                'designation'       =>  'required',
+                'place'             =>  'required',
+                'port_of_loading'   =>  'required',
+                'exporter_id'       =>  'required',
+                'importer_id'       =>  'required',
+                'importer_id2'       =>  'required',
+                'buyer_or_date'     =>  'required',
+                'date_of_packing'   =>  'required',
+                'flight_date'       =>  'required',
+                'po_no'             =>  'required',
+                'gross_weight_limit' => 'required',
+                'status'            =>  'required' 
+            ]);
+            $delete_id = $request->input('update_id');
+            //dd($delete_id);
+            $purchaseOrder = PurchaseOrder::find($delete_id);
+            //dd($delete_id);
+            if(!$purchaseOrder){
+                return redirect()->route('error.404');
+            }
+
+            $data5 = $purchaseOrder->update([
+                'exporter_id'=>$request->input('exporter_id'),
+                'importer_id'=>$request->input('importer_id'),
+                'importer_id2'=>$request->input('importer_id2'),
+                'invoice_no' => $request->input('invoice_no'),
+                'invoice_date' => $request->input('invoice_date'),
+                'origin_criteria' => $request->input('origin_criteria'),
+                'designation' => $request->input('designation'),
+                'place' => $request->input('place'),
+                'port_of_loading' => $request->input('port_of_loading'),
+                'buyer_or_date'=>$request->input('buyer_or_date'),
+                'confirmation_type'=>$request->input('confirmation_type'),
+                'po_no'=>$request->input('po_no'),
+                'date_of_packing'=>$request->input('date_of_packing'),
+                'flight_date'=>$request->input('flight_date'),
+                'gross_weight_limit'=>$request->input('gross_weight_limit'),
+                'vessel'=>$request->input('vessel'),
+                'flight_no'=>$request->input('flight_no'),
+                'port_of_discharge'=>$request->input('port_of_discharge'),
+                'final_destination'=>$request->input('final_destination'),
+                'box_marking'=>$request->input('box_marking'),
+                'status'=>$request->input('status'),
+                'updated_at'=> Carbon::now()->format('Y-m-d H:i:s'),
+            ]);    
+            // if(!$data5){
+            //     dd('somthing erroe');
+            // }        
+            // first delete product from purchase_product_details table 
+            //PurchaseProductDetail::where('purchase_id', $delete_id)->delete();
+            // insert new data in in table 
+           // $this->purchaseProductsave($request, $delete_id);
+            
+            // $data['exporter'] = Company::get();
+            // $data['importer'] = Importer::get();
+            // $data['product'] = Product::get();
+            // $data['box'] = BoxMaster::get();
+            Session::flash('message', 'Record has been Updated successfully');
+            return redirect()->back();
+        }else{
+            return redirect('/');
+        }
     }
 
 //-------------------------------------------- Invoice Dispatch List
@@ -1065,6 +1151,7 @@ class ExportController extends Controller
             $data['importer'] = Importer::get();
             $data['product'] = Product::get();
             $data['box'] = BoxMaster::get();
+            $data['bank'] = Bank::get();
             //dd($data);
             if (!$data) {
                 return redirect()->route('error.page');
