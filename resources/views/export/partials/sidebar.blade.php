@@ -46,11 +46,12 @@
                             <li><a href="{{ url('export/tentetive-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Tentetive Paking List</a></li>
                             <li><a href="{{ url('export/confirm-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Confirm Paking List</a></li>
                             <li><a href="{{ url('export/invoice-cum-paking-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice Cum Paking List And CoO</a></li>
-                            <li><a href="{{ url('export/invoice-dispatch-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice Dispatch List</a></li>
                             <li><a href="{{ url('export/commercial-packing-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Commercial Packing List</a></li>
-                            <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Packing List</a></li>
+                            <li><a href="{{ url('export/invoice-dispatch-list') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice Dispatch List</a></li>
+                            
+                            {{-- <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Packing List</a></li>
                             <li><a href="{{ url('export/create-pdf') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Invoice and Exporter Packing CoO</a></li>
-                            <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Comercial Invoice cum Packing List</a></li>
+                            <li><a href="{{ url('export/invoice') }}"><img src="{{ asset('images/lv-rule.png') }}" alt="" />Comercial Invoice cum Packing List</a></li> --}}
                             {{-- <li><a href="{{ url('export/pdf') }}" target="_blank"><img src="{{ asset('images/lv-rule.png') }}" alt="" /> Export PDF</a></li> --}}
                         </ul>
                     </li>
