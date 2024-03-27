@@ -94,7 +94,7 @@ Export Information
                                         {{-- <td>{{ $buyer_record->total_box_gross_weight }}</td> --}}
                                         <td> 
                                             <a href="{{url('export/edit-indent/')}}/{{ $buyer_record->id }}"><i class="ti-pencil-alt"></i></a>
-                                            <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a>
+                                            {{-- <a href="#" title="Delete"><i class="ti-trash text-danger"></i></a> --}}
                                             <a href="{{ route('indent-pdf', ['id' => $buyer_record->id]) }}" title="Generate pdf"><i class="ti-book"></i></a>
                                             {{-- <a href="#" title="Downlode pdf"><i class="ti-download"></i></a> --}}
                                         </td>

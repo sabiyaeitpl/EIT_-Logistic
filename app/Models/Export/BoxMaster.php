@@ -13,6 +13,7 @@ class BoxMaster extends Model
         'box_name',
         'box_size',
         'box_weight',
-        'box_price'
+        'box_price',
+        'box_price_usd'
     ];
 }

@@ -55,29 +55,36 @@ Export - Importer Information
                             <div class="row form-group">
 
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">Name <span>(*)</span></label>
+                                    <label for="email-input" class=" form-control-label">Box/Bag <span>(*)</span></label>
                                     <input type="text" id="name" required name="box_name" class="form-control" >
                                     @if ($errors->has('box_name'))
                                     <div class="error" style="color:red;">{{ $errors->first('box_name') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email-input" class=" form-control-label">Box Size <span></span></label>
+                                    <label for="email-input" class=" form-control-label">Box Size (Inch) <span></span></label>
                                     <input type="text" id=""  name="box_size" class="form-control" >
                                     @if ($errors->has('box_size'))
                                     <div class="error" style="color:red;">{{ $errors->first('box_size') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Box Weight <span></span></label>
+                                    <label for="email-input" class=" form-control-label">Box Weight (In-Kg) <span></span></label>
                                     <input type="text" id="" name="box_weight" class="form-control" >
                                     @if ($errors->has('box_weight'))
                                     <div class="error" style="color:red;">{{ $errors->first('box_weight') }}</div>
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="email-input" class=" form-control-label">Box Price <span></span></label>
-                                    <input type="text" id="" name="box_price" class="form-control" >
+                                    <label for="email-input" class=" form-control-label">Box Price (INR) <span></span></label>
+                                    <input type="text" id="boxInr" name="box_price" class="form-control" >
+                                    @if ($errors->has('box_price'))
+                                    <div class="error" style="color:red;">{{ $errors->first('box_price') }}</div>
+                                    @endif
+                                </div>
+                                 <div class="col-md-4">
+                                    <label for="email-input" class=" form-control-label">Box Price (USD) <span></span></label>
+                                    <input type="text" id="boxUsd" name="box_price_usd" class="form-control" >
                                     @if ($errors->has('box_price'))
                                     <div class="error" style="color:red;">{{ $errors->first('box_price') }}</div>
                                     @endif
@@ -120,7 +127,16 @@ Export - Importer Information
 <!-- /#right-panel -->
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#boxInr').keyup(function(){
+            var inrValue = $(this).val();
+            var usdValue = inrValue * 0.012; // Assuming conversion rate, you can change this accordingly
+            $('#boxUsd').val(usdValue.toFixed(2)); // Round to 2 decimal places
+        });
+    });
+</script>
 
 
 

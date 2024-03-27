@@ -112,8 +112,8 @@ Indent Information
                                         <td colspan="4" rowspan="4" style="vertical-align: top; text-align: left;">
                                             <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Exporter / Consignor :</p>
-                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example">
-                                                        <option selected>Select</option>
+                                                <select class="form-select form-control" name="exporter_id" aria-label="Default select example" required>
+                                                        <option value=""selected>Select</option>
                                                         @foreach ($exporter as $exporters)
                                                         <option value="{{$exporters->id}}">{{$exporters->company_name}}</option>
                                                         @endforeach
@@ -121,31 +121,33 @@ Indent Information
                                             </div>
                                             <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Importer :</p>
-                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example">
-                                                    <option selected>Select</option>
+                                                <select class="form-select form-control" name="importer_id" aria-label="Default select example" required>
+                                                    <option value="" selected>Select</option>
                                                         @foreach ($importer as $importers)
                                                         <option value="{{$importers->id}}">{{$importers->name}}</option>
                                                         @endforeach
                                                 </select>
                                             </div>
-                                            <div class="d-flex">
-                                                <p class="mt-2" style="width:65%;">Buyer Order No :</p>
-                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" >
-                                                @error('buyer_or_no')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                            {{-- <div class="d-flex mb-1">
+                                                <p class="mt-2" style="width:65%;">Importer2 :</p>
+                                                <select class="form-select form-control" name="importer_id2" aria-label="Default select example">
+                                                    <option value="" selected>Select</option>
+                                                        @foreach ($importer as $importers)
+                                                        <option value="{{$importers->id}}">{{$importers->name}}</option>
+                                                        @endforeach
+                                                </select>
+                                            </div> --}}
                                              <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order date :</p>
-                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                                                <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                                 @error('buyer_or_date')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                              <div class="d-flex mb-1">
                                                 <p class="mt-2" style="width:65%;">Confirmation Type :</p>
-                                                <select class="form-select form-control" name="confirmation_type" aria-label="Default select example">
-                                                    <option selected>Select</option>
+                                                <select class="form-select form-control" name="confirmation_type" aria-label="Default select example" required>
+                                                    <option value="" selected>Select</option>
                                                     <option value="WhatsAPP">WhatsAPP</option>
                                                     <option value="Verbal">Verbal</option>
                                                     <option value="Message">Message</option>
@@ -156,7 +158,7 @@ Indent Information
                                             <p>Buyer's Order / PO.NO.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            <input type="text" class="form-control" name='po_no' id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -164,7 +166,7 @@ Indent Information
                                             <p>Date of Packing.</p>
                                         </td>
                                         <td colspan="4">
-                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp">
+                                            <input type="date" class="form-control" id="exampleInputEmail1" name="date_of_packing" aria-describedby="emailHelp" required>
                                             @error('date_of_packing')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -194,9 +196,9 @@ Indent Information
                                     </tr>
 
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="1">
                                             <div class="d-flex mb-1">
-                                                <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
+                                                <div class="mt-2" style="width: 120px; text-align: left;">Means Of Transport:</div>
                                                 <div><input type="text" class="form-control" id="exampleInputEmail1" name="vessel" 
                                                         aria-describedby="emailHelp"></div>
                                             </div>
@@ -207,6 +209,10 @@ Indent Information
                                             </div>
                                         </td>
                                         <td colspan="2">
+                                            <p>Port Of Loding</p>
+                                            <input type="text" class="form-control" name="port_of_loding" required>
+                                        </td>
+                                        <td colspan="2">
                                             <p class="mb-2">Port of Discharge</p>
                                             <p><input type="text" class="form-control" id="exampleInputEmail1" name="port_of_discharge"
                                                     aria-describedby="emailHelp"></p>
@@ -214,22 +220,23 @@ Indent Information
                                         <td colspan="2">
                                             <p class="mb-2">Final Destination</p>
                                             <p><input type="text" class="form-control" id="exampleInputEmail1" name="final_destination" 
-                                                    aria-describedby="emailHelp"></p>
+                                                    aria-describedby="emailHelp" required></p>
                                         </td>
-                                        <td colspan="4">
+
+                                        <td colspan="2">
                                             <p>BOX MARKING</p>
-                                            <input type="text" class="form-control" name="box_marking">
+                                            <input type="text" class="form-control" name="box_marking" required>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td width="5%" style="">
+                                        {{-- <td width="5%" style="">
                                             <p>SL. No.</p>
-                                        </td>
-                                        <td width="25%" style="">
+                                        </td> --}}
+                                        <td width="20%" style="">
                                             <p>Item Name / List</p>
                                         </td>
-                                        <td width="23%" style="">
+                                        <td width="28%" style="">
                                             <p>Box / Bag</p>
                                         </td>
                                          <td width="10%" style="">
@@ -258,12 +265,12 @@ Indent Information
                                     <tbody class="productshow">
                                         <?php $tr_id = 0;?>
                                         <tr class="itemslotdoc" id="<?php echo $tr_id; ?>">
-                                            <td>
+                                            {{-- <td>
                                                 <P>1.</P>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <select class="form-select form-control" name='product_id[]' aria-label="Default select example">
-                                                    <option selected="">Select Item</option>
+                                                    <option value="" selected>Select Item</option>
                                                     @foreach ($product as $products)
                                                         <option value="{{$products->id}}">{{$products->name}}</option>
                                                     @endforeach
@@ -271,10 +278,10 @@ Indent Information
                                             </td>
                                             <td>
                                                 {{-- <input type="text" class="form-control "  name='box[]'   placeholder="Box"> --}}
-                                                 <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example">
-                                                        <option selected>Select</option>
+                                                 <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example" id="boxP" onChange="box()">
+                                                        <option value="" selected>Select</option>
                                                         @foreach ($box as $boxs)
-                                                        <option value="{{$boxs->id}}">{{$boxs->box_name}}</option>
+                                                        <option value="{{$boxs->id}}">{{$boxs->box_name}} / ({{$boxs->box_size}})</option>
                                                         @endforeach
                                                 </select>
                                             </td>
@@ -305,7 +312,7 @@ Indent Information
                                         </tr>
                                     </tbody>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <h3 ><strong>Total</strong></h3>
                                         </td>
                                         <td>
@@ -334,7 +341,7 @@ Indent Information
                                 </table>
                                 <P id="gross_error" class="text-right"><strong class="text-dengar"></strong></P>
                                 <div class="text-center mt-4">
-                                    <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
+                                    <button type="submit" name="submit" id="sbutton"class="btn btn-primary" >Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -348,6 +355,56 @@ Indent Information
 @endsection
 @section('scripts')
 
+<script>
+    //this function show this id="box_weight" value initialy
+     function box(){
+        var selectedValue = document.getElementById('boxP').value;
+        //console.log(selectedValue);
+        $.ajax({
+            url: "{{url('export/get-box-price')}}/" + selectedValue,
+            type: "GET",
+            success: function(response) {
+                //console.log(response.box_weight);
+                $('#box_weight').val(response.box_weight);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            }
+        });
+    }
+
+    //this function show this id="box_weight1",id="box_weight2",id="box_weight" and so on value that i get from controller
+    function boxPP(idSuffix) {
+        var selectedValue = document.getElementById('boxP' + idSuffix).value;
+        //console.log(selectedValue);
+        $.ajax({
+            url: "{{url('export/get-box-price')}}/" + selectedValue,
+            type: "GET",
+            success: function(response) {
+                $('#box_weight' + idSuffix).val(response.box_weight);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            }
+        });
+    }
+    // function box(){
+    //     var selectedValue = document.getElementById('boxP').value;
+    //     //console.log(selectedValue);
+    //     $.ajax({
+    //         url: "{{url('export/get-box-price')}}/" + selectedValue,
+    //         type: "GET",
+    //         success: function(response) {
+    //             //console.log(response.box_weight);
+    //             $('#box_weight').val(response.box_weight);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error("AJAX request failed:", status, error);
+    //         }
+    //     });
+    // }
+    
+</script>
 
 <script>
     function addnewproduct(rowid){
@@ -486,7 +543,7 @@ Indent Information
             // Calculate 2% of gross weight
             var threshold = grossWeight * 0.02;
             var threshold1 = grossWeight+threshold;
-            var threshold4 = grossWeight * 0.04;
+            var threshold4 = grossWeight * 0.05;
             var threshold5 = grossWeight+threshold4;
             if (totalBoxGrossWeight > threshold1) {
                 //alert("Total box gross weight exceeds 2% of the gross weight!");
@@ -494,7 +551,11 @@ Indent Information
 
             }
             if (totalBoxGrossWeight > threshold5) {
-                window.location.reload();
+                // window.location.reload();
+                document.getElementById("sbutton").style.display = "none";
+            } else {
+                // Show the button
+                document.getElementById("sbutton").style.display = "block"; // Or any other suitable display value
             }
         }
     }

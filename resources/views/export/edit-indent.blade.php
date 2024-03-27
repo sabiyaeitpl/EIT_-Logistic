@@ -139,13 +139,17 @@ Indent Information
                                                         @endforeach
                                                 </select>
                                             </div>
-                                            <div class="d-flex">
-                                                <p class="mt-2" style="width:65%;">Buyer Order No :</p>
-                                                <input type="text" class="form-control" name="buyer_or_no" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_no }}" required>
-                                                @error('buyer_or_no')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                            {{-- <div class="d-flex mb-1">
+                                                <p class="mt-2" style="width:65%;">Importer2 :</p>
+                                                <select class="form-select form-control" name="importer_id2" aria-label="Default select example" required>
+                                                    <option value="">Select</option>
+                                                    @foreach ($importer as $importers)
+                                                        <option value="{{$importers->id}}"{{ $data->importer_id == $importers->id ? 'selected' : '' }}>
+                                                            {{$importers->name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div> --}}
                                              <div class="d-flex">
                                                 <p class="mt-2" style="width:65%;">Buyer Order date :</p>
                                                 <input type="date" class="form-control" name="buyer_or_date" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ $data->buyer_or_date }}" required>
@@ -205,9 +209,9 @@ Indent Information
                                     </tr>
 
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="1">
                                             <div class="d-flex mb-1">
-                                                <div class="mt-2" style="width: 120px; text-align: left;">Vessel:</div>
+                                                <div class="mt-2" style="width: 120px; text-align: left;">Means Of Transport:</div>
                                                 <div>
                                                     <input type="text" class="form-control" id="exampleInputEmail1" name="vessel" aria-describedby="emailHelp" value="{{ $data->vessel }}" required>
                                                 </div>
@@ -218,6 +222,10 @@ Indent Information
                                                     <input type="text" class="form-control" id="exampleInputEmail1" name="flight_no" aria-describedby="emailHelp" value="{{ $data->flight_no }}" required>
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td colspan="2">
+                                            <p>Port Of Loding</p>
+                                            <input type="text" class="form-control" name="port_of_loding" value="{{ $data->port_of_loading }}">
                                         </td>
                                         <td colspan="2">
                                             <p class="mb-2">Port of Discharge</p>
@@ -234,9 +242,9 @@ Indent Information
                                     </tr>
 
                                     <tr>
-                                        <td width="5%" style="">
+                                        {{-- <td width="5%" style="">
                                             <p>SL. No.</p>
-                                        </td>
+                                        </td> --}}
                                         <td width="25%" style="">
                                             <p>Item Name / List</p>
                                         </td>
@@ -270,9 +278,9 @@ Indent Information
                                         <?php $tr_id = 0;?>
                                         @foreach($purchaseorder as $purchaseorders)
                                         <tr class="itemslotdoc" id="<?php echo $tr_id; ?>">
-                                            <td>
+                                            {{-- <td>
                                                 <P>1.</P>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <select class="form-select form-control" name='product_id[]' aria-label="Default select example" required>
                                                     <option value="">Select Item</option>
@@ -284,7 +292,7 @@ Indent Information
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example" required>
+                                                <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example" id="boxP" onChange="box()" required>
                                                         <option value="">Select</option>
                                                         @foreach ($box as $boxs)
                                                         <option value="{{$boxs->id}}"{{ $purchaseorders->box_or_bag == $boxs->id ? 'selected' : '' }}>
@@ -324,7 +332,7 @@ Indent Information
                                         @endforeach
                                     </tbody>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <h3 ><strong>Total</strong></h3>
                                         </td>
                                         <td>
@@ -382,6 +390,42 @@ Indent Information
 
 
 <script>
+  //this function show this id="box_weight" value initialy
+     function box(){
+        var selectedValue = document.getElementById('boxP').value;
+        //console.log(selectedValue);
+        $.ajax({
+            url: "{{url('export/get-box-price')}}/" + selectedValue,
+            type: "GET",
+            success: function(response) {
+                //console.log(response.box_weight);
+                $('#box_weight').val(response.box_weight);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            }
+        });
+    }
+
+    //this function show this id="box_weight1",id="box_weight2",id="box_weight" and so on value that i get from controller
+    function boxPP(idSuffix) {
+        var selectedValue = document.getElementById('boxP' + idSuffix).value;
+        //console.log(selectedValue);
+        $.ajax({
+            url: "{{url('export/get-box-price')}}/" + selectedValue,
+            type: "GET",
+            success: function(response) {
+                $('#box_weight' + idSuffix).val(response.box_weight);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            }
+        });
+    }
+
+
+
+
     function addnewproduct(rowid){
         if (rowid != ''){
             $('#addproduct'+rowid).attr('disabled',true);

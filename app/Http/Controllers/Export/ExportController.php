@@ -686,9 +686,6 @@ class ExportController extends Controller
         $result = 
             '<tr class="itemslotdoc" id="' . $row . '">
                 <td>
-                    <p>' . $rows . '.</p>
-                </td>
-                <td>
                     <select class="form-select form-control" name="product_id[]"aria-label="Default select example">
                         <option selected="">Select Item</option>';
                         foreach ($product as $products){
@@ -697,7 +694,7 @@ class ExportController extends Controller
                         $result .= '</select>
                 </td>
                 <td>
-                    <select class="form-select form-control" name="box_or_bag[]"aria-label="Default select example">
+                    <select class="form-select form-control" name="box_or_bag[]" aria-label="Default select example"  id="boxP'.$row.'" onChange="boxPP('.$row.')">
                         <option selected="">Select</option>';
                         foreach ($box as $boxs){
                             $result .= '<option value="' . $boxs->id . '">' . $boxs->box_name . '</option>';
@@ -705,7 +702,7 @@ class ExportController extends Controller
                         $result .= '</select>
                 </td>
                 <td>
-                    <input type="text" class="form-control no_of_box" name="box_weight[]" id="box_weight' . $row . '"  aria-describedby="emailHelp" >
+                    <input type="text" class="form-control no_of_box box_weight" name="box_weight[]" id="box_weight' . $row . '"  aria-describedby="emailHelp" >
                 </td>
                 <td>
                     <input type="text" class="form-control" name="no_of_box[]"  id="no_of_box' . $row . '" aria-describedby="emailHelp" >
@@ -736,25 +733,42 @@ class ExportController extends Controller
         echo $result; 
     }
 
+    public function getAddRowIndent($selectedValue)
+    { 
+        $result = DB::table('box_masters')->where('id', $selectedValue)->first();
+        // dd($result);
+        return response()->json($result);
+    }
 
     public function saveIndent(Request $request){
         //dd($request->all());
         if (!empty(Session::get('admin'))) {
             $validated = $request->validate([
-                'exporter_id' => 'required',
-                'importer_id' => 'required',
-                'buyer_or_no' => 'required',
-                'buyer_or_date' => 'required|date|before:today',
-                'date_of_packing' =>'required|date|after_or_equal:today',
-                'flight_date' => 'required|date|after_or_equal:today',
-                'po_no' => 'required',
-                'gross_weight_limit' => 'required', 
+                'exporter_id'           =>  'required',
+                'importer_id'           =>  'required',
+                'port_of_loding'        =>  'required',
+                'port_of_discharge'     =>  'required',
+                'final_destination'     =>  'required',
+                'buyer_or_date'         =>  'required|date|before:today',
+                'date_of_packing'       =>  'required|date|after_or_equal:today',
+                'flight_date'           =>  'required|date|after_or_equal:today',
+                'po_no'                 =>  'required',
+                'gross_weight_limit'    =>  'required', 
             ]);
-
+            $totalGrossWeight=0;
+            foreach ($request->input('product_id') as $key => $counting) {
+                $totalGrossWeight += $request->input('box_gross_weight')[$key];
+             }
+             $eee=$request->input('gross_weight_limit');
+             $ee = $request->input('gross_weight_limit')*0.05;
+             if($totalGrossWeight> $eee+$ee){
+                return redirect('export/add-indent')->with('message','You can not put total gross weight 5% more then gross weight limit');
+             }
+             //dd($totalGrossWeight);
             $invoice = new PurchaseOrder([
                 'exporter_id'=>$request->input('exporter_id'),
                 'importer_id'=>$request->input('importer_id'),
-                'buyer_or_no'=>$request->input('buyer_or_no'),
+                'importer_id2'=>$request->input('importer_id2'),
                 'buyer_or_date'=>$request->input('buyer_or_date'),
                 'confirmation_type'=>$request->input('confirmation_type'),
                 'po_no'=>$request->input('po_no'),
@@ -763,9 +777,11 @@ class ExportController extends Controller
                 'gross_weight_limit'=>$request->input('gross_weight_limit'),
                 'vessel'=>$request->input('vessel'),
                 'flight_no'=>$request->input('flight_no'),
+                'port_of_loading'=>$request->input('port_of_loding'),
                 'port_of_discharge'=>$request->input('port_of_discharge'),
                 'final_destination'=>$request->input('final_destination'),
                 'box_marking'=>$request->input('box_marking'),
+                'total_gross_weight'=>$totalGrossWeight,
             ]);            
             $invoice->save();
             $this->purchaseProductsave($request, $invoice->id);
@@ -824,7 +840,6 @@ class ExportController extends Controller
                 'update_id' => 'required',
                 'exporter_id' => 'required',
                 'importer_id' => 'required',
-                'buyer_or_no' => 'required',
                 'buyer_or_date' => 'required',
                 'date_of_packing' =>'required',
                 'flight_date' => 'required',
@@ -832,16 +847,21 @@ class ExportController extends Controller
                 'gross_weight_limit' => 'required',
                 'status' => 'required' 
             ]);
+             $totalGrossWeight=0;
+            foreach ($request->input('product_id') as $key => $counting) {
+                $totalGrossWeight += $request->input('box_gross_weight')[$key];
+             }
+             //dd($totalGrossWeight);
             $delete_id = $request->input('update_id');
             $purchaseOrder = PurchaseOrder::find($delete_id);
             if(!$purchaseOrder){
                 return redirect()->route('error.404');
             }
 
+
             $purchaseOrder->update([
                 'exporter_id'=>$request->input('exporter_id'),
                 'importer_id'=>$request->input('importer_id'),
-                'buyer_or_no'=>$request->input('buyer_or_no'),
                 'buyer_or_date'=>$request->input('buyer_or_date'),
                 'confirmation_type'=>$request->input('confirmation_type'),
                 'po_no'=>$request->input('po_no'),
@@ -853,6 +873,7 @@ class ExportController extends Controller
                 'port_of_discharge'=>$request->input('port_of_discharge'),
                 'final_destination'=>$request->input('final_destination'),
                 'box_marking'=>$request->input('box_marking'),
+                'total_gross_weight'=>$totalGrossWeight,
                 'status'=>$request->input('status'),
                 'updated_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             ]);            
@@ -910,13 +931,14 @@ class ExportController extends Controller
             'box_size' => 'required|string|max:255',
             'box_weight' => 'nullable|string|max:255',
             'box_price' => 'nullable|string|max:255',
+            'box_price_usd' => 'nullable|string|max:255',
         ]);
         $boxMasterData = [
             'box_name' => $request->input('box_name'),
             'box_size' => $request->input('box_size'),
             'box_weight' => $request->input('box_weight'),
             'box_price' => $request->input('box_price'),
-            
+            'box_price_usd' => $request->input('box_price_usd'),   
         ];
         BoxMaster::insert($boxMasterData);
         Session::flash('message', 'Record has been successfully saved');
@@ -938,23 +960,28 @@ class ExportController extends Controller
 
     public function updateBoxMaster(Request $request)
     {
+        //dd($request->all());
         if (!empty(Session::get('admin'))) {
             $request->validate([
                 'box_name' => 'required|string|max:255',
                 'box_size' => 'required|string|max:255',
                 'box_weight' => 'nullable|string|max:255',
                 'box_price' => 'nullable|string|max:255',
+                'box_price_usd' => 'nullable|string|max:255',
             ]);
+            
             $id = $request->id;
             $boxMaster = BoxMaster::find($id);
             if (!$boxMaster) {
                 return redirect()->route('error.404');
             }
+            // dd($request->input('box_price_usd'));
             $boxMaster->update([
                 'box_name' => $request->input('box_name'),
                 'box_size' => $request->input('box_size'),
                 'box_weight' => $request->input('box_weight'),
                 'box_price' => $request->input('box_price'),
+                'box_price_usd' => $request->input('box_price_usd'),
                 'updated_at'=> Carbon::now()->format('Y-m-d H:i:s'),
             ]);
             Session::flash('message', 'Record has been successfully Updated');

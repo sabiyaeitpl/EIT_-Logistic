@@ -33,7 +33,8 @@ class PurchaseOrder extends Model
         'origin_criteria',
         'designation',
         'place',
-        'port_of_loading'
+        'port_of_loading',
+        'total_gross_weight'
     ];
       public function items()
     {

@@ -234,9 +234,9 @@ Indent Information
                                     </tr>
 
                                     <tr>
-                                        <td width="5%" style="">
+                                        {{-- <td width="5%" style="">
                                             <p>SL. No.</p>
-                                        </td>
+                                        </td> --}}
                                         <td width="25%" style="">
                                             <p>Item Name / List</p>
                                         </td>
@@ -270,9 +270,9 @@ Indent Information
                                         <?php $tr_id = 0;?>
                                         @foreach($purchaseorder as $purchaseorders)
                                         <tr class="itemslotdoc" id="<?php echo $tr_id; ?>">
-                                            <td>
+                                            {{-- <td>
                                                 <P>1.</P>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <select class="form-select form-control" name='product_id[]' aria-label="Default select example">
                                                     <option selected="">Select Item</option>

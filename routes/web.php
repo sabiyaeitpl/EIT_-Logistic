@@ -72,6 +72,7 @@ Route::post('export/save-indent', [ExportController::class,'saveIndent'])->name(
 Route::get('export/buyerbox/{row}', [ExportController::class, 'indenwisebug']);
 Route::post('export/update-indent', [ExportController::class, 'updateIndent'])->name('update-indent');
 Route::get('export/indent-pdf/{id}',[ExportController::class, 'indentPdf'])->name('indent-pdf');
+Route::get('export/get-box-price/{selectedValue}', [ExportController::class, 'getAddRowIndent']);
 //Tentetive Packing List --------------------------------
 Route::get('export/tentetive-paking-list', [ExportController::class,'tentetiveList'])->name('tentetive-paking-list');
 Route::get('export/edit-tentetive/{id}', [ExportController::class,'editTentetive'])->name('edit-tentetive');
